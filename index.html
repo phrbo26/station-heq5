@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Station HEQ5</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Station HEQ5">
+<meta name="theme-color" content="#0b1119">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<style>:root{padding-top:env(safe-area-inset-top,0px)}body{margin:0;-webkit-text-size-adjust:100%}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one-column field instrument, step tabs pinned to the bottom like a hand controller. Dark by design (night use), with a full red night-vision mode. */
+:root{
+  --bg:#0b1119; --panel:#121b27; --line:#223042; --fg:#dfe6ee; --muted:#8a9bb0;
+  --accent:#e9b35a; --accent-ink:#1a1206; --star:#f4f1d8; --ok:#6fcf97; --warn:#e9b35a; --bad:#ff7a6b;
+  --f-display:"Chakra Petch","Avenir Next Condensed","Arial Narrow",sans-serif;
+  --f-body:"IBM Plex Sans",-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+:root.night{
+  --bg:#0a0000; --panel:#140303; --line:#3a0d0d; --fg:#ff5a4a; --muted:#a8332a;
+  --accent:#ff3b2f; --accent-ink:#0a0000; --star:#ff6a5a; --ok:#ff5a4a; --warn:#ff5a4a; --bad:#ff2a1f;
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--fg)}
+body{font-family:var(--f-body);font-size:15px;line-height:1.5;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 calc(84px + env(safe-area-inset-bottom,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:640px;margin:0 auto}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:14px 10px;border-bottom:1px solid var(--line)}
+.brand{font-family:var(--f-display);font-weight:700;font-size:20px;letter-spacing:.04em;text-transform:uppercase}
+.brand small{display:block;font-family:var(--f-mono);font-weight:400;font-size:11px;letter-spacing:.02em;color:var(--muted);text-transform:none}
+.clock{font-family:var(--f-mono);font-size:12px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums;line-height:1.35}
+.clock b{color:var(--fg);font-weight:500}
+.nightbtn{appearance:none;border:1px solid var(--line);background:var(--panel);color:var(--fg);font:600 12px var(--f-display);letter-spacing:.06em;text-transform:uppercase;padding:8px 10px;border-radius:6px;cursor:pointer}
+.nightbtn[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+section.view{padding-block:18px 8px;display:flex;flex-direction:column;gap:16px}
+h1{font-family:var(--f-display);font-weight:600;font-size:24px;line-height:1.15;margin:0;text-wrap:balance}
+.step{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+p{margin:0}
+.lede{color:var(--muted);max-width:62ch}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.panel h2{font-family:var(--f-display);font-weight:600;font-size:16px;letter-spacing:.03em;margin:0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);min-width:0}
+input,select{font:500 16px var(--f-mono);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:9px 10px;width:100%;min-width:0}
+input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn{appearance:none;border:1px solid var(--accent);background:transparent;color:var(--accent);font:600 13px var(--f-display);letter-spacing:.06em;text-transform:uppercase;padding:10px 12px;border-radius:6px;cursor:pointer}
+.btn.solid{background:var(--accent);color:var(--accent-ink)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.note{font-size:13px;color:var(--muted)}
+.msg{font-size:13px;border-left:3px solid var(--warn);padding:6px 10px;background:var(--bg);border-radius:0 6px 6px 0}
+.msg.bad{border-color:var(--bad)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0;font-family:var(--f-mono);font-variant-numeric:tabular-nums;text-align:right}
+.big{font-family:var(--f-display);font-weight:700;font-size:44px;line-height:1;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.big small{font-size:16px;font-weight:500;color:var(--muted);margin-left:6px}
+.synscan{font-family:var(--f-mono);background:#9fb84a;color:#17200a;border-radius:6px;padding:10px 12px;font-size:14px;line-height:1.6;font-variant-numeric:tabular-nums;box-shadow:inset 0 0 0 2px #0003}
+:root.night .synscan{background:#3a0505;color:var(--fg)}
+.synscan div{display:flex;justify-content:space-between;gap:10px}
+ol.steps{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+ol.steps li::marker{font-family:var(--f-mono);color:var(--accent)}
+.check{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line)}
+.check:last-child{border-bottom:0}
+.check input{width:22px;height:22px;flex:none;margin-top:1px;accent-color:var(--accent)}
+.check span b{font-weight:600}
+.check.done span{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+.reticle{width:100%;max-width:360px;aspect-ratio:1;align-self:center}
+.meter{height:10px;background:var(--bg);border:1px solid var(--line);border-radius:5px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--ok)}
+table{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+th{font:500 11px var(--f-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);text-align:left;padding:6px 4px;border-bottom:1px solid var(--line)}
+td{padding:7px 4px;border-bottom:1px solid var(--line)}
+td.n{font-family:var(--f-mono);text-align:right}
+.tablebox{overflow-x:auto}
+.pair{display:flex;flex-direction:column;gap:4px;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.pair .stars{font-family:var(--f-display);font-weight:600;font-size:17px}
+.pair .meta{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.chip{display:inline-block;font:500 11px var(--f-mono);padding:2px 7px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.chip.best{border-color:var(--accent);color:var(--accent)}
+.seg{display:flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg button{flex:1;appearance:none;border:0;background:transparent;color:var(--muted);font:600 13px var(--f-display);letter-spacing:.05em;padding:9px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.bubble{width:220px;height:220px;max-width:100%;align-self:center;border-radius:50%;border:2px solid var(--line);position:relative;background:radial-gradient(circle,transparent 18%,var(--line) 18.5%,transparent 19.5%)}
+.bubble i{position:absolute;left:50%;top:50%;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:var(--accent);opacity:.85;transition:transform .08s linear}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--panel);border-top:1px solid var(--line);padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
+nav.tabs .in{max-width:640px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+nav.tabs button{appearance:none;border:0;background:transparent;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-radius:8px;cursor:pointer;font:600 11px var(--f-display);letter-spacing:.04em;text-transform:uppercase}
+nav.tabs button b{font:500 15px var(--f-mono)}
+nav.tabs button[aria-current="true"]{color:var(--accent);background:var(--bg)}
+@media (max-width:380px){.grid2{grid-template-columns:1fr}.big{font-size:38px}}
+@media (prefers-reduced-motion:reduce){.bubble i{transition:none}}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div class="brand">Station HEQ5<small>AR-127L/1200 · HEQ5 Pro SynScan</small></div>
+  <div class="row" style="gap:10px;flex-wrap:nowrap">
+    <div class="clock"><span id="clkLocal">--:--:--</span><br>TSL <b id="clkLst">--:--</b></div>
+    <button class="nightbtn" id="nightBtn" aria-pressed="false">Rouge</button>
+  </div>
+</header>
+
+<!-- 1 SITE -->
+<section class="view" id="v-site">
+  <div><div class="step">Étape 1 · Lieu et heure</div><h1>Ton site d'observation</h1></div>
+  <p class="lede">Tout le reste en dépend : la position de la Polaire, la latitude à régler sur la monture et les données de la raquette.</p>
+  <div class="panel">
+    <div class="grid2">
+      <label class="f" for="lat">Latitude (° décimaux, N +)<input id="lat" type="number" step="0.0001" inputmode="decimal"></label>
+      <label class="f" for="lon">Longitude (° décimaux, E +)<input id="lon" type="number" step="0.0001" inputmode="decimal"></label>
+      <label class="f" for="elev">Altitude (m)<input id="elev" type="number" step="1" inputmode="numeric"></label>
+      <label class="f" for="when">Date et heure de calcul<input id="when" type="datetime-local" step="60"></label>
+    </div>
+    <div class="row">
+      <button class="btn" id="gpsBtn">Position GPS</button>
+      <button class="btn" id="ignBtn">Altitude IGN</button>
+      <button class="btn" id="nowBtn">Revenir à maintenant</button>
+    </div>
+    <p class="note" id="elevSrc"></p>
+    <p id="siteMsg" class="msg" hidden></p>
+    <p class="note" id="siteNote">Coordonnées d'exemple (Paris). Remplace-les par celles de ton site : elles restent mémorisées sur ce téléphone.</p>
+  </div>
+  <div class="panel">
+    <h2>À saisir dans la raquette SynScan</h2>
+    <div class="synscan" id="synscan"></div>
+    <p class="note">Le fuseau est l'heure standard, sans l'heure d'été. L'heure d'été se déclare à part (DST).</p>
+  </div>
+  <div class="panel">
+    <h2>Réglage de la monture</h2>
+    <div class="big" id="latBig">--°<small>échelle de latitude</small></div>
+    <dl class="kv">
+      <dt>Déclinaison magnétique (WMM2025)</dt><dd id="declOut">--</dd>
+      <dt>Nord vrai sur une boussole</dt><dd id="trueNorthOut">--</dd>
+    </dl>
+    <p class="note">La jambe « N » du trépied et la barre de contrepoids pointent vers le nord vrai. Éloigne la boussole des contrepoids et de la monture pour lire le cap.</p>
+  </div>
+</section>
+
+<!-- 2 MONTAGE -->
+<section class="view" id="v-mount" hidden>
+  <div><div class="step">Étape 2 · Montage et équilibrage</div><h1>Monter et équilibrer la lunette</h1></div>
+  <div class="panel">
+    <h2>Charge sur la monture</h2>
+    <div class="grid2">
+      <label class="f" for="wTube">Tube + colliers + chercheur (kg)<input id="wTube" type="number" step="0.1" inputmode="decimal"></label>
+      <label class="f" for="wAcc">Renvoi + oculaire (kg)<input id="wAcc" type="number" step="0.05" inputmode="decimal"></label>
+      <label class="f" for="wCam">Caméra, Barlow, autre (kg)<input id="wCam" type="number" step="0.05" inputmode="decimal"></label>
+      <label class="f" for="nCw">Contrepoids de 5,1 kg<select id="nCw"><option value="1">1</option><option value="2">2</option></select></label>
+    </div>
+    <div class="row" style="justify-content:space-between"><span class="note">Total sur la monture</span><span class="big" style="font-size:28px" id="loadOut">--</span></div>
+    <div class="meter" aria-hidden="true"><i id="loadBar"></i></div>
+    <p class="note" id="loadNote"></p>
+  </div>
+  <div class="panel">
+    <h2>Position estimée des contrepoids</h2>
+    <label class="f" for="dTube">Distance axe AD → centre du tube (cm)<input id="dTube" type="number" step="0.5" inputmode="decimal"></label>
+    <div class="big" id="cwOut">--<small>cm depuis l'axe AD</small></div>
+    <p class="note" id="cwNote">Mesure la distance entre l'axe d'ascension droite (centre de la tête) et l'axe optique du tube, tube à l'horizontale. Le résultat est un point de départ : l'équilibre final se fait toujours à la main.</p>
+  </div>
+  <div class="panel">
+    <h2>Checklist de mise en place</h2>
+    <div id="checklist"></div>
+    <button class="btn" id="resetChecks" style="align-self:flex-start">Tout décocher</button>
+  </div>
+</section>
+
+<!-- 3 VISEUR POLAIRE -->
+<section class="view" id="v-polar" hidden>
+  <div><div class="step">Étape 3 · Viseur polaire</div><h1>Placer la Polaire dans le réticule</h1></div>
+  <div class="panel">
+    <div class="row" style="justify-content:space-between;align-items:flex-end">
+      <div><div class="note">Position dans le viseur</div><div class="big" id="clockOut">--</div></div>
+      <div class="clock" style="text-align:right">Angle horaire<br><b id="haOut">--</b></div>
+    </div>
+    <svg class="reticle" id="reticle" viewBox="-110 -110 220 220" role="img" aria-label="Réticule du viseur polaire avec la position de la Polaire"></svg>
+    <dl class="kv">
+      <dt>Distance Polaire – pôle</dt><dd id="distOut">--</dd>
+      <dt>Hauteur de la Polaire</dt><dd id="altPolOut">--</dd>
+    </dl>
+    <p class="note">Vue telle que dans le viseur de la HEQ5 (image inversée), 0 en haut. Comparable à l'écran « Polaris Position in P.Scope » de la raquette (Utility › Show Information).</p>
+  </div>
+  <div class="panel">
+    <h2>Procédure</h2>
+    <ol class="steps">
+      <li>Retire le bouchon du viseur et celui de l'axe de déclinaison. Tourne l'axe DEC pour dégager le trou de visée.</li>
+      <li>Desserre l'embrayage AD et tourne la monture jusqu'à ce que le 0 du réticule soit en haut et le 6 en bas, à la verticale. Resserre.</li>
+      <li>Avec les vis d'azimut et de latitude uniquement, amène la Polaire sur le cercle, à la position affichée ci-dessus.</li>
+      <li>Revérifie la bulle du trépied, puis remets le tube en position de départ (contrepoids en bas, tube vers la Polaire).</li>
+    </ol>
+  </div>
+</section>
+
+<!-- 4 ETOILES -->
+<section class="view" id="v-stars" hidden>
+  <div><div class="step">Étape 4 · Alignement SynScan</div><h1>Étoiles pour l'alignement 2 étoiles</h1></div>
+  <div class="panel">
+    <h2>Côté du méridien de ta cible</h2>
+    <div class="seg" role="group" aria-label="Côté du ciel">
+      <button id="sideE" aria-pressed="true">Est (cible qui monte)</button>
+      <button id="sideW" aria-pressed="false">Ouest (cible qui descend)</button>
+    </div>
+    <p class="note">Les deux étoiles doivent être du même côté du méridien, entre 25° et 75° de hauteur, et bien écartées l'une de l'autre.</p>
+    <div id="pairs" class="row" style="flex-direction:column;align-items:stretch;gap:8px"></div>
+  </div>
+  <div class="panel">
+    <h2>Étoile pour « Polar Align »</h2>
+    <p class="note">Choisis une étoile près du méridien sud, entre 30° et 70° de hauteur.</p>
+    <div id="paStars" class="row" style="flex-direction:column;align-items:stretch;gap:8px"></div>
+  </div>
+  <div class="panel">
+    <h2>Corriger la mise en station</h2>
+    <ol class="steps">
+      <li>Fais un alignement 2 étoiles avec une des paires ci-dessus. Centre chaque étoile en finissant par les touches haut et droite.</li>
+      <li>Setup › Alignment › Polar Align, choisis l'étoile proposée. La monture y pointe : centre-la, Enter.</li>
+      <li>La raquette affiche l'erreur et décentre l'étoile. Recentre-la avec les seules vis de latitude, puis d'azimut, comme demandé.</li>
+      <li>Refais un alignement 2 étoiles, puis un Polar Align. Deux ou trois passes amènent l'erreur vers la minute d'arc.</li>
+    </ol>
+    <p class="note">Évite l'alignement 3 étoiles avant un Polar Align : il sert surtout à corriger l'erreur de cône du tube.</p>
+  </div>
+  <div class="panel">
+    <h2>Étoiles brillantes visibles</h2>
+    <div class="tablebox"><table><thead><tr><th>Étoile</th><th style="text-align:right">Haut.</th><th style="text-align:right">Azim.</th><th style="text-align:right">Côté</th></tr></thead><tbody id="starTable"></tbody></table></div>
+  </div>
+</section>
+
+<!-- 5 CAPTEURS -->
+<section class="view" id="v-sensors" hidden>
+  <div><div class="step">Outils · Capteurs de l'iPhone</div><h1>Niveau, boussole et inclinomètre</h1></div>
+  <div class="panel">
+    <button class="btn solid" id="sensorBtn">Activer les capteurs</button>
+    <p id="sensorMsg" class="msg" hidden></p>
+  </div>
+  <div class="panel">
+    <h2>Niveau à bulle</h2>
+    <p class="note">Pose l'iPhone à plat sur la tête du trépied, sans la monture.</p>
+    <div class="bubble" id="bubble"><i id="bubbleDot"></i></div>
+    <dl class="kv"><dt>Inclinaison avant / arrière</dt><dd id="betaOut">--</dd><dt>Inclinaison gauche / droite</dt><dd id="gammaOut">--</dd></dl>
+  </div>
+  <div class="panel">
+    <h2>Boussole</h2>
+    <div class="big" id="headOut">--<small>cap vrai</small></div>
+    <dl class="kv"><dt>Cap magnétique</dt><dd id="magOut">--</dd><dt>Écart au nord vrai</dt><dd id="northErr">--</dd></dl>
+  </div>
+  <div class="panel">
+    <h2>Inclinomètre sur le tube</h2>
+    <p class="note">Monture en position de départ, pose l'iPhone sur le tube, le haut du téléphone vers l'objectif. L'inclinaison du tube doit égaler ta latitude.</p>
+    <div class="big" id="tiltOut">--<small>inclinaison</small></div>
+    <dl class="kv"><dt>Écart avec la latitude</dt><dd id="tiltErr">--</dd></dl>
+  </div>
+</section>
+</div>
+
+<nav class="tabs" aria-label="Étapes">
+  <div class="in">
+    <button data-v="site" aria-current="true"><b>1</b>Site</button>
+    <button data-v="mount"><b>2</b>Montage</button>
+    <button data-v="polar"><b>3</b>Viseur</button>
+    <button data-v="stars"><b>4</b>Étoiles</button>
+    <button data-v="sensors"><b>◎</b>Capteurs</button>
+  </div>
+</nav>
+
+<script>(()=>{var M=(t,h)=>()=>{try{return h||t((h={exports:{}}).exports,h),h.exports}catch(a){throw h=0,a}};var Z=M((u0,I)=>{var R=D();I.exports=P;function P(t){this.x=t.x,this.y=t.y,this.z=t.z}P.prototype.toGeodetic=function(t){var h=this.z<0?-t.b:t.b,a=this.x,i=this.y,e=this.z,n=Math.sqr(a*a+i*i),r=(h*e-(t.a*t.a-h*h))/(t.a*n),d=(h*e+(t.a*t.a-h*h))/(t.a*n),s=4/3*(r*d+1),l=2*(r*r+d*d),_=s*s*s+l*l,o;_>0?o=Math.pow(Math.sqrt(_)-l,1/3)-Math.pow(Math.sqrt(_)+l,1/3):o=2*Math.sqrt(-s)*Math.cos(Math.acos(l/(s*Math.sqrt(-s)))/3),o*o<Math.abs(s)&&(o=-(o*o*o+2*l)/3*s);var c=(Math.sqrt(r*r+o)+r)/2,v=Math.sqrt(c*c+(d-o*c)/(2*c-r))-c,f=Math.atan(t.a*(1-v*v)/(2*h*v)),u=Math.atan2(i,a);u<0&&(u+=2*Math.PI);var p=(n-t.a*v)*Math.cos(f)+(e-h)*Math.sin(f),m=u*Math.PI/180;return m>180&&(m-=360),new R({lambda:m,phi:f*Math.PI/180,height_above_ellipsoid:p,ellipsoid:t})}});var S=M((g0,C)=>{C.exports=X;function X(t,h){var a=Math.sin(Math.PI/180*t.phig),i;h<=16||1-Math.abs(a)<1e-10?i=$(a,h):i=t0(a,h),this.pcup=i.pcup,this.dpcup=i.dpcup}function $(t,h){var a,i,e,n,r,d,s,l,_=[1],o=[1],c=[0];for(i=Math.sqrt((1-t)*(1+t)),l=(h+1)*(h+2)/2,e=1;e<=h;e++)for(n=0;n<=e;n++)r=e*(e+1)/2+n,e==n?(d=(e-1)*e/2+n-1,o[r]=i*o[d],c[r]=i*c[d]+t*o[d]):e==1&&n==0?(d=(e-1)*e/2+n,o[r]=t*o[d],c[r]=t*c[d]-i*o[d]):e>1&&e!=n&&(d=(e-2)*(e-1)/2+n,s=(e-1)*e/2+n,n>e-2?(o[r]=t*o[s],c[r]=t*c[s]-i*o[s]):(a=((e-1)*(e-1)-n*n)/((2*e-1)*(2*e-3)),o[r]=t*o[s]-a*o[d],c[r]=t*c[s]-i*o[s]-a*c[d]));for(e=1;e<=h;e++)for(r=e*(e+1)/2,d=(e-1)*e/2,_[r]=_[d]*(2*e-1)/e,n=1;n<=e;n++)r=e*(e+1)/2+n,d=e*(e+1)/2+n-1,_[r]=_[d]*Math.sqrt((e-n+1)*(n==1?2:1)/(e+n));for(e=1;e<=h;e++)for(n=0;n<=e;n++)r=e*(e+1)/2+n,o[r]*=_[r],c[r]*=-_[r];return{pcup:o,dpcup:c}}function t0(t,h){if(Math.abs(t)==1)throw new Error("Error in PcupHigh: derivative cannot be calculated at poles");var a,i,e,n=(h+1)*(h+2)/2,r=[],d=[],s=[],l=1e-280;for(a=0;a<=2*h+1;++a)s[a]=Math.sqrt(a);for(e=2,a=0;a<=h;a++){for(e++,r[e]=(2*a-1)/a,d[e]=(a-1)/a,i=1;i<=a-2;i++)e++,r[e]=(2*a-1)/s[a+i]/s[a-i],d[e]=s[a-i-1]*s[a+i-1]/s[a+i]/s[a-i];e+=2}var _=Math.sqrt((1-t)*(1+t)),o,c=t,v=1,f=[1,c],u=[0,_];if(h==0)throw new Error("Error in PcupHigh: n_max must be greater than 0");for(e=1,a=2;a<=h;a++)e=e+a,o=r[e]*t*c-d[e]*v,f[e]=o,u[e]=a*(c-t*o)/_,v=c,c=o;for(var p=s[2]*l,m=1/l,g=0,i=1;i<=h-1;++i)for(m*=_,g=g+i+1,p=p*s[2*i+1]/s[2*i],f[g]=p*m/s[2*i+1],u[g]=-(i*t*f[g]/_),v=p/s[2*i+1],e=g+i+1,c=t*s[2*i+1]*v,f[e]=c*m,u[e]=(v*m*s[2*i+1]-t*(i+1)*f[e])/_,a=i+2;a<=h;++a)e=e+a,o=t*r[e]*c-d[e]*v,f[e]=o*m,u[e]=(s[a+i]*s[a-i]*c*m-a*t*f[e])/_,v=c,c=o;return m=m*_,g=g+i+1,p=p/s[2*h],f[g]=p*m,u[g]=-h*t*f[g]/_,{pcup:f,dpcup:u}}});var G=M((M0,E)=>{var e0=Z(),a0=S();E.exports=z;function z(t){this.lambda=t.lambda,this.phig=t.phig,this.r=t.r}z.prototype.toCartesian=function(){var t=this.phig*Math.PI/180,h=this.lambda*Math.PI/180;return new e0({x:this.r*cos(t)*cos(h),y:this.r*cos(t)*sin(h),z:this.r*sin(t)})};z.prototype.toGeodetic=function(t){return this.toCartesian().toGeodetic(t)};z.prototype.getHarmonicVariables=function(t,h){var a,i,e=Math.cos(Math.PI/180*this.lambda),n=Math.sin(Math.PI/180*this.lambda),r=[1,e],d=[0,n],s=[t.re/this.r*(t.re/this.r)];for(i=1;i<=h;i++)s[i]=s[i-1]*(t.re/this.r);for(a=2;a<=h;a++)r[a]=r[a-1]*e-d[a-1]*n,d[a]=r[a-1]*n+d[a-1]*e;return{relative_radius_power:s,cos_mlambda:r,sin_mlambda:d}};z.prototype.getLegendreFunction=function(t){return new a0(this,t)}});var O=M((p0,V)=>{V.exports=r0;function r0(t){t=t||{a:6378.137,b:6356.7523142,fla:1/298.257223563,re:6371.2},this.a=t.a,this.b=t.b,this.fla=t.fla,this.re=t.re,this.eps=Math.sqrt(1-this.b*this.b/(this.a*this.a)),this.epssq=this.eps*this.eps}});var D=M((b0,F)=>{var i0=G(),h0=O();F.exports=q;function q(t){this.options=t,this.lambda=t.lambda||t.lon,this.phi=t.phi||t.lat,this.height_above_ellipsoid=t.height_above_ellipsoid||0,this.ellipsoid=t.ellipsoid||new h0}q.prototype.toSpherical=function(){var t=this.ellipsoid,h=Math.cos(this.phi*Math.PI/180),a=Math.sin(this.phi*Math.PI/180),i=t.a/Math.sqrt(1-t.epssq*a*a),e=(i+this.height_above_ellipsoid)*h,n=(i*(1-t.epssq)+this.height_above_ellipsoid)*a,r=Math.sqrt(e*e+n*n);return new i0({r,phig:180/Math.PI*Math.asin(n/r),lambda:this.lambda})};q.prototype.clone=function(){return new q(this.options)}});var L=M((y0,H)=>{H.exports=b;function b(t){this.x=t.x,this.y=t.y,this.z=t.z,this.h=t.h,this.f=t.f,this.incl=t.incl,this.decl=t.decl,this.gv=t.gv,this.xdot=t.xdot,this.ydot=t.ydot,this.zdot=t.zdot,this.hdot=t.hdot,this.fdot=t.fdot,this.incldot=t.incldot,this.decldot=t.decldot,this.gvdot=t.gvdot}b.prototype.clone=function(){return new b(this)};b.prototype.scale=function(t){return new b({x:this.x*t,y:this.y*t,z:this.z*t,h:this.h*t,f:this.f*t,incl:this.incl*t,decl:this.decl*t,gv:this.gv*t,xdot:this.xdot*t,ydot:this.ydot*t,zdot:this.zdot*t,hdot:this.hdot*t,fdot:this.fdot*t,incldot:this.incldot*t,decldot:this.decldot*t,gvdot:this.gvdot*t})};b.prototype.subtract=function(t){return new b({x:this.x-t.x,y:this.y-t.y,z:this.z-t.z,h:this.h-t.h,f:this.f-t.f,incl:this.incl-t.incl,decl:this.decl-t.decl,gv:this.gv-t.gv,xdot:this.xdot-t.xdot,ydot:this.ydot-t.ydot,zdot:this.zdot-t.zdot,hdot:this.hdot-t.hdot,fdot:this.fdot-t.fdot,incldot:this.incldot-t.incldot,decldot:this.decldot-t.decldot,gvdot:this.gvdot-t.gvdot})};b.fromGeoMagneticVector=function(t){var h=t.bx,a=t.by,i=t.bz,e=Math.sqrt(h*h+a*a);return new b({x:h,y:a,z:i,h:e,f:Math.sqrt(e*e+i*i),decl:180/Math.PI*Math.atan2(a,h),incl:180/Math.PI*Math.atan2(i,e)})};b.fromSecularVariationVector=function(t){var h=t.bx,a=t.by,i=t.bz;return new b({xdot:h,ydot:a,zdot:i,hdot:(this.x*h+this.y*a)/this.h,fdot:(this.x*h+this.y*a+this.z*i)/this.f,decldot:180/Math.PI*(this.x*this.ydot-this.y*this.xdot)/(this.h*this.h),incldot:180/Math.PI*(this.h*this.zdot-this.z*this.hdot)/(this.f*this.f),gvdot:this.decldot})}});var W=M((w0,k)=>{k.exports=T;function T(t){this.bx=t.bx,this.by=t.by,this.bz=t.bz}T.prototype.rotate=function(t,h){var a=Math.PI/180*(t.phig-h.phi);return new T({bz:this.bx*Math.sin(a)+this.bz*Math.cos(a),bx:this.bx*Math.cos(a)-this.bz*Math.sin(a),by:this.by})}});var U=M((z0,B)=>{var s0=D(),o0=L(),n0=W();B.exports=x;function x(t){this.epoch=t.epoch,this.start_date=new Date(t.start_date),this.end_date=new Date(t.end_date),this.name=t.name||"",this.main_field_coeff_g=t.main_field_coeff_g||[0],this.main_field_coeff_h=t.main_field_coeff_h||[0],this.secular_var_coeff_g=t.secular_var_coeff_g||[0],this.secular_var_coeff_h=t.secular_var_coeff_h||[0],this.n_max=t.n_max||0,this.n_max_sec_var=t.n_max_sec_var||0,this.num_terms=this.n_max*(this.n_max+1)/2+this.n_max}x.prototype.getTimedModel=function(t,h=!1){var a=t.getUTCFullYear(),i=(t.valueOf()-Date.UTC(a))/(1e3*3600*24*365),e=a+i,n=e-this.epoch;if(t<this.start_date||t>this.end_date)if(h)console.error("Model is only valid from "+this.start_date.toDateString()+" to "+this.end_date.toDateString());else throw new Error("Model is only valid from "+this.start_date.toDateString()+" to "+this.end_date.toDateString());for(var r=new x({epoch:this.epoch,n_max:this.n_max,n_max_sec_var:this.n_max_sec_var,name:this.name,start_date:this.start_date,end_date:this.end_date}),d=r.n_max_sec_var,s=d*(d+1)/2+d,l=1;l<=this.n_max;l++)for(var _=0;_<=l;_++){var o=l*(l+1)/2+_,c=this.main_field_coeff_h[o],v=this.main_field_coeff_g[o],f=this.secular_var_coeff_h[o],u=this.secular_var_coeff_g[o];o<=s?(r.main_field_coeff_h[o]=c+n*f,r.main_field_coeff_g[o]=v+n*u,r.secular_var_coeff_h[o]=f,r.secular_var_coeff_g[o]=u):(r.main_field_coeff_h[o]=c,r.main_field_coeff_g[o]=v)}return r};x.prototype.getSummation=function(t,h,a){var i=0,e=0,n=0,r,d,s,l,_=h.relative_radius_power,o=h.cos_mlambda,c=h.sin_mlambda,v=this.main_field_coeff_g,f=this.main_field_coeff_h;for(r=1;r<=this.n_max;r++)for(d=0;d<=r;d++)s=r*(r+1)/2+d,n-=_[r]*(v[s]*o[d]+f[s]*c[d])*(r+1)*t.pcup[s],e+=_[r]*(v[s]*c[d]-f[s]*o[d])*d*t.pcup[s],i-=_[r]*(v[s]*o[d]+f[s]*c[d])*t.dpcup[s];var u=Math.cos(Math.PI/180*a.phig);if(Math.abs(u)>1e-10)e=e/u;else{e=0;var p=1,m,g,w=[1],Q=Math.sin(Math.PI/180*a.phig);for(r=1;r<=this.n_max;r++)s=r*(r+1)/2+1,m=p*(2*r-1)/r,g=m*Math.sqrt(2*r/(r+1)),p=m,r==1?w[r]=w[r-1]:(l=((r-1)*(r-1)-1)/((2*r-1)*(2*r-3)),w[r]=Q*w[r-1]-l*w[r-2]),e+=_[r]*(v[s]*c[1]-f[s]*o[1])*w[r]*g}return new n0({bx:i,by:e,bz:n})};x.prototype.point=function(t){var h=t.length>2&&typeof t[2]=="number"?t[2]:0,a=new s0({lat:t[0],lon:t[1],height_above_ellipsoid:h}),i=a.toSpherical(),e=i.getLegendreFunction(this.n_max),n=i.getHarmonicVariables(a.ellipsoid,this.n_max),r=this.getSummation(e,n,i),d=r.rotate(i,a);return o0.fromGeoMagneticVector(d)}});var A=M((x0,d0)=>{d0.exports={main_field_coeff_g:[0,-29351.8,-1410.8,-2556.6,2951.1,1649.3,1361,-2404.1,1243.8,453.6,895,799.5,55.7,-281.1,12.1,-233.2,368.9,187.2,-138.7,-142,20.9,64.4,63.8,76.9,-115.7,-40.9,14.9,-60.7,79.5,-77,-8.8,59.3,15.8,2.5,-11.1,14.2,23.2,10.8,-17.5,2,-21.7,16.9,15,-16.8,.9,4.6,7.8,3,-.2,-2.5,-13.1,2.4,8.6,-8.7,-12.9,-1.3,-6.4,.2,2,-1,-.6,-.9,1.5,.9,-2.7,-3.9,2.9,-1.5,-2.5,2.4,-.6,-.1,-.6,-.1,1.1,-1,-.2,2.6,-2,-.2,.3,1.2,-1.3,.6,.6,.5,-.1,-.4,-.2,-1.3,-.7],main_field_coeff_h:[0,0,4545.4,0,-3133.6,-815.1,0,-56.6,237.5,-549.5,0,278.6,-133.9,212,-375.6,0,45.4,220.2,-122.9,43,106.1,0,-18.4,16.8,48.8,-59.8,10.9,72.7,0,-48.9,-14.4,-1,23.4,-7.4,-25.1,-2.3,0,7.1,-12.6,11.4,-9.7,12.7,.7,-5.2,3.9,0,-24.8,12.2,8.3,-3.3,-5.2,7.2,-.6,.8,10,0,3.3,0,2.4,5.3,-9.1,.4,-4.2,-3.8,.9,-9.1,0,0,2.9,-.6,.2,.5,-.3,-1.2,-1.7,-2.9,-1.8,-2.3,0,-1.3,.7,1,-1.4,0,.6,-.1,.8,.1,-1,.1,.2],secular_var_coeff_g:[0,12,9.7,-11.6,-5.2,-8,-1.3,-4.2,.4,-15.6,-1.6,-2.4,-6,5.6,-7,.6,1.4,0,.6,2.2,.9,-.2,-.4,.9,1.2,-.9,.3,.9,0,-.1,-.1,.5,-.1,-.8,-.8,.8,-.1,.2,0,.5,-.1,.3,.2,0,.2,0,-.1,.1,.3,-.3,0,.3,-.1,.1,-.1,.1,0,.1,.1,0,-.3,0,-.1,-.1,0,0,0,0,0,0,0,-.1,0,0,-.1,-.1,-.1,-.1,0,0,0,0,0,0,.1,0,0,0,-.1,0,-.1],secular_var_coeff_h:[0,0,-21.5,0,-27.7,-12.1,0,4,-.3,-4.1,0,-1.1,4.1,1.6,-4.4,0,-.5,2.2,.4,1.7,1.9,0,.3,-1.6,-.4,.9,.7,.9,0,.6,.5,-.8,0,-1,.6,-.2,0,-.2,.5,-.4,.4,-.5,-.6,.3,.2,0,-.3,.3,-.3,.3,.2,-.1,-.2,.4,.1,0,0,0,-.2,.1,-.1,.1,0,-.1,.2,0,0,0,.1,0,.1,0,0,.1,0,0,0,0,0,0,0,-.1,.1,0,0,0,0,0,0,0,-.1],n_max:12,n_max_sec_var:12,epoch:2025,name:"WMM-2025",start_date:"2024-11-13T03:00:00.000Z",end_date:"2029-11-13T03:00:00.000Z"}});var Y=M((q0,c0)=>{c0.exports={main_field_coeff_g:[0,-29404.5,-1450.7,-2500,2982,1676.8,1363.9,-2381,1236.2,525.7,903.1,809.4,86.2,-309.4,47.9,-234.4,363.1,187.8,-140.7,-151.2,13.7,65.9,65.6,73,-121.5,-36.2,13.5,-64.7,80.6,-76.8,-8.3,56.5,15.8,6.4,-7.2,9.8,23.6,9.8,-17.5,-.4,-21.1,15.3,13.7,-16.5,-.3,5,8.2,2.9,-1.4,-1.1,-13.3,1.1,8.9,-9.3,-11.9,-1.9,-6.2,-.1,1.7,-.9,.6,-.9,1.9,1.4,-2.4,-3.9,3,-1.4,-2.5,2.4,-.9,.3,-.7,-.1,1.4,-.6,.2,3.1,-2,-.1,.5,1.3,-1.2,.7,.3,.5,-.2,-.5,.1,-1.1,-.3],main_field_coeff_h:[0,0,4652.9,0,-2991.6,-734.8,0,-82.2,241.8,-542.9,0,282,-158.4,199.8,-350.1,0,47.7,208.4,-121.3,32.2,99.1,0,-19.1,25,52.7,-64.4,9,68.1,0,-51.4,-16.8,2.3,23.5,-2.2,-27.2,-1.9,0,8.4,-15.3,12.8,-11.8,14.9,3.6,-6.9,2.8,0,-23.3,11.1,9.8,-5.1,-6.2,7.8,.4,-1.5,9.7,0,3.4,-.2,3.5,4.8,-8.6,-.1,-4.2,-3.4,-.1,-8.8,0,0,2.6,-.5,-.4,.6,-.2,-1.7,-1.6,-3,-2,-2.6,0,-1.2,.5,1.3,-1.8,.1,.7,-.1,.6,.2,-.9,0,.5],secular_var_coeff_g:[0,6.7,7.7,-11.5,-7.1,-2.2,2.8,-6.2,3.4,-12.2,-1.1,-1.6,-6,5.4,-5.5,-.3,.6,-.7,.1,1.2,1,-.6,-.4,.5,1.4,-1.4,0,.8,-.1,-.3,-.1,.7,.2,-.5,-.8,1,-.1,.1,-.1,.5,-.1,.4,.5,0,.4,-.1,-.2,0,.4,-.3,0,.3,0,0,-.4,0,0,0,.2,-.1,-.2,0,-.1,-.2,-.1,0,0,-.1,0,0,0,-.1,0,0,-.1,-.1,-.1,-.1,0,0,0,0,0,0,0,0,0,0,0,0,-.1],secular_var_coeff_h:[0,0,-25.1,0,-30.2,-23.9,0,5.7,-1,1.1,0,.2,6.9,3.7,-5.6,0,.1,2.5,-.9,3,.5,0,.1,-1.8,-1.4,.9,.1,1,0,.5,.6,-.7,-.2,-1.2,.2,.3,0,-.3,.7,-.2,.5,-.3,-.5,.4,.1,0,-.3,.2,-.4,.4,.1,0,-.2,.5,.2,0,0,.1,-.3,.1,-.2,.1,0,-.1,.2,0,0,0,.1,0,.2,0,0,.1,0,-.1,0,0,0,0,0,-.1,.1,0,0,0,.1,0,0,0,-.1],n_max:12,n_max_sec_var:12,epoch:2020,name:"WMM-2020",start_date:"2019-12-10T08:00:00.000Z",end_date:"2024-12-10T08:00:00.000Z"}});var j=M((D0,_0)=>{_0.exports={main_field_coeff_g:[0,-29438.2,-1493.5,-2444.5,3014.7,1679,1351.8,-2351.6,1223.6,582.3,907.5,814.8,117.8,-335.6,69.7,-232.9,360.1,191.7,-141.3,-157.2,7.7,69.4,67.7,72.3,-129.1,-28.4,13.6,-70.3,81.7,-75.9,-7.1,52.2,15,9.1,-3,5.9,24.2,8.9,-16.9,-3.1,-20.7,13.3,11.6,-16.3,-2.1,5.5,8.8,3,-3.2,.6,-13.2,-.1,8.7,-9.1,-10.4,-2,-6.1,.2,.6,-.5,1.8,-.7,2.2,2.4,-1.8,-3.6,3,-1.4,-2.3,2.1,-.8,.6,-.7,.1,1.7,-.2,.4,3.5,-2,-.1,.5,1.2,-.9,.9,.1,.6,-.4,-.5,.2,-.9,0],main_field_coeff_h:[0,0,4796.3,0,-2842.4,-638.8,0,-113.7,246.5,-537.4,0,283.3,-188.6,180.7,-330,0,46.9,196.5,-119.9,16,100.6,0,-20.1,32.8,59.1,-67.1,8.1,61.9,0,-54.3,-19.5,6,24.5,3.5,-27.7,-2.9,0,10.1,-18.3,13.3,-14.5,16.2,6,-9.2,2.4,0,-21.8,10.7,11.8,-6.8,-6.9,7.9,1,-3.9,8.5,0,3.3,-.4,4.6,4.4,-7.9,-.6,-4.2,-2.9,-1.1,-8.8,0,0,2.1,-.6,-1.1,.7,-.2,-2.1,-1.5,-2.6,-2,-2.3,0,-1,.3,1.8,-2.2,.3,.7,-.1,.3,.2,-.9,-.2,.8],secular_var_coeff_g:[0,7,9,-11,-6.2,.3,2.4,-5.7,2,-11,-.8,-.9,-6.5,5.2,-4,-.3,.6,-.8,.1,1.2,1.4,-.8,-.5,-.1,1.6,-1.6,0,1.2,-.3,-.2,-.3,.9,.1,-.6,-.9,.7,-.1,.2,-.2,.5,-.1,.4,.4,-.1,.4,-.1,-.1,0,.4,-.4,0,.3,0,0,-.3,0,0,-.1,.2,-.1,-.2,0,-.1,-.2,-.1,0,0,0,0,0,0,-.1,0,0,0,-.1,0,-.1,0,0,0,0,-.1,0,0,0,0,0,0,0,-.1],secular_var_coeff_h:[0,0,-30.2,0,-29.6,-17.3,0,6.5,-.8,-2,0,-.4,5.8,3.8,-3.5,0,.2,2.3,0,3.3,-.6,0,.3,-1.5,-1.2,.4,.2,1.3,0,.6,.5,-.8,-.2,-1.1,.1,.2,0,-.4,.6,-.1,.6,-.2,-.5,.5,.1,0,-.3,.1,-.4,.3,.1,0,-.1,.5,.2,0,0,.1,-.2,.1,-.1,.1,0,-.1,.2,0,0,0,.1,0,.1,0,0,.1,0,-.1,0,-.1,0,0,0,-.1,.1,0,0,0,0,0,0,0,-.1],n_max:12,n_max_sec_var:12,epoch:2015,name:"WMM-2015v2",start_date:"2018-09-18T06:00:00.000Z",end_date:"2023-09-18T06:00:00.000Z"}});var J=M((T0,f0)=>{f0.exports={main_field_coeff_g:[0,-29438.5,-1501.1,-2445.3,3012.5,1676.6,1351.1,-2352.3,1225.6,581.9,907.2,813.7,120.3,-335,70.3,-232.6,360.1,192.4,-141,-157.4,4.3,69.5,67.4,72.8,-129.8,-29,13.2,-70.9,81.6,-76.1,-6.8,51.9,15,9.3,-2.8,6.7,24,8.6,-16.9,-3.2,-20.6,13.3,11.7,-16,-2,5.4,8.8,3.1,-3.1,.6,-13.3,-.1,8.7,-9.1,-10.5,-1.9,-6.5,.2,.6,-.6,1.7,-.7,2.1,2.3,-1.8,-3.6,3.1,-1.5,-2.3,2.1,-.9,.6,-.7,.2,1.7,-.2,.4,3.5,-2,-.3,.4,1.3,-.9,.9,.1,.5,-.4,-.4,.2,-.9,0],main_field_coeff_h:[0,0,4796.2,0,-2845.6,-642,0,-115.3,245,-538.3,0,283.4,-188.6,180.9,-329.5,0,47.4,196.9,-119.4,16.1,100.1,0,-20.7,33.2,58.8,-66.5,7.3,62.5,0,-54.1,-19.4,5.6,24.4,3.3,-27.5,-2.3,0,10.2,-18.1,13.2,-14.6,16.2,5.7,-9.1,2.2,0,-21.6,10.8,11.7,-6.8,-6.9,7.8,1,-3.9,8.5,0,3.3,-.3,4.6,4.4,-7.9,-.6,-4.1,-2.8,-1.1,-8.7,0,-.1,2.1,-.7,-1.1,.7,-.2,-2.1,-1.5,-2.5,-2,-2.3,0,-1,.5,1.8,-2.2,.3,.7,-.1,.3,.2,-.9,-.2,.7],secular_var_coeff_g:[0,10.7,17.9,-8.6,-3.3,2.4,3.1,-6.2,-.4,-10.4,-.4,.8,-9.2,4,-4.2,-.2,.1,-1.4,0,1.3,3.8,-.5,-.2,-.6,2.4,-1.1,.3,1.5,.2,-.2,-.4,1.3,.2,-.4,-.9,.3,0,.1,-.5,.5,-.2,.4,.2,-.4,.3,0,-.1,-.1,.4,-.5,-.2,.1,0,-.2,-.1,0,0,-.1,.3,-.1,-.1,-.1,0,-.2,-.1,-.2,0,0,-.1,.1,0,0,0,0,0,0,-.1,-.1,.1,0,0,.1,-.1,0,.1,0,0,0,0,0,0],secular_var_coeff_h:[0,0,-26.8,0,-27.1,-13.3,0,8.4,-.4,2.3,0,-.6,5.3,3,-5.3,0,.4,1.6,-1.1,3.3,.1,0,0,-2.2,-.7,.1,1,1.3,0,.7,.5,-.2,-.1,-.7,.1,.1,0,-.3,.3,.3,.6,-.1,-.2,.3,0,0,-.2,-.1,-.2,.1,.1,0,-.2,.4,.3,0,.1,-.1,0,0,-.2,.1,-.1,-.2,.1,-.1,0,0,.1,0,.1,0,0,.1,0,-.1,0,-.1,0,0,0,-.1,0,0,0,0,0,0,0,0,0],n_max:12,n_max_sec_var:12,epoch:2015,name:"WMM-2015",start_date:"2014-12-15T07:00:00.000Z",end_date:"2019-12-15T07:00:00.000Z"}});var N=M((P0,K)=>{var l0=U(),v0=K.exports={},y=[{file:A(),startDate:new Date("2024-11-13T03:00:00.000Z"),endDate:new Date("2029-11-13T03:00:00.000Z")},{file:Y(),startDate:new Date("2019-12-10T08:00:00.000Z"),endDate:new Date("2024-12-10T08:00:00.000Z")},{file:j(),startDate:new Date("2018-09-18T06:00:00.000Z"),endDate:new Date("2023-09-18T06:00:00.000Z")},{file:J(),startDate:new Date("2014-12-15T07:00:00.000Z"),endDate:new Date("2019-12-15T07:00:00.000Z")}];v0.model=function(t,h={}){t=t||new Date;let a=t.getTime(),i=h&&h.allowOutOfBoundsModel||!1,e=y.find(r=>a>=r.startDate.getTime()&&a<=r.endDate.getTime());return!e&&a<y[y.length-1].startDate.getTime()?e=y[y.length-1]:!e&&a>y[0].endDate.getTime()&&(e=y[0]),e||(e=y[0]),new l0(e.file).getTimedModel(t,i)}});window.GEOMAG=N();})();
+</script>
+<script>
+(function(){
+"use strict";
+const D2R=Math.PI/180, R2D=180/Math.PI;
+const $=id=>document.getElementById(id);
+const store={get(k,d){try{const v=localStorage.getItem("st_"+k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem("st_"+k,JSON.stringify(v))}catch(e){}}};
+const norm360=a=>((a%360)+360)%360;
+const fmtDM=(v,pos,neg,w)=>{const s=v>=0?pos:neg;v=Math.abs(v);let d=Math.floor(v),m=Math.round((v-d)*60);if(m===60){d++;m=0}return String(d).padStart(w,"0")+"° "+String(m).padStart(2,"0")+"' "+s};
+const fmtHM=h=>{h=((h%24)+24)%24;let H=Math.floor(h),M=Math.round((h-H)*60);if(M===60){H=(H+1)%24;M=0}return String(H).padStart(2,"0")+"h"+String(M).padStart(2,"0")};
+const fmtArc=deg=>{const s=deg<0?"−":"";deg=Math.abs(deg);const d=Math.floor(deg),m=Math.floor((deg-d)*60),sec=Math.round(((deg-d)*60-m)*60);return s+d+"° "+String(m).padStart(2,"0")+"' "+String(sec).padStart(2,"0")+"\""};
+const fmtDeg=(v,dp=1)=>v.toFixed(dp).replace(".",",")+"°";
+const fmtKg=v=>v.toFixed(1).replace(".",",")+" kg";
+
+/* ---------- Astronomy ---------- */
+const jd=d=>d.getTime()/86400000+2440587.5;
+function lstDeg(d,lon){const J=jd(d),t=J-2451545,T=t/36525;return norm360(280.46061837+360.98564736629*t+0.000387933*T*T-T*T*T/38710000+lon)}
+function precess(raDeg,decDeg,d){ // IAU 1976, J2000 -> mean of date
+  const T=(jd(d)-2451545)/36525;
+  const z0=(2306.2181*T+0.30188*T*T+0.017998*T*T*T)/3600*D2R, z=(2306.2181*T+1.09468*T*T+0.018203*T*T*T)/3600*D2R, th=(2004.3109*T-0.42665*T*T-0.041833*T*T*T)/3600*D2R;
+  const a=raDeg*D2R,dl=decDeg*D2R;
+  const A=Math.cos(dl)*Math.sin(a+z0),B=Math.cos(th)*Math.cos(dl)*Math.cos(a+z0)-Math.sin(th)*Math.sin(dl),C=Math.sin(th)*Math.cos(dl)*Math.cos(a+z0)+Math.cos(th)*Math.sin(dl);
+  return {ra:norm360((Math.atan2(A,B)+z)*R2D),dec:Math.asin(C)*R2D};
+}
+function altaz(raDeg,decDeg,lat,lst){
+  const H=(lst-raDeg)*D2R,dl=decDeg*D2R,ph=lat*D2R;
+  const alt=Math.asin(Math.sin(ph)*Math.sin(dl)+Math.cos(ph)*Math.cos(dl)*Math.cos(H));
+  const az=Math.atan2(-Math.cos(dl)*Math.sin(H),Math.sin(dl)*Math.cos(ph)-Math.cos(dl)*Math.sin(ph)*Math.cos(H));
+  let ha=norm360(lst-raDeg);if(ha>180)ha-=360;
+  return {alt:alt*R2D,az:norm360(az*R2D),ha:ha/15};
+}
+const hms=(h,m,s)=>(h+m/60+s/3600)*15, dms=(d,m,s)=>(d<0||Object.is(d,-0)?-1:1)*(Math.abs(d)+m/60+s/3600);
+const POLARIS={ra:hms(2,31,49.09),dec:dms(89,15,50.8)};
+// Bright SynScan-catalogue stars, J2000 (RA h m s, Dec d m s, magnitude)
+const STARS=[
+["Sirius",6,45,8.9,-16,42,58,-1.46],["Arcturus",14,15,39.7,19,10,57,-0.05],["Vega",18,36,56.3,38,47,1,0.03],["Capella",5,16,41.4,45,59,53,0.08],
+["Rigel",5,14,32.3,-8,12,6,0.13],["Procyon",7,39,18.1,5,13,30,0.34],["Betelgeuse",5,55,10.3,7,24,25,0.5],["Altair",19,50,47.0,8,52,6,0.77],
+["Aldebaran",4,35,55.2,16,30,33,0.85],["Antares",16,29,24.5,-26,25,55,0.96],["Spica",13,25,11.6,-11,9,41,0.97],["Pollux",7,45,18.9,28,1,34,1.14],
+["Fomalhaut",22,57,39.0,-29,37,20,1.16],["Deneb",20,41,25.9,45,16,49,1.25],["Regulus",10,8,22.3,11,58,2,1.35],["Castor",7,34,36.0,31,53,18,1.58],
+["Bellatrix",5,25,7.9,6,20,59,1.64],["Elnath",5,26,17.5,28,36,27,1.65],["Alnilam",5,36,12.8,-1,12,7,1.69],["Alioth",12,54,1.7,55,57,35,1.77],
+["Dubhe",11,3,43.7,61,45,3,1.79],["Mirfak",3,24,19.4,49,51,40,1.79],["Alkaid",13,47,32.4,49,18,48,1.86],["Menkalinan",5,59,31.7,44,56,51,1.9],
+["Alhena",6,37,42.7,16,23,57,1.93],["Alphard",9,27,35.2,-8,39,31,1.99],["Hamal",2,7,10.4,23,27,45,2.0],["Diphda",0,43,35.4,-17,59,12,2.04],
+["Nunki",18,55,15.9,-26,17,48,2.05],["Alpheratz",0,8,23.3,29,5,26,2.06],["Mirach",1,9,43.9,35,37,14,2.05],["Rasalhague",17,34,56.1,12,33,36,2.08],
+["Kochab",14,50,42.3,74,9,20,2.08],["Algol",3,8,10.1,40,57,20,2.1],["Denebola",11,49,3.6,14,34,19,2.13],["Almach",2,3,54.0,42,19,47,2.1],
+["Alphecca",15,34,41.3,26,42,53,2.23],["Sadr",20,22,13.7,40,15,24,2.23],["Schedar",0,40,30.4,56,32,14,2.24],["Eltanin",17,56,36.4,51,29,20,2.24],
+["Mizar",13,23,55.5,54,55,31,2.23],["Caph",0,9,10.7,59,8,59,2.28],["Merak",11,1,50.5,56,22,57,2.37],["Enif",21,44,11.2,9,52,30,2.39],
+["Scheat",23,3,46.5,28,4,58,2.42],["Markab",23,4,45.7,15,12,19,2.49],["Alderamin",21,18,34.8,62,35,8,2.45],["Menkar",3,2,16.8,4,5,23,2.54],
+["Unukalhai",15,44,16.1,6,25,32,2.63],["Algieba",10,19,58.4,19,50,29,2.08]
+].map(s=>({name:s[0],ra:hms(s[1],s[2],s[3]),dec:dms(s[4],s[5],s[6]),mag:s[7]}));
+
+/* ---------- State ---------- */
+const st={lat:store.get("lat",48.8566),lon:store.get("lon",2.3522),elev:store.get("elev",35),custom:store.get("custom",false),
+  live:true,when:null,side:"E",
+  wTube:store.get("wTube",7.9),wAcc:store.get("wAcc",0.4),wCam:store.get("wCam",0),nCw:store.get("nCw",2),dTube:store.get("dTube",22),
+  checks:store.get("checks",{}),night:store.get("night",false),view:store.get("view","site"),
+  sensor:{beta:null,gamma:null,mag:null}};
+const now=()=>st.live?new Date():st.when;
+
+/* ---------- Tabs ---------- */
+const VIEWS=["site","mount","polar","stars","sensors"];
+function show(v){if(!VIEWS.includes(v))v="site";st.view=v;store.set("view",v);
+  VIEWS.forEach(x=>{$("v-"+x).hidden=x!==v});
+  document.querySelectorAll("nav.tabs button").forEach(b=>b.setAttribute("aria-current",String(b.dataset.v===v)));
+  window.scrollTo(0,0);render();}
+document.querySelectorAll("nav.tabs button").forEach(b=>b.addEventListener("click",()=>show(b.dataset.v)));
+
+/* ---------- Night mode ---------- */
+function applyNight(){document.documentElement.classList.toggle("night",st.night);$("nightBtn").setAttribute("aria-pressed",String(st.night))}
+$("nightBtn").addEventListener("click",()=>{st.night=!st.night;store.set("night",st.night);applyNight();render()});
+
+/* ---------- Site inputs ---------- */
+function toLocalInput(d){const p=n=>String(n).padStart(2,"0");return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+"T"+p(d.getHours())+":"+p(d.getMinutes())}
+function syncSiteInputs(){$("lat").value=st.lat;$("lon").value=st.lon;$("elev").value=st.elev;$("siteNote").hidden=st.custom}
+["lat","lon","elev"].forEach(k=>$(k).addEventListener("input",e=>{const v=parseFloat(e.target.value);if(isFinite(v)){st[k]=v;store.set(k,v);st.custom=true;store.set("custom",true);$("siteNote").hidden=true;render()}}));
+$("when").addEventListener("input",e=>{const v=e.target.value;if(v){st.live=false;st.when=new Date(v);render()}});
+$("nowBtn").addEventListener("click",()=>{st.live=true;render()});
+function siteMsg(t,bad){const m=$("siteMsg");m.textContent=t;m.classList.toggle("bad",!!bad);m.hidden=!t}
+$("gpsBtn").addEventListener("click",()=>{
+  if(!navigator.geolocation){siteMsg("La géolocalisation n'est pas disponible ici. Saisis la latitude et la longitude à la main.",true);return}
+  siteMsg("Recherche de la position…");
+  try{navigator.geolocation.getCurrentPosition(async p=>{st.lat=+p.coords.latitude.toFixed(4);st.lon=+p.coords.longitude.toFixed(4);
+    const gpsAlt=p.coords.altitude!=null?Math.round(p.coords.altitude):null;
+    st.custom=true;store.set("custom",true);store.set("lat",st.lat);store.set("lon",st.lon);syncSiteInputs();render();
+    siteMsg("Position trouvée. Altitude en cours auprès de l'IGN…");
+    const z=await ignElevation(st.lat,st.lon);
+    if(z!=null)setElev(z,"ign");
+    else if(gpsAlt!=null){setElev(gpsAlt,"gps");siteMsg("Altitude IGN indisponible (hors de France ou sans réseau) : altitude GPS utilisée, précise à ± 10 à 30 m.")}
+    else siteMsg("Altitude non trouvée : saisis-la à la main.",true);
+    if(z!=null)siteMsg("");},
+    ()=>siteMsg("Le GPS n'est pas accessible. Autorise la localisation pour Safari dans Réglages › Confidentialité, ou saisis les coordonnées à la main.",true),{enableHighAccuracy:true,timeout:15000})}
+  catch(e){siteMsg("Le GPS n'est pas accessible. Saisis les coordonnées à la main.",true)}
+});
+
+/* ---------- Altitude IGN (Géoplateforme, RGE ALTI) ---------- */
+const ELEV_SRC={ign:"Altitude IGN (RGE ALTI)",gps:"Altitude GPS de l'iPhone (± 10 à 30 m)",manual:"Altitude saisie à la main"};
+function showElevSrc(){$("elevSrc").textContent=ELEV_SRC[store.get("elevSrc","manual")]||""}
+function setElev(z,src){st.elev=Math.round(z);store.set("elev",st.elev);store.set("elevSrc",src);syncSiteInputs();showElevSrc();render()}
+async function ignElevation(lat,lon){
+  if(lat<41||lat>51.5||lon<-5.5||lon>10)return null; // France métropolitaine (la ressource couvre aussi les DROM, à vérifier)
+  const url="https://data.geopf.fr/altimetrie/1.0/calcul/alti/rest/elevation.json?lon="+lon+"&lat="+lat+"&resource=ign_rgealti_wld&zonly=true";
+  try{const ctl=new AbortController(),t=setTimeout(()=>ctl.abort(),8000);
+    const r=await fetch(url,{signal:ctl.signal});clearTimeout(t);if(!r.ok)return null;
+    const j=await r.json();let z=j&&j.elevations&&j.elevations[0];if(z&&typeof z==="object")z=z.z;
+    return (typeof z==="number"&&z>-1000)?z:null; // -99999 = pas de donnée
+  }catch(e){return null}}
+$("ignBtn").addEventListener("click",async()=>{siteMsg("Altitude en cours auprès de l'IGN…");
+  const z=await ignElevation(st.lat,st.lon);
+  if(z!=null){setElev(z,"ign");siteMsg("")}else siteMsg("L'IGN n'a pas répondu pour ces coordonnées. Vérifie le réseau, ou que le site est en France.",true)});
+$("elev").addEventListener("input",()=>{store.set("elevSrc","manual");showElevSrc()});
+showElevSrc();
+
+/* ---------- Mount inputs ---------- */
+["wTube","wAcc","wCam","dTube"].forEach(k=>{$(k).value=st[k];$(k).addEventListener("input",e=>{const v=parseFloat(e.target.value);if(isFinite(v)&&v>=0){st[k]=v;store.set(k,v);renderMount()}})});
+$("nCw").value=String(st.nCw);$("nCw").addEventListener("change",e=>{st.nCw=+e.target.value;store.set("nCw",st.nCw);renderMount()});
+const CHECKS=[
+ ["tripod","Trépied","déplié, jambes sorties au minimum utile, jambe « N » vers le nord vrai."],
+ ["level","Niveau","bulle centrée sur la tête du trépied (onglet Capteurs ou niveau de la monture)."],
+ ["lat","Latitude","échelle de la monture réglée sur ta latitude (étape 1)."],
+ ["cw","Contrepoids","installés AVANT le tube, vis de sécurité en bout de barre."],
+ ["tube","Tube","queue d'aronde serrée dans la selle, colliers serrés, renvoi et oculaire en place."],
+ ["dec","Équilibre DEC","tube horizontal, barre horizontale, embrayage DEC ouvert : fais glisser le tube dans ses colliers jusqu'à ce qu'il reste immobile."],
+ ["ra","Équilibre AD","barre de contrepoids horizontale, embrayage AD ouvert : déplace les contrepoids jusqu'à l'équilibre, très légèrement lourd côté est."],
+ ["home","Position de départ","barre vers le bas, tube vers la Polaire, embrayages serrés, puis mise sous tension."],
+ ["synscan","Raquette","coordonnées, fuseau, date, heure et heure d'été saisis (étape 1)."]];
+function renderChecks(){$("checklist").innerHTML=CHECKS.map(([k,t,d])=>`<label class="check${st.checks[k]?" done":""}" for="ck-${k}"><input type="checkbox" id="ck-${k}" data-k="${k}"${st.checks[k]?" checked":""}><span><b>${t}</b> : ${d}</span></label>`).join("");
+  $("checklist").querySelectorAll("input").forEach(i=>i.addEventListener("change",e=>{st.checks[e.target.dataset.k]=e.target.checked;store.set("checks",st.checks);renderChecks()}))}
+$("resetChecks").addEventListener("click",()=>{st.checks={};store.set("checks",{});renderChecks()});
+
+const CW=5.1, CAP=14;
+function renderMount(){
+  const load=st.wTube+st.wAcc+st.wCam;$("loadOut").textContent=fmtKg(load);
+  const pct=Math.min(100,load/CAP*100);$("loadBar").style.width=pct+"%";
+  $("loadBar").style.background=load>CAP?"var(--bad)":load>CAP*2/3?"var(--warn)":"var(--ok)";
+  $("loadNote").textContent=load>CAP?"Au-delà de la capacité annoncée de la HEQ5 Pro (14 kg). Allège la charge.":
+    load>CAP*2/3?"Correct en visuel. Pour la photo, on vise en général moins des deux tiers de la capacité (≈ 9,3 kg).":
+    "Confortable pour la HEQ5 Pro (capacité annoncée 14 kg), en visuel comme en photo.";
+  const mcw=st.nCw*CW,d=load*st.dTube/mcw;
+  $("cwOut").innerHTML=(isFinite(d)?d.toFixed(0):"--")+"<small>cm depuis l'axe AD</small>";
+  const tip=st.nCw===1&&d>36?" Avec un seul contrepoids, il risque d'être en bout de barre : passe à deux.":st.nCw===2&&d<14?" Avec deux contrepoids, ils seront très près de la monture : un seul peut suffire.":"";
+  $("cwNote").textContent="Moment du tube = moment des contrepoids ("+fmtKg(load)+" × "+st.dTube+" cm = "+fmtKg(mcw)+" × d). Point de départ seulement : l'équilibre final se fait à la main."+tip;
+}
+
+/* ---------- Render: clock + site ---------- */
+function tzInfo(d){const y=d.getFullYear(),j=-new Date(y,0,1).getTimezoneOffset(),u=-new Date(y,6,1).getTimezoneOffset(),std=Math.min(j,u),cur=-d.getTimezoneOffset();return{std,dst:cur!==std}}
+function renderClock(){const d=now();const p=n=>String(n).padStart(2,"0");
+  $("clkLocal").textContent=(st.live?"":"◷ ")+p(d.getHours())+":"+p(d.getMinutes())+":"+p(d.getSeconds());
+  $("clkLst").textContent=fmtHM(lstDeg(d,st.lon)/15)}
+function renderSite(){
+  const d=now();if(document.activeElement!==$("when"))$("when").value=toLocalInput(d);
+  const tz=tzInfo(d),p=n=>String(n).padStart(2,"0"),sg=tz.std>=0?"+":"−",a=Math.abs(tz.std);
+  $("synscan").innerHTML=`<div><span>Long.</span><span>${fmtDM(st.lon,"E","W",3)}</span></div><div><span>Lat.</span><span>${fmtDM(st.lat,"N","S",2)}</span></div>`+
+   `<div><span>Fuseau</span><span>${sg}${p(Math.floor(a/60))}:${p(a%60)}</span></div><div><span>Date</span><span>${p(d.getMonth()+1)}/${p(d.getDate())}/${d.getFullYear()}</span></div>`+
+   `<div><span>Heure</span><span>${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}</span></div><div><span>Heure d'été (DST)</span><span>${tz.dst?"Y (oui)":"N (non)"}</span></div>`;
+  $("latBig").innerHTML=Math.abs(st.lat).toFixed(1).replace(".",",")+"°<small>échelle de latitude</small>";
+  const dec=declination(d);
+  $("declOut").textContent=dec==null?"--":fmtDeg(Math.abs(dec))+(dec>=0?" E":" W");
+  $("trueNorthOut").textContent=dec==null?"--":"cap "+fmtDeg(norm360(-dec))+" magnétique";
+}
+function declination(d){try{if(!window.GEOMAG)return null;return window.GEOMAG.model(d).point([st.lat,st.lon]).decl}catch(e){return null}}
+
+/* ---------- Render: polar scope ---------- */
+let reticleBuilt=false;
+function buildReticle(){const s=$("reticle");const ns="http://www.w3.org/2000/svg";let h="";
+  h+=`<circle r="104" fill="var(--bg)" stroke="var(--line)" stroke-width="1.5"/>`;
+  h+=`<line x1="-104" y1="0" x2="104" y2="0" stroke="var(--muted)" stroke-width=".6"/><line x1="0" y1="-104" x2="0" y2="104" stroke="var(--muted)" stroke-width=".6"/>`;
+  h+=`<circle r="70" fill="none" stroke="var(--fg)" stroke-width="1.2"/><circle r="64" fill="none" stroke="var(--muted)" stroke-width=".5" stroke-dasharray="1 2"/>`;
+  for(let i=0;i<60;i++){const a=i*6*D2R,l=i%5===0?8:4;h+=`<line x1="${(70*Math.sin(a)).toFixed(2)}" y1="${(-70*Math.cos(a)).toFixed(2)}" x2="${((70+l)*Math.sin(a)).toFixed(2)}" y2="${(-(70+l)*Math.cos(a)).toFixed(2)}" stroke="var(--fg)" stroke-width="${i%5===0?1.2:.6}"/>`}
+  [["0",0],["3",90],["6",180],["9",270]].forEach(([t,a])=>{const r=89;h+=`<text x="${(r*Math.sin(a*D2R)).toFixed(1)}" y="${(-r*Math.cos(a*D2R)+4).toFixed(1)}" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="var(--fg)">${t}</text>`});
+  h+=`<circle r="2" fill="var(--muted)"/><g id="polG"><line id="polLine" x1="0" y1="0" x2="0" y2="0" stroke="var(--accent)" stroke-width="1" stroke-dasharray="3 2"/><circle id="polHalo" r="8" fill="none" stroke="var(--accent)" stroke-width="1"/><circle id="polDot" r="4" fill="var(--star)"/></g>`;
+  s.innerHTML=h;reticleBuilt=true}
+function polarState(d){const p=precess(POLARIS.ra,POLARIS.dec,d),lst=lstDeg(d,st.lon),aa=altaz(p.ra,p.dec,st.lat,lst);
+  const ha=((aa.ha%24)+24)%24; // 0..24h
+  const angle=norm360(180-15*ha); // clockwise from top, as seen in the inverting polar scope
+  return {ha,angle,clock:angle/30,dist:90-p.dec,alt:aa.alt}}
+function renderPolar(){if(!reticleBuilt)buildReticle();const d=now(),s=polarState(d);
+  const H=Math.floor(s.clock),M=Math.round((s.clock-H)*60);const hh=(M===60?H+1:H)%12,mm=M===60?0:M;
+  $("clockOut").textContent=hh+" h "+String(mm).padStart(2,"0");
+  $("haOut").textContent=fmtHM(s.ha);
+  $("distOut").textContent=fmtArc(s.dist);$("altPolOut").textContent=fmtDeg(s.alt);
+  const a=s.angle*D2R,x=(70*Math.sin(a)).toFixed(2),y=(-70*Math.cos(a)).toFixed(2);
+  $("polDot").setAttribute("cx",x);$("polDot").setAttribute("cy",y);$("polHalo").setAttribute("cx",x);$("polHalo").setAttribute("cy",y);
+  $("polLine").setAttribute("x2",x);$("polLine").setAttribute("y2",y);
+  if(st.lat<0){$("clockOut").textContent="—";$("haOut").textContent="Hémisphère sud";}
+}
+
+/* ---------- Render: stars ---------- */
+$("sideE").addEventListener("click",()=>{st.side="E";renderStars()});
+$("sideW").addEventListener("click",()=>{st.side="W";renderStars()});
+function sep(a,b){const v=s=>[Math.cos(s.alt*D2R)*Math.cos(s.az*D2R),Math.cos(s.alt*D2R)*Math.sin(s.az*D2R),Math.sin(s.alt*D2R)];const p=v(a),q=v(b);return Math.acos(Math.max(-1,Math.min(1,p[0]*q[0]+p[1]*q[1]+p[2]*q[2])))*R2D}
+const cardinal=az=>["N","NE","E","SE","S","SO","O","NO"][Math.round(norm360(az)/45)%8];
+function starPositions(d){const lst=lstDeg(d,st.lon);return STARS.map(s=>{const p=precess(s.ra,s.dec,d);return Object.assign({},s,altaz(p.ra,p.dec,st.lat,lst))})}
+function renderStars(){
+  $("sideE").setAttribute("aria-pressed",String(st.side==="E"));$("sideW").setAttribute("aria-pressed",String(st.side==="W"));
+  const d=now(),all=starPositions(d);
+  const vis=all.filter(s=>s.alt>10).sort((a,b)=>b.alt-a.alt);
+  $("starTable").innerHTML=vis.map(s=>`<tr><td>${s.name}</td><td class="n">${fmtDeg(s.alt,0)}</td><td class="n">${fmtDeg(s.az,0)} ${cardinal(s.az)}</td><td class="n">${s.ha<0?"Est":"Ouest"}</td></tr>`).join("")||`<tr><td colspan="4" class="note">Aucune étoile brillante au-dessus de 10° à cette heure.</td></tr>`;
+  const cand=all.filter(s=>s.alt>=25&&s.alt<=75&&(st.side==="E"?s.ha<-0.25:s.ha>0.25)&&Math.abs(s.ha)<9);
+  const pairs=[];for(let i=0;i<cand.length;i++)for(let j=i+1;j<cand.length;j++){const a=cand[i],b=cand[j],sp=sep(a,b);if(sp<40||sp>140)continue;
+    const score=Math.abs(sp-90)+(Math.abs(a.alt-50)+Math.abs(b.alt-50))*0.3+(a.mag+b.mag)*2;pairs.push({a,b,sp,score})}
+  pairs.sort((x,y)=>x.score-y.score);const used=new Set(),top=[];
+  for(const p of pairs){const k=p.a.name+p.b.name;if(top.length>=3)break;if(top.some(t=>t.a===p.a&&t.b===p.b))continue;top.push(p)}
+  $("pairs").innerHTML=top.length?top.map((p,i)=>{const[f,s]=p.a.alt<p.b.alt?[p.a,p.b]:[p.b,p.a];return `<div class="pair"><div class="row" style="justify-content:space-between"><span class="stars">${f.name} → ${s.name}</span>${i===0?'<span class="chip best">Meilleure</span>':""}</div><div class="meta">1re : ${fmtDeg(f.alt,0)} haut, ${cardinal(f.az)} · 2e : ${fmtDeg(s.alt,0)} haut, ${cardinal(s.az)} · écart ${fmtDeg(p.sp,0)}</div></div>`}).join(""):
+    `<p class="msg">Pas de paire idéale de ce côté à cette heure. Essaie l'autre côté du méridien ou une autre heure.</p>`;
+  const south=st.lat>=0?180:0;
+  const pa=all.filter(s=>s.alt>=30&&s.alt<=70).map(s=>({s,off:Math.abs(((s.az-south+540)%360)-180)})).filter(o=>o.off<=40).sort((x,y)=>x.off-y.off+(x.s.mag-y.s.mag)*2).slice(0,3);
+  $("paStars").innerHTML=pa.length?pa.map((o,i)=>`<div class="pair"><div class="row" style="justify-content:space-between"><span class="stars">${o.s.name}</span>${i===0?'<span class="chip best">Conseillée</span>':""}</div><div class="meta">${fmtDeg(o.s.alt,0)} haut · azimut ${fmtDeg(o.s.az,0)} (${fmtDeg(o.off,0)} du méridien) · mag ${o.s.mag.toFixed(1).replace(".",",")}</div></div>`).join(""):
+    `<p class="msg">Aucune étoile brillante près du méridien sud entre 30° et 70° à cette heure. Prends l'étoile la plus proche du sud dans la liste.</p>`;
+}
+
+/* ---------- Sensors ---------- */
+let sensorSeen=false;
+function sensorMsg(t,bad){const m=$("sensorMsg");m.textContent=t;m.classList.toggle("bad",!!bad);m.hidden=!t}
+function onOrient(e){sensorSeen=true;sensorMsg("");
+  st.sensor.beta=e.beta;st.sensor.gamma=e.gamma;
+  st.sensor.mag=(typeof e.webkitCompassHeading==="number")?e.webkitCompassHeading:(e.absolute&&e.alpha!=null?norm360(360-e.alpha):null);
+  renderSensors()}
+$("sensorBtn").addEventListener("click",async()=>{
+  const fail="Les capteurs ne répondent pas dans cette fenêtre. Vérifie Réglages › Safari › Mouvement et orientation, puis recharge la page.";
+  try{if(typeof DeviceOrientationEvent!=="undefined"&&typeof DeviceOrientationEvent.requestPermission==="function"){const r=await DeviceOrientationEvent.requestPermission();if(r!=="granted"){sensorMsg("Accès aux capteurs refusé. Autorise « Mouvement et orientation » dans Réglages › Safari.",true);return}}
+    window.addEventListener("deviceorientation",onOrient);sensorMsg("Lecture des capteurs…");
+    setTimeout(()=>{if(!sensorSeen)sensorMsg(fail,true)},2500)}
+  catch(e){sensorMsg(fail,true)}
+});
+function renderSensors(){const s=st.sensor;
+  if(s.beta==null)return;
+  const b=s.beta,g=s.gamma,clamp=v=>Math.max(-90,Math.min(90,v));
+  $("bubbleDot").style.transform=`translate(${(clamp(-g)*8).toFixed(1)}px,${(clamp(b)*8).toFixed(1)}px)`;
+  const lvl=Math.hypot(b,g);$("bubbleDot").style.background=lvl<0.3?"var(--ok)":"var(--accent)";
+  $("betaOut").textContent=fmtDeg(b,1);$("gammaOut").textContent=fmtDeg(g,1);
+  if(s.mag!=null){const dec=declination(now())||0,tr=norm360(s.mag+dec);let e=tr>180?tr-360:tr;
+    $("headOut").innerHTML=fmtDeg(tr,0)+"<small>cap vrai</small>";$("magOut").textContent=fmtDeg(s.mag,0);$("northErr").textContent=(e>=0?"+":"")+fmtDeg(e,1)}
+  $("tiltOut").innerHTML=fmtDeg(Math.abs(b),1)+"<small>inclinaison</small>";
+  const er=Math.abs(b)-Math.abs(st.lat);$("tiltErr").textContent=(er>=0?"+":"")+fmtDeg(er,1)+(Math.abs(er)<0.3?" ✓":"");
+}
+
+/* ---------- Main ---------- */
+function render(){renderClock();if(st.view==="site")renderSite();if(st.view==="polar")renderPolar();if(st.view==="stars")renderStars();if(st.view==="mount")renderMount()}
+applyNight();syncSiteInputs();renderChecks();renderMount();show(st.view);
+let tick=0;setInterval(()=>{if(!st.live){renderClock();return}tick++;renderClock();if(st.view==="polar"||(st.view==="site"&&document.activeElement!==$("when")))render();else if(tick%30===0)render()},1000);
+try{let wl=null;const req=async()=>{try{wl=await navigator.wakeLock.request("screen")}catch(e){}};if("wakeLock" in navigator){req();document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")req()})}}catch(e){}
+window.__astro={precess,altaz,lstDeg,polarState,starPositions,declination,st};
+})();
+</script>
+
+<script>if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").catch(()=>{})})}</script>
+</body>
+</html>
