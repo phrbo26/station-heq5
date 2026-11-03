@@ -182,19 +182,25 @@ nav.tabs button[aria-current="true"]{color:var(--accent);background:var(--bg)}
       <div><div class="note">Position dans le viseur</div><div class="big" id="clockOut">--</div></div>
       <div class="clock" style="text-align:right">Angle horaire<br><b id="haOut">--</b></div>
     </div>
+    <div class="seg" role="group" aria-label="Affichage du réticule">
+      <button id="zoomField" aria-pressed="true">Champ entier</button>
+      <button id="zoomRing" aria-pressed="false">Zoom sur le cercle</button>
+    </div>
     <svg class="reticle" id="reticle" viewBox="-110 -110 220 220" role="img" aria-label="Réticule du viseur polaire avec la position de la Polaire"></svg>
     <dl class="kv">
+      <dt>Repère</dt><dd id="degOut">--</dd>
+      <dt>Dans l'anneau</dt><dd id="ringOut">--</dd>
       <dt>Distance Polaire – pôle</dt><dd id="distOut">--</dd>
       <dt>Hauteur de la Polaire</dt><dd id="altPolOut">--</dd>
     </dl>
-    <p class="note">Vue telle que dans le viseur de la HEQ5 (image inversée), 0 en haut. Comparable à l'écran « Polaris Position in P.Scope » de la raquette (Utility › Show Information).</p>
+    <p class="note">Réticule Sky-Watcher vu dans le viseur (image inversée), 0 en haut. Le cercle central est agrandi dans la vue « Champ entier » pour rester lisible. L'heure affichée correspond à l'écran « Polaris Position in P.Scope » de la raquette (Utility › Show Information).</p>
   </div>
   <div class="panel">
     <h2>Procédure</h2>
     <ol class="steps">
       <li>Retire le bouchon du viseur et celui de l'axe de déclinaison. Tourne l'axe DEC pour dégager le trou de visée.</li>
       <li>Desserre l'embrayage AD et tourne la monture jusqu'à ce que le 0 du réticule soit en haut et le 6 en bas, à la verticale. Resserre.</li>
-      <li>Avec les vis d'azimut et de latitude uniquement, amène la Polaire sur le cercle, à la position affichée ci-dessus.</li>
+      <li>Avec les vis d'azimut et de latitude uniquement, amène la Polaire sur le petit cercle central, à la position affichée ci-dessus. L'anneau va de 2012 (trait extérieur) à 2032 (trait intérieur) : place-la à la profondeur indiquée par « Dans l'anneau ». Les graduations fines sont tous les 5° (10 minutes d'horloge).</li>
       <li>Revérifie la bulle du trépied, puis remets le tube en position de départ (contrepoids en bas, tube vers la Polaire).</li>
     </ol>
   </div>
@@ -325,7 +331,7 @@ const STARS=[
 const st={lat:store.get("lat",48.8566),lon:store.get("lon",2.3522),elev:store.get("elev",35),custom:store.get("custom",false),
   live:true,when:null,side:"E",
   wTube:store.get("wTube",7.9),wAcc:store.get("wAcc",0.4),wCam:store.get("wCam",0),nCw:store.get("nCw",2),dTube:store.get("dTube",22),
-  checks:store.get("checks",{}),night:store.get("night",false),view:store.get("view","site"),
+  checks:store.get("checks",{}),zoom:store.get("zoom",false),night:store.get("night",false),view:store.get("view","site"),
   sensor:{beta:null,gamma:null,mag:null}};
 const now=()=>st.live?new Date():st.when;
 
@@ -433,14 +439,25 @@ function declination(d){try{if(!window.GEOMAG)return null;return window.GEOMAG.m
 
 /* ---------- Render: polar scope ---------- */
 let reticleBuilt=false;
-function buildReticle(){const s=$("reticle");const ns="http://www.w3.org/2000/svg";let h="";
-  h+=`<circle r="104" fill="var(--bg)" stroke="var(--line)" stroke-width="1.5"/>`;
-  h+=`<line x1="-104" y1="0" x2="104" y2="0" stroke="var(--muted)" stroke-width=".6"/><line x1="0" y1="-104" x2="0" y2="104" stroke="var(--muted)" stroke-width=".6"/>`;
-  h+=`<circle r="70" fill="none" stroke="var(--fg)" stroke-width="1.2"/><circle r="64" fill="none" stroke="var(--muted)" stroke-width=".5" stroke-dasharray="1 2"/>`;
-  for(let i=0;i<60;i++){const a=i*6*D2R,l=i%5===0?8:4;h+=`<line x1="${(70*Math.sin(a)).toFixed(2)}" y1="${(-70*Math.cos(a)).toFixed(2)}" x2="${((70+l)*Math.sin(a)).toFixed(2)}" y2="${(-(70+l)*Math.cos(a)).toFixed(2)}" stroke="var(--fg)" stroke-width="${i%5===0?1.2:.6}"/>`}
-  [["0",0],["3",90],["6",180],["9",270]].forEach(([t,a])=>{const r=89;h+=`<text x="${(r*Math.sin(a*D2R)).toFixed(1)}" y="${(-r*Math.cos(a*D2R)+4).toFixed(1)}" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="var(--fg)">${t}</text>`});
-  h+=`<circle r="2" fill="var(--muted)"/><g id="polG"><line id="polLine" x1="0" y1="0" x2="0" y2="0" stroke="var(--accent)" stroke-width="1" stroke-dasharray="3 2"/><circle id="polHalo" r="8" fill="none" stroke="var(--accent)" stroke-width="1"/><circle id="polDot" r="4" fill="var(--star)"/></g>`;
+const yearDist=y=>(90-precess(POLARIS.ra,POLARIS.dec,new Date(Date.UTC(y,0,1))).dec)*60;
+const D_OUT=yearDist(2012),D_IN=yearDist(2032); // traits extérieur (2012) et intérieur (2032) du réticule
+function ringR(){return st.zoom?84:30}
+function buildReticle(){const s=$("reticle");let h="";const z=st.zoom,r=ringR(),ri=r*D_IN/D_OUT,fs=z?11:7;
+  const P=(rad,deg)=>[(rad*Math.sin(deg*D2R)).toFixed(2),(-rad*Math.cos(deg*D2R)).toFixed(2)];
+  h+=`<defs><clipPath id="fov"><circle r="104"/></clipPath></defs>`;
+  h+=`<circle r="104" fill="var(--bg)" stroke="var(--line)" stroke-width="1.5"/><g clip-path="url(#fov)">`;
+  h+=`<line x1="-104" y1="0" x2="104" y2="0" stroke="var(--fg)" stroke-width=".6"/><line x1="0" y1="-104" x2="0" y2="104" stroke="var(--fg)" stroke-width=".6"/>`;
+  h+=`<circle r="${r}" fill="none" stroke="var(--fg)" stroke-width="${z?1:.7}"/><circle r="${ri.toFixed(2)}" fill="none" stroke="var(--fg)" stroke-width="${z?1:.7}"/>`;
+  if(z)[2016,2020,2024,2028].forEach(y=>{h+=`<circle r="${(r*yearDist(y)/D_OUT).toFixed(2)}" fill="none" stroke="var(--muted)" stroke-width=".4" stroke-dasharray="1.5 1.5"/>`});
+  for(let i=0;i<72;i++){const a=i*5,[x1,y1]=P(ri,a),[x2,y2]=P(r,a);h+=`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="var(--fg)" stroke-width="${z?.6:.35}"/>`}
+  for(let i=0;i<12;i++){if(i%3===0)continue;const a=i*30,[x1,y1]=P(r,a),[x2,y2]=P(r*1.14,a);h+=`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="var(--fg)" stroke-width="${z?1:.6}"/>`}
+  [["0",0],["3",90],["6",180],["9",270]].forEach(([t,a])=>{const[x,y]=P(r*(z?1.18:1.3),a);h+=`<text x="${x}" y="${(+y+fs*0.36).toFixed(2)}" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="${fs}" fill="var(--fg)" stroke="var(--bg)" stroke-width="${fs*0.35}" paint-order="stroke">${t}</text>`});
+  h+=`<line x1="-3" y1="0" x2="3" y2="0" stroke="var(--fg)" stroke-width="1.2"/><line x1="0" y1="-3" x2="0" y2="3" stroke="var(--fg)" stroke-width="1.2"/>`;
+  h+=`<line id="polLine" x1="0" y1="0" x2="0" y2="0" stroke="var(--accent)" stroke-width="${z?1:.6}" stroke-dasharray="3 2"/><circle id="polHalo" r="${z?9:5.5}" fill="none" stroke="var(--accent)" stroke-width="1"/><circle id="polDot" r="${z?4:2.4}" fill="var(--star)" stroke="var(--accent)" stroke-width=".6"/></g>`;
   s.innerHTML=h;reticleBuilt=true}
+$("zoomField").addEventListener("click",()=>{st.zoom=false;store.set("zoom",false);updZoom()});
+$("zoomRing").addEventListener("click",()=>{st.zoom=true;store.set("zoom",true);updZoom()});
+function updZoom(){$("zoomField").setAttribute("aria-pressed",String(!st.zoom));$("zoomRing").setAttribute("aria-pressed",String(st.zoom));buildReticle();renderPolar()}
 function polarState(d){const p=precess(POLARIS.ra,POLARIS.dec,d),lst=lstDeg(d,st.lon),aa=altaz(p.ra,p.dec,st.lat,lst);
   const ha=((aa.ha%24)+24)%24; // 0..24h
   const angle=norm360(180-15*ha); // clockwise from top, as seen in the inverting polar scope
@@ -450,7 +467,9 @@ function renderPolar(){if(!reticleBuilt)buildReticle();const d=now(),s=polarStat
   $("clockOut").textContent=hh+" h "+String(mm).padStart(2,"0");
   $("haOut").textContent=fmtHM(s.ha);
   $("distOut").textContent=fmtArc(s.dist);$("altPolOut").textContent=fmtDeg(s.alt);
-  const a=s.angle*D2R,x=(70*Math.sin(a)).toFixed(2),y=(-70*Math.cos(a)).toFixed(2);
+  const a=s.angle*D2R,R=ringR()*Math.min(1.02,s.dist*60/D_OUT),x=(R*Math.sin(a)).toFixed(2),y=(-R*Math.cos(a)).toFixed(2);
+  $("degOut").textContent=Math.round(s.angle)+"° depuis le 0, sens horaire";
+  {const f=Math.max(0,Math.min(1,(D_OUT-s.dist*60)/(D_OUT-D_IN))),y=now().getFullYear(),y0=Math.floor(y/4)*4;$("ringOut").textContent=Math.round(f*100)+" % vers le trait intérieur"+(y>=2012&&y<2032?(y%4===0?" (repère "+y+")":" (entre "+y0+" et "+(y0+4)+")"):"");}
   $("polDot").setAttribute("cx",x);$("polDot").setAttribute("cy",y);$("polHalo").setAttribute("cx",x);$("polHalo").setAttribute("cy",y);
   $("polLine").setAttribute("x2",x);$("polLine").setAttribute("y2",y);
   if(st.lat<0){$("clockOut").textContent="—";$("haOut").textContent="Hémisphère sud";}
@@ -508,7 +527,7 @@ function renderSensors(){const s=st.sensor;
 
 /* ---------- Main ---------- */
 function render(){renderClock();if(st.view==="site")renderSite();if(st.view==="polar")renderPolar();if(st.view==="stars")renderStars();if(st.view==="mount")renderMount()}
-applyNight();syncSiteInputs();renderChecks();renderMount();show(st.view);
+applyNight();syncSiteInputs();$("zoomField").setAttribute("aria-pressed",String(!st.zoom));$("zoomRing").setAttribute("aria-pressed",String(st.zoom));renderChecks();renderMount();show(st.view);
 let tick=0;setInterval(()=>{if(!st.live){renderClock();return}tick++;renderClock();if(st.view==="polar"||(st.view==="site"&&document.activeElement!==$("when")))render();else if(tick%30===0)render()},1000);
 try{let wl=null;const req=async()=>{try{wl=await navigator.wakeLock.request("screen")}catch(e){}};if("wakeLock" in navigator){req();document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")req()})}}catch(e){}
 window.__astro={precess,altaz,lstDeg,polarState,starPositions,declination,st};
