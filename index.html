@@ -370,7 +370,7 @@ function showElevSrc(){$("elevSrc").textContent=ELEV_SRC[store.get("elevSrc","ma
 function setElev(z,src){st.elev=Math.round(z);store.set("elev",st.elev);store.set("elevSrc",src);syncSiteInputs();showElevSrc();render()}
 async function ignElevation(lat,lon){
   if(lat<41||lat>51.5||lon<-5.5||lon>10)return null; // France métropolitaine (la ressource couvre aussi les DROM, à vérifier)
-  const url="https://data.geopf.fr/altimetrie/1.0/calcul/alti/rest/elevation.json?lon="+lon+"&lat="+lat+"&resource=ign_rgealti_wld&zonly=true";
+  const url="https://data.geopf.fr/altimetrie/1.0/calcul/alti/rest/elevation.json?lon="+lon+"&lat="+lat+"&resource=ign_rge_alti_wld&zonly=true";
   try{const ctl=new AbortController(),t=setTimeout(()=>ctl.abort(),8000);
     const r=await fetch(url,{signal:ctl.signal});clearTimeout(t);if(!r.ok)return null;
     const j=await r.json();let z=j&&j.elevations&&j.elevations[0];if(z&&typeof z==="object")z=z.z;

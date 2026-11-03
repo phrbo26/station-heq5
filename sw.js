@@ -1,5 +1,5 @@
 // Hors connexion : garde l'appli et ses polices en cache pour le terrain.
-const CACHE = "station-heq5-v2";
+const CACHE = "station-heq5-v3";
 const CORE = ["./", "index.html", "manifest.webmanifest", "icon-180.png", "icon-512.png"];
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)).then(() => self.skipWaiting()));
