@@ -66,6 +66,7 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
 .big small{font-size:16px;font-weight:500;color:var(--muted);margin-left:6px}
 .synscan{font-family:var(--f-mono);background:#9fb84a;color:#17200a;border-radius:6px;padding:10px 12px;font-size:14px;line-height:1.6;font-variant-numeric:tabular-nums;box-shadow:inset 0 0 0 2px #0003}
 :root.night .synscan{background:#3a0505;color:var(--fg)}
+:root.night .lcdbg{fill:#3a0505}:root.night .lcdtx{fill:var(--fg)}
 .synscan div{display:flex;justify-content:space-between;gap:10px}
 ol.steps{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
 ol.steps li::marker{font-family:var(--f-mono);color:var(--accent)}
@@ -93,10 +94,54 @@ td.n{font-family:var(--f-mono);text-align:right}
 .bubble{width:220px;height:220px;max-width:100%;align-self:center;border-radius:50%;border:2px solid var(--line);position:relative;background:radial-gradient(circle,transparent 18%,var(--line) 18.5%,transparent 19.5%)}
 .bubble i{position:absolute;left:50%;top:50%;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:var(--accent);opacity:.85;transition:transform .08s linear}
 nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--panel);border-top:1px solid var(--line);padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
-nav.tabs .in{max-width:640px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+nav.tabs .in{max-width:640px;margin:0 auto;display:grid;grid-template-columns:repeat(6,1fr);gap:2px}
 nav.tabs button{appearance:none;border:0;background:transparent;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-radius:8px;cursor:pointer;font:600 11px var(--f-display);letter-spacing:.04em;text-transform:uppercase}
 nav.tabs button b{font:500 15px var(--f-mono)}
 nav.tabs button[aria-current="true"]{color:var(--accent);background:var(--bg)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.chip.ok{border-color:var(--ok);color:var(--ok)}.chip.warn{border-color:var(--warn);color:var(--warn)}.chip.bad{border-color:var(--bad);color:var(--bad)}
+.confirm{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;border-left:3px solid var(--bad);padding:6px 10px;background:var(--bg);border-radius:0 6px 6px 0}
+.btn.small{padding:6px 10px;font-size:12px}
+.btn.ghost{border-color:var(--line);color:var(--muted)}
+.advice{display:flex;flex-direction:column;gap:8px}
+.advice .a{padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);display:flex;flex-direction:column;gap:2px}
+.advice .a b{font-family:var(--f-display);font-weight:600;font-size:16px}
+.hist{display:flex;flex-direction:column;gap:6px}
+.hist .h{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;font:500 12px var(--f-mono);font-variant-numeric:tabular-nums}
+.hist .h .bar{height:6px;border-radius:3px;background:var(--bg);border:1px solid var(--line);overflow:hidden}
+.hist .h .bar i{display:block;height:100%}
+.timeline{width:100%;height:auto;display:block}
+.planet{display:flex;flex-direction:column;gap:3px;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.planet .top{display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap}
+.planet .nm{font-family:var(--f-display);font-weight:600;font-size:17px}
+.planet .meta{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.del{appearance:none;border:0;background:transparent;color:var(--muted);font:500 16px var(--f-mono);cursor:pointer;padding:2px 6px}
+.sheet{position:fixed;inset:0;z-index:30;background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch;padding:calc(12px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.sheet .in{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.sheet .bar{display:flex;justify-content:space-between;align-items:center;gap:10px;position:sticky;top:0;background:var(--bg);padding-block:6px;z-index:1}
+.sheet h3{font-family:var(--f-display);font-weight:600;font-size:15px;letter-spacing:.03em;margin:0;text-transform:uppercase;color:var(--accent)}
+.sheet ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px}
+.illus{width:100%;max-width:300px;align-self:center}
+.illus.wide{max-width:360px}
+.guide-head{display:flex;flex-direction:column;gap:8px}
+.dots{display:flex;gap:6px}
+.dots i{flex:1;height:4px;border-radius:2px;background:var(--line)}
+.dots i.on{background:var(--accent)}
+.guide-nav{position:sticky;bottom:0;background:var(--bg);display:flex;justify-content:space-between;gap:10px;padding-block:10px 4px;border-top:1px solid var(--line)}
+.guide-body{display:flex;flex-direction:column;gap:12px;min-height:50vh}
+.btn.big{font-size:16px;padding:14px 16px}
+.sess-start{display:flex;flex-direction:column;gap:10px}
+.sess-top{display:flex;justify-content:space-between;align-items:center;gap:10px;position:sticky;top:0;background:var(--bg);padding-block:6px;z-index:2}
+.sess-clock{font:500 13px var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums;line-height:1.35}
+.sess-clock b{color:var(--fg);font-weight:500}
+.sess-body{display:flex;flex-direction:column;gap:14px;min-height:55vh}
+.sess-body h2.t{font-family:var(--f-display);font-weight:600;font-size:24px;line-height:1.15;margin:0;text-wrap:balance}
+.sess-nav{position:sticky;bottom:0;background:var(--bg);display:flex;gap:10px;padding-block:10px 4px;border-top:1px solid var(--line)}
+.sess-nav .btn.solid{flex:1}
+.sitebtns{display:flex;flex-wrap:wrap;gap:8px}
+.linkbtn{appearance:none;border:0;background:transparent;color:var(--muted);font:500 13px var(--f-body);text-decoration:underline;padding:4px 0;cursor:pointer;align-self:flex-start}
+.verdict{font-family:var(--f-display);font-weight:600;font-size:18px}
+.guide-body .tip,.sess-body .tip{font-size:13px;border-left:3px solid var(--accent);padding:6px 10px;background:var(--panel);border-radius:0 6px 6px 0}
 @media (max-width:380px){.grid2{grid-template-columns:1fr}.big{font-size:38px}}
 @media (prefers-reduced-motion:reduce){.bubble i{transition:none}}
 </style>
@@ -114,6 +159,14 @@ nav.tabs button[aria-current="true"]{color:var(--accent);background:var(--bg)}
 <section class="view" id="v-site">
   <div><div class="step">Étape 1 · Lieu et heure</div><h1>Ton site d'observation</h1></div>
   <p class="lede">Tout le reste en dépend : la position de la Polaire, la latitude à régler sur la monture et les données de la raquette.</p>
+  <div class="panel sess-start">
+    <h2>Mode séance</h2>
+    <p class="note">Toute la soirée sur un seul écran, une étape à la fois, du site jusqu'aux planètes.</p>
+    <button class="btn solid big" id="sessStart">Démarrer une séance</button>
+    <p class="note" id="sessResumeNote" hidden></p>
+    <button class="linkbtn" id="sessRestore" hidden>Rétablir les étapes masquées</button>
+    <div id="sessLog" class="hist"></div>
+  </div>
   <div class="panel">
     <div class="grid2">
       <label class="f" for="lat">Latitude (° décimaux, N +)<input id="lat" type="number" step="0.0001" inputmode="decimal"></label>
@@ -129,6 +182,17 @@ nav.tabs button[aria-current="true"]{color:var(--accent);background:var(--bg)}
     <p class="note" id="elevSrc"></p>
     <p id="siteMsg" class="msg" hidden></p>
     <p class="note" id="siteNote">Coordonnées d'exemple (Paris). Remplace-les par celles de ton site : elles restent mémorisées sur ce téléphone.</p>
+  </div>
+  <div class="panel">
+    <h2>Mes sites</h2>
+    <label class="f" for="siteSel">Site enregistré<select id="siteSel"></select></label>
+    <div class="row" style="flex-wrap:nowrap">
+      <input id="siteName" type="text" placeholder="Nom (ex. Jardin, Club)" aria-label="Nom du site" autocomplete="off">
+      <button class="btn solid" id="siteSave" style="flex:none">Enregistrer</button>
+    </div>
+    <div class="row"><button class="btn small ghost" id="siteDel" hidden>Supprimer ce site</button></div>
+    <div class="confirm" id="siteDelConfirm" hidden><span id="siteDelTxt"></span><button class="btn small" id="siteDelYes">Supprimer</button><button class="btn small ghost" id="siteDelNo">Annuler</button></div>
+    <p class="note" id="siteSaveMsg" hidden></p>
   </div>
   <div class="panel">
     <h2>À saisir dans la raquette SynScan</h2>
@@ -178,6 +242,14 @@ nav.tabs button[aria-current="true"]{color:var(--accent);background:var(--bg)}
 <section class="view" id="v-polar" hidden>
   <div><div class="step">Étape 3 · Viseur polaire</div><h1>Placer la Polaire dans le réticule</h1></div>
   <div class="panel">
+    <h2>Avant de compter sur le viseur</h2>
+    <p class="note">Deux vérifications à faire une fois, puis de temps en temps. Ce sont les premières causes d'erreur de mise en station.</p>
+    <div class="row">
+      <button class="btn" data-tuto="tutoAxe">Tuto : aligner le viseur</button>
+      <button class="btn" data-tuto="tutoZero">Tuto : mettre le 0 en haut</button>
+    </div>
+  </div>
+  <div class="panel" id="polarMain">
     <div class="row" style="justify-content:space-between;align-items:flex-end">
       <div><div class="note">Position dans le viseur</div><div class="big" id="clockOut">--</div></div>
       <div class="clock" style="text-align:right">Angle horaire<br><b id="haOut">--</b></div>
@@ -234,12 +306,104 @@ nav.tabs button[aria-current="true"]{color:var(--accent);background:var(--bg)}
     <p class="note">Évite l'alignement 3 étoiles avant un Polar Align : il sert surtout à corriger l'erreur de cône du tube.</p>
   </div>
   <div class="panel">
+    <h2>Assistant de correction</h2>
+    <p class="note">Recopie l'erreur polaire affichée par la raquette à la fin de l'alignement 2 étoiles. Format libre : +00°12'34, −5'20 ou 12,5 (minutes d'arc).</p>
+    <div class="grid2">
+      <label class="f" for="mel">Mel (hauteur)<input id="mel" type="text" inputmode="text" placeholder="+00°12'34" autocomplete="off"></label>
+      <label class="f" for="maz">Maz (azimut)<input id="maz" type="text" inputmode="text" placeholder="-00°05'10" autocomplete="off"></label>
+    </div>
+    <div class="row" style="justify-content:space-between;align-items:flex-end">
+      <div><div class="note">Erreur totale</div><div class="big" id="paTotal" style="font-size:34px">--</div></div>
+      <span class="chip" id="paChip" hidden></span>
+    </div>
+    <div class="advice" id="paAdvice"></div>
+    <div class="row"><button class="btn solid" id="paSave">Enregistrer la mesure</button></div>
+    <p class="note" id="paSaveMsg" hidden></p>
+  </div>
+  <div class="panel">
+    <h2>Étalonner tes vis</h2>
+    <button class="btn solid" data-tuto="tutoVis" style="align-self:flex-start">Tuto guidé : régler les vis</button>
+    <p class="note">Les vis de la HEQ5 fonctionnent par paires (on desserre l'une, on serre l'autre). Après une correction, note ce que tu as fait et l'erreur avant et après : l'appli en déduit combien de tours il faut, et dans quel sens.</p>
+    <div class="seg" role="group" aria-label="Vis à étalonner">
+      <button id="calAlt" aria-pressed="true">Latitude (Mel)</button>
+      <button id="calAz" aria-pressed="false">Azimut (Maz)</button>
+    </div>
+    <div class="grid2">
+      <label class="f" for="calDir">Sens<select id="calDir"></select></label>
+      <label class="f" for="calTurns">Tours de la vis serrée<input id="calTurns" type="number" step="0.125" min="0" inputmode="decimal" placeholder="0,25"></label>
+      <label class="f" for="calBefore">Erreur avant<input id="calBefore" type="text" placeholder="+12'30" autocomplete="off"></label>
+      <label class="f" for="calAfter">Erreur après<input id="calAfter" type="text" placeholder="+3'10" autocomplete="off"></label>
+    </div>
+    <div class="row"><button class="btn" id="calSave">Enregistrer l'étalonnage</button></div>
+    <p id="calMsg" class="msg" hidden></p>
+    <dl class="kv" id="calOut"></dl>
+  </div>
+  <div class="panel">
+    <h2>Historique des mises en station</h2>
+    <div class="hist" id="paHist"></div>
+    <div class="row"><button class="btn small ghost" id="paClear">Effacer l'historique</button></div>
+    <div class="confirm" id="paClearConfirm" hidden><span>Effacer toutes les mesures ?</span><button class="btn small" id="paClearYes">Effacer</button><button class="btn small ghost" id="paClearNo">Annuler</button></div>
+  </div>
+  <div class="panel">
     <h2>Étoiles brillantes visibles</h2>
     <div class="tablebox"><table><thead><tr><th>Étoile</th><th style="text-align:right">Haut.</th><th style="text-align:right">Azim.</th><th style="text-align:right">Côté</th></tr></thead><tbody id="starTable"></tbody></table></div>
   </div>
 </section>
 
-<!-- 5 CAPTEURS -->
+<!-- 5 CIEL -->
+<section class="view" id="v-sky" hidden>
+  <div><div class="step">Ce soir</div><h1>Ce soir dans le ciel</h1></div>
+  <div class="panel">
+    <h2 id="nightTitle">La nuit</h2>
+    <svg class="timeline" id="timeline" viewBox="0 0 300 58" role="img" aria-label="Frise de la nuit : crépuscules, nuit noire et présence de la Lune"></svg>
+    <dl class="kv" id="twOut"></dl>
+  </div>
+  <div class="panel">
+    <h2>La Lune</h2>
+    <div class="row" style="justify-content:space-between;align-items:center;flex-wrap:nowrap">
+      <div><div class="big" id="moonIll" style="font-size:34px">--</div><div class="note" id="moonName"></div></div>
+      <svg id="moonSvg" viewBox="-22 -22 44 44" width="64" height="64" aria-hidden="true"></svg>
+    </div>
+    <dl class="kv" id="moonOut"></dl>
+    <p class="note" id="moonNote"></p>
+  </div>
+  <div class="panel">
+    <h2>Planètes visibles</h2>
+    <div id="planetList" class="row" style="flex-direction:column;align-items:stretch;gap:8px"></div>
+    <p class="note" id="planetOff"></p>
+    <p class="note">Dans la raquette : Object Catalog › Solar System. Laisse la lunette 30 à 45 minutes dehors avant d'observer les planètes.</p>
+  </div>
+  <div class="panel">
+    <h2>Passages visibles de l'ISS</h2>
+    <div class="row"><button class="btn" id="issUpd">Mettre à jour l'orbite</button></div>
+    <p class="note" id="issAge"></p>
+    <p id="issMsg" class="msg" hidden></p>
+    <div id="issList" class="row" style="flex-direction:column;align-items:stretch;gap:8px"></div>
+    <p class="note">Passages des 5 prochains jours où l'ISS dépasse 10° de hauteur, éclairée par le Soleil, dans un ciel assez sombre. Les heures sont précises à la minute si l'orbite a moins de 3 jours.</p>
+    <p class="note">Pour suivre avec la HEQ5 : adaptateur SynScan WiFi, appli SynScan Pro et appli Luminos (option payante de pilotage). Les passages entre 25° et 65° de hauteur sont les plus faciles pour une monture équatoriale.</p>
+  </div>
+  <div class="panel">
+    <h2>Oculaires sur l'AR-127L</h2>
+    <label class="f" for="barlow">Barlow<select id="barlow"><option value="1">Sans Barlow</option><option value="2">Barlow 2×</option><option value="2.5">Barlow 2,5×</option><option value="3">Barlow 3×</option></select></label>
+    <div class="tablebox"><table><thead><tr><th>Oculaire</th><th style="text-align:right">Gross.</th><th style="text-align:right">Champ</th><th style="text-align:right">Pupille</th><th></th></tr></thead><tbody id="epTable"></tbody></table></div>
+    <div class="grid3">
+      <label class="f" for="epName">Nom<input id="epName" type="text" placeholder="Plössl 10" autocomplete="off"></label>
+      <label class="f" for="epF">Focale (mm)<input id="epF" type="number" step="0.1" min="1" inputmode="decimal" placeholder="10"></label>
+      <label class="f" for="epA">Champ apparent (°)<input id="epA" type="number" step="1" min="20" inputmode="numeric" placeholder="52"></label>
+    </div>
+    <div class="row"><button class="btn" id="epAdd">Ajouter l'oculaire</button></div>
+    <p id="epMsg" class="msg" hidden></p>
+    <dl class="kv">
+      <dt>Focale · rapport</dt><dd>1200 mm · F/9,4</dd>
+      <dt>Grossissement utile maxi</dt><dd>≈ 250×</dd>
+      <dt>Grossissement mini (pupille 7 mm)</dt><dd>≈ 18×</dd>
+      <dt>Pouvoir séparateur</dt><dd>0,9″</dd>
+    </dl>
+    <p class="note">En pratique, la turbulence limite souvent les planètes à 150–200×. Champ = champ réel dans le ciel (la Lune fait 0,5°).</p>
+  </div>
+</section>
+
+<!-- 6 CAPTEURS -->
 <section class="view" id="v-sensors" hidden>
   <div><div class="step">Outils · Capteurs de l'iPhone</div><h1>Niveau, boussole et inclinomètre</h1></div>
   <div class="panel">
@@ -266,17 +430,102 @@ nav.tabs button[aria-current="true"]{color:var(--accent);background:var(--bg)}
 </section>
 </div>
 
+<div class="sheet" id="tutoAxe" hidden role="dialog" aria-modal="true" aria-labelledby="tutoAxeH">
+  <div class="in">
+    <div class="bar"><h1 id="tutoAxeH" style="font-size:20px">Aligner le viseur polaire</h1><button class="btn small" data-close>Fermer</button></div>
+    <p class="lede">La croix du réticule doit être exactement sur l'axe de rotation AD. Sinon, la Polaire est bien placée sur le réticule, mais la monture vise à côté du pôle.</p>
+    <svg class="illus" viewBox="-60 -60 120 120" aria-label="Le repère décrit un cercle autour du vrai axe quand on tourne l'AD : on le ramène de moitié vers la croix">
+      <circle r="56" fill="var(--panel)" stroke="var(--line)"/>
+      <line x1="-56" y1="0" x2="56" y2="0" stroke="var(--fg)" stroke-width=".6"/><line x1="0" y1="-56" x2="0" y2="56" stroke="var(--fg)" stroke-width=".6"/>
+      <circle cx="12" cy="-8" r="14.4" fill="none" stroke="var(--muted)" stroke-dasharray="2 2"/>
+      <circle cx="0" cy="0" r="3" fill="var(--star)"/><text x="-4" y="12" text-anchor="end" font-size="6" fill="var(--muted)" font-family="IBM Plex Sans,sans-serif">avant</text>
+      <circle cx="24" cy="-16" r="3" fill="var(--star)"/><text x="20" y="-22" text-anchor="middle" font-size="6" fill="var(--muted)" font-family="IBM Plex Sans,sans-serif">après ½ tour</text>
+      <circle cx="12" cy="-8" r="1.6" fill="var(--accent)"/><text x="16" y="-3" font-size="6" fill="var(--accent)" font-family="IBM Plex Sans,sans-serif">vrai axe</text>
+      <path d="M22 -14.6 L14.5 -9.6" stroke="var(--accent)" stroke-width="1.2" fill="none" marker-end="url(#arr)"/>
+      <defs><marker id="arr" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L6 3 L0 6 z" fill="var(--accent)"/></marker></defs>
+    </svg>
+    <h3>Il te faut</h3>
+    <ul>
+      <li>La monture sur son trépied, de préférence sans tube ni contrepoids : elle tourne plus facilement.</li>
+      <li>De jour : un repère net et lointain, à plus de 300 m (haut d'antenne, pylône, cheminée). Jamais en direction du Soleil.</li>
+      <li>La petite clé Allen adaptée aux vis du viseur.</li>
+    </ul>
+    <h3>Étapes</h3>
+    <ol class="steps">
+      <li>Retire les bouchons du viseur et de l'axe DEC. Tourne la DEC pour dégager le passage à travers l'axe.</li>
+      <li>Tourne l'oculaire du viseur jusqu'à voir le réticule net, puis le repère net.</li>
+      <li>Avec les vis d'azimut et de latitude, place le repère exactement au centre de la croix.</li>
+      <li>Desserre l'embrayage AD et fais faire un demi-tour (180°) à la tête. Observe le repère.</li>
+      <li>Resté au centre : le viseur est bien aligné, c'est terminé. Il s'est déplacé : le vrai axe est au milieu entre ses deux positions.</li>
+      <li>Avec les 3 petites vis du viseur, ramène le repère de la moitié du chemin vers la croix. Desserre d'abord légèrement une vis avant de serrer les autres, par petites touches.</li>
+      <li>Recentre le repère avec azimut et latitude (étape 3), refais le demi-tour (étape 4). Recommence jusqu'à ce que le repère ne bouge plus quand l'AD tourne.</li>
+    </ol>
+    <p class="msg">Ne force jamais sur les vis du viseur : un réticule trop serré peut se décaler ou se fêler. Termine avec les trois vis juste en appui.</p>
+    <p class="note">Contrôle conseillé après un transport mouvementé ou si la raquette affiche soudain de grosses erreurs Mel et Maz.</p>
+  </div>
+</div>
+<div class="sheet" id="tutoZero" hidden role="dialog" aria-modal="true" aria-labelledby="tutoZeroH">
+  <div class="in">
+    <div class="bar"><h1 id="tutoZeroH" style="font-size:20px">Mettre le 0 du réticule en haut</h1><button class="btn small" data-close>Fermer</button></div>
+    <p class="lede">La position de la Polaire se lit avec le 0 en haut et le 6 en bas, sur la verticale. Un réticule tourné de 10° place la Polaire 10° à côté de sa vraie position sur l'anneau.</p>
+    <h3>Méthode du repère vertical (la plus fiable)</h3>
+    <ol class="steps">
+      <li>De jour ou au crépuscule, vise dans le viseur un objet bien vertical et lointain : arête d'un bâtiment, pylône. Un fil à plomb suspendu à quelques mètres fonctionne aussi, même un peu flou.</li>
+      <li>Desserre l'embrayage AD et tourne la tête jusqu'à ce que le trait 0–6 suive exactement la verticale, avec le 0 en haut. Resserre.</li>
+      <li>Colle deux repères adhésifs face à face : un sur la partie tournante, un sur le corps fixe de la monture. Les prochaines fois, il suffit d'aligner les deux marques.</li>
+    </ol>
+    <h3>Méthode du niveau (de nuit)</h3>
+    <ol class="steps">
+      <li>Mets la monture en position de départ : barre de contrepoids vers le bas.</li>
+      <li>Pose l'iPhone à plat contre la barre de contrepoids (onglet Capteurs, inclinomètre) ou utilise un petit niveau. Tourne l'AD jusqu'à ce que la barre soit parfaitement verticale : l'inclinomètre indique 90°.</li>
+      <li>Regarde dans le viseur. Si le 0 est en haut, cette position te sert de référence. Sinon, ton réticule est tourné dans son support : utilise la méthode du repère vertical et les marques adhésives.</li>
+    </ol>
+    <p class="note">Sur certains viseurs, le réticule peut être tourné dans son support après avoir desserré une bague. Vérifie dans le manuel de ta monture avant de démonter quoi que ce soit.</p>
+  </div>
+</div>
+
+<div class="sheet" id="tutoVis" hidden role="dialog" aria-modal="true" aria-labelledby="tutoVisH">
+  <div class="in">
+    <div class="bar"><h1 id="tutoVisH" style="font-size:20px">Régler les vis de la HEQ5</h1><button class="btn small" data-close>Fermer</button></div>
+    <div class="guide-head"><div class="step" id="gStep">Étape 1 / 8</div><div class="dots" id="gDots" aria-hidden="true"></div></div>
+    <div class="guide-body" id="gBody" aria-live="polite"></div>
+    <div class="guide-nav"><button class="btn ghost" id="gPrev">Précédent</button><button class="btn solid" id="gNext">Suivant</button></div>
+  </div>
+</div>
+
+<div class="sheet" id="session" hidden role="dialog" aria-modal="true" aria-labelledby="sessTitle">
+  <div class="in">
+    <div class="sess-top">
+      <div class="sess-clock">Séance <b id="sessDur">0:00</b><br><span id="sessWarm"></span></div>
+      <div class="row" style="gap:8px;flex-wrap:nowrap"><button class="nightbtn" id="sessNight" aria-pressed="false">Rouge</button><button class="btn small" id="sessPause">Quitter</button></div>
+    </div>
+    <div class="guide-head"><div class="step" id="sessStep">Étape 1 / 10</div><div class="dots" id="sessDots" aria-hidden="true"></div></div>
+    <div class="sess-body" id="sessBody" aria-live="polite"></div>
+    <div class="sess-nav"><button class="btn ghost big" id="sessPrev">Retour</button><button class="btn solid big" id="sessNext">Fait, étape suivante</button></div>
+  </div>
+</div>
+
 <nav class="tabs" aria-label="Étapes">
   <div class="in">
     <button data-v="site" aria-current="true"><b>1</b>Site</button>
     <button data-v="mount"><b>2</b>Montage</button>
     <button data-v="polar"><b>3</b>Viseur</button>
     <button data-v="stars"><b>4</b>Étoiles</button>
+    <button data-v="sky"><b>☾</b>Ciel</button>
     <button data-v="sensors"><b>◎</b>Capteurs</button>
   </div>
 </nav>
 
 <script>(()=>{var M=(t,h)=>()=>{try{return h||t((h={exports:{}}).exports,h),h.exports}catch(a){throw h=0,a}};var Z=M((u0,I)=>{var R=D();I.exports=P;function P(t){this.x=t.x,this.y=t.y,this.z=t.z}P.prototype.toGeodetic=function(t){var h=this.z<0?-t.b:t.b,a=this.x,i=this.y,e=this.z,n=Math.sqr(a*a+i*i),r=(h*e-(t.a*t.a-h*h))/(t.a*n),d=(h*e+(t.a*t.a-h*h))/(t.a*n),s=4/3*(r*d+1),l=2*(r*r+d*d),_=s*s*s+l*l,o;_>0?o=Math.pow(Math.sqrt(_)-l,1/3)-Math.pow(Math.sqrt(_)+l,1/3):o=2*Math.sqrt(-s)*Math.cos(Math.acos(l/(s*Math.sqrt(-s)))/3),o*o<Math.abs(s)&&(o=-(o*o*o+2*l)/3*s);var c=(Math.sqrt(r*r+o)+r)/2,v=Math.sqrt(c*c+(d-o*c)/(2*c-r))-c,f=Math.atan(t.a*(1-v*v)/(2*h*v)),u=Math.atan2(i,a);u<0&&(u+=2*Math.PI);var p=(n-t.a*v)*Math.cos(f)+(e-h)*Math.sin(f),m=u*Math.PI/180;return m>180&&(m-=360),new R({lambda:m,phi:f*Math.PI/180,height_above_ellipsoid:p,ellipsoid:t})}});var S=M((g0,C)=>{C.exports=X;function X(t,h){var a=Math.sin(Math.PI/180*t.phig),i;h<=16||1-Math.abs(a)<1e-10?i=$(a,h):i=t0(a,h),this.pcup=i.pcup,this.dpcup=i.dpcup}function $(t,h){var a,i,e,n,r,d,s,l,_=[1],o=[1],c=[0];for(i=Math.sqrt((1-t)*(1+t)),l=(h+1)*(h+2)/2,e=1;e<=h;e++)for(n=0;n<=e;n++)r=e*(e+1)/2+n,e==n?(d=(e-1)*e/2+n-1,o[r]=i*o[d],c[r]=i*c[d]+t*o[d]):e==1&&n==0?(d=(e-1)*e/2+n,o[r]=t*o[d],c[r]=t*c[d]-i*o[d]):e>1&&e!=n&&(d=(e-2)*(e-1)/2+n,s=(e-1)*e/2+n,n>e-2?(o[r]=t*o[s],c[r]=t*c[s]-i*o[s]):(a=((e-1)*(e-1)-n*n)/((2*e-1)*(2*e-3)),o[r]=t*o[s]-a*o[d],c[r]=t*c[s]-i*o[s]-a*c[d]));for(e=1;e<=h;e++)for(r=e*(e+1)/2,d=(e-1)*e/2,_[r]=_[d]*(2*e-1)/e,n=1;n<=e;n++)r=e*(e+1)/2+n,d=e*(e+1)/2+n-1,_[r]=_[d]*Math.sqrt((e-n+1)*(n==1?2:1)/(e+n));for(e=1;e<=h;e++)for(n=0;n<=e;n++)r=e*(e+1)/2+n,o[r]*=_[r],c[r]*=-_[r];return{pcup:o,dpcup:c}}function t0(t,h){if(Math.abs(t)==1)throw new Error("Error in PcupHigh: derivative cannot be calculated at poles");var a,i,e,n=(h+1)*(h+2)/2,r=[],d=[],s=[],l=1e-280;for(a=0;a<=2*h+1;++a)s[a]=Math.sqrt(a);for(e=2,a=0;a<=h;a++){for(e++,r[e]=(2*a-1)/a,d[e]=(a-1)/a,i=1;i<=a-2;i++)e++,r[e]=(2*a-1)/s[a+i]/s[a-i],d[e]=s[a-i-1]*s[a+i-1]/s[a+i]/s[a-i];e+=2}var _=Math.sqrt((1-t)*(1+t)),o,c=t,v=1,f=[1,c],u=[0,_];if(h==0)throw new Error("Error in PcupHigh: n_max must be greater than 0");for(e=1,a=2;a<=h;a++)e=e+a,o=r[e]*t*c-d[e]*v,f[e]=o,u[e]=a*(c-t*o)/_,v=c,c=o;for(var p=s[2]*l,m=1/l,g=0,i=1;i<=h-1;++i)for(m*=_,g=g+i+1,p=p*s[2*i+1]/s[2*i],f[g]=p*m/s[2*i+1],u[g]=-(i*t*f[g]/_),v=p/s[2*i+1],e=g+i+1,c=t*s[2*i+1]*v,f[e]=c*m,u[e]=(v*m*s[2*i+1]-t*(i+1)*f[e])/_,a=i+2;a<=h;++a)e=e+a,o=t*r[e]*c-d[e]*v,f[e]=o*m,u[e]=(s[a+i]*s[a-i]*c*m-a*t*f[e])/_,v=c,c=o;return m=m*_,g=g+i+1,p=p/s[2*h],f[g]=p*m,u[g]=-h*t*f[g]/_,{pcup:f,dpcup:u}}});var G=M((M0,E)=>{var e0=Z(),a0=S();E.exports=z;function z(t){this.lambda=t.lambda,this.phig=t.phig,this.r=t.r}z.prototype.toCartesian=function(){var t=this.phig*Math.PI/180,h=this.lambda*Math.PI/180;return new e0({x:this.r*cos(t)*cos(h),y:this.r*cos(t)*sin(h),z:this.r*sin(t)})};z.prototype.toGeodetic=function(t){return this.toCartesian().toGeodetic(t)};z.prototype.getHarmonicVariables=function(t,h){var a,i,e=Math.cos(Math.PI/180*this.lambda),n=Math.sin(Math.PI/180*this.lambda),r=[1,e],d=[0,n],s=[t.re/this.r*(t.re/this.r)];for(i=1;i<=h;i++)s[i]=s[i-1]*(t.re/this.r);for(a=2;a<=h;a++)r[a]=r[a-1]*e-d[a-1]*n,d[a]=r[a-1]*n+d[a-1]*e;return{relative_radius_power:s,cos_mlambda:r,sin_mlambda:d}};z.prototype.getLegendreFunction=function(t){return new a0(this,t)}});var O=M((p0,V)=>{V.exports=r0;function r0(t){t=t||{a:6378.137,b:6356.7523142,fla:1/298.257223563,re:6371.2},this.a=t.a,this.b=t.b,this.fla=t.fla,this.re=t.re,this.eps=Math.sqrt(1-this.b*this.b/(this.a*this.a)),this.epssq=this.eps*this.eps}});var D=M((b0,F)=>{var i0=G(),h0=O();F.exports=q;function q(t){this.options=t,this.lambda=t.lambda||t.lon,this.phi=t.phi||t.lat,this.height_above_ellipsoid=t.height_above_ellipsoid||0,this.ellipsoid=t.ellipsoid||new h0}q.prototype.toSpherical=function(){var t=this.ellipsoid,h=Math.cos(this.phi*Math.PI/180),a=Math.sin(this.phi*Math.PI/180),i=t.a/Math.sqrt(1-t.epssq*a*a),e=(i+this.height_above_ellipsoid)*h,n=(i*(1-t.epssq)+this.height_above_ellipsoid)*a,r=Math.sqrt(e*e+n*n);return new i0({r,phig:180/Math.PI*Math.asin(n/r),lambda:this.lambda})};q.prototype.clone=function(){return new q(this.options)}});var L=M((y0,H)=>{H.exports=b;function b(t){this.x=t.x,this.y=t.y,this.z=t.z,this.h=t.h,this.f=t.f,this.incl=t.incl,this.decl=t.decl,this.gv=t.gv,this.xdot=t.xdot,this.ydot=t.ydot,this.zdot=t.zdot,this.hdot=t.hdot,this.fdot=t.fdot,this.incldot=t.incldot,this.decldot=t.decldot,this.gvdot=t.gvdot}b.prototype.clone=function(){return new b(this)};b.prototype.scale=function(t){return new b({x:this.x*t,y:this.y*t,z:this.z*t,h:this.h*t,f:this.f*t,incl:this.incl*t,decl:this.decl*t,gv:this.gv*t,xdot:this.xdot*t,ydot:this.ydot*t,zdot:this.zdot*t,hdot:this.hdot*t,fdot:this.fdot*t,incldot:this.incldot*t,decldot:this.decldot*t,gvdot:this.gvdot*t})};b.prototype.subtract=function(t){return new b({x:this.x-t.x,y:this.y-t.y,z:this.z-t.z,h:this.h-t.h,f:this.f-t.f,incl:this.incl-t.incl,decl:this.decl-t.decl,gv:this.gv-t.gv,xdot:this.xdot-t.xdot,ydot:this.ydot-t.ydot,zdot:this.zdot-t.zdot,hdot:this.hdot-t.hdot,fdot:this.fdot-t.fdot,incldot:this.incldot-t.incldot,decldot:this.decldot-t.decldot,gvdot:this.gvdot-t.gvdot})};b.fromGeoMagneticVector=function(t){var h=t.bx,a=t.by,i=t.bz,e=Math.sqrt(h*h+a*a);return new b({x:h,y:a,z:i,h:e,f:Math.sqrt(e*e+i*i),decl:180/Math.PI*Math.atan2(a,h),incl:180/Math.PI*Math.atan2(i,e)})};b.fromSecularVariationVector=function(t){var h=t.bx,a=t.by,i=t.bz;return new b({xdot:h,ydot:a,zdot:i,hdot:(this.x*h+this.y*a)/this.h,fdot:(this.x*h+this.y*a+this.z*i)/this.f,decldot:180/Math.PI*(this.x*this.ydot-this.y*this.xdot)/(this.h*this.h),incldot:180/Math.PI*(this.h*this.zdot-this.z*this.hdot)/(this.f*this.f),gvdot:this.decldot})}});var W=M((w0,k)=>{k.exports=T;function T(t){this.bx=t.bx,this.by=t.by,this.bz=t.bz}T.prototype.rotate=function(t,h){var a=Math.PI/180*(t.phig-h.phi);return new T({bz:this.bx*Math.sin(a)+this.bz*Math.cos(a),bx:this.bx*Math.cos(a)-this.bz*Math.sin(a),by:this.by})}});var U=M((z0,B)=>{var s0=D(),o0=L(),n0=W();B.exports=x;function x(t){this.epoch=t.epoch,this.start_date=new Date(t.start_date),this.end_date=new Date(t.end_date),this.name=t.name||"",this.main_field_coeff_g=t.main_field_coeff_g||[0],this.main_field_coeff_h=t.main_field_coeff_h||[0],this.secular_var_coeff_g=t.secular_var_coeff_g||[0],this.secular_var_coeff_h=t.secular_var_coeff_h||[0],this.n_max=t.n_max||0,this.n_max_sec_var=t.n_max_sec_var||0,this.num_terms=this.n_max*(this.n_max+1)/2+this.n_max}x.prototype.getTimedModel=function(t,h=!1){var a=t.getUTCFullYear(),i=(t.valueOf()-Date.UTC(a))/(1e3*3600*24*365),e=a+i,n=e-this.epoch;if(t<this.start_date||t>this.end_date)if(h)console.error("Model is only valid from "+this.start_date.toDateString()+" to "+this.end_date.toDateString());else throw new Error("Model is only valid from "+this.start_date.toDateString()+" to "+this.end_date.toDateString());for(var r=new x({epoch:this.epoch,n_max:this.n_max,n_max_sec_var:this.n_max_sec_var,name:this.name,start_date:this.start_date,end_date:this.end_date}),d=r.n_max_sec_var,s=d*(d+1)/2+d,l=1;l<=this.n_max;l++)for(var _=0;_<=l;_++){var o=l*(l+1)/2+_,c=this.main_field_coeff_h[o],v=this.main_field_coeff_g[o],f=this.secular_var_coeff_h[o],u=this.secular_var_coeff_g[o];o<=s?(r.main_field_coeff_h[o]=c+n*f,r.main_field_coeff_g[o]=v+n*u,r.secular_var_coeff_h[o]=f,r.secular_var_coeff_g[o]=u):(r.main_field_coeff_h[o]=c,r.main_field_coeff_g[o]=v)}return r};x.prototype.getSummation=function(t,h,a){var i=0,e=0,n=0,r,d,s,l,_=h.relative_radius_power,o=h.cos_mlambda,c=h.sin_mlambda,v=this.main_field_coeff_g,f=this.main_field_coeff_h;for(r=1;r<=this.n_max;r++)for(d=0;d<=r;d++)s=r*(r+1)/2+d,n-=_[r]*(v[s]*o[d]+f[s]*c[d])*(r+1)*t.pcup[s],e+=_[r]*(v[s]*c[d]-f[s]*o[d])*d*t.pcup[s],i-=_[r]*(v[s]*o[d]+f[s]*c[d])*t.dpcup[s];var u=Math.cos(Math.PI/180*a.phig);if(Math.abs(u)>1e-10)e=e/u;else{e=0;var p=1,m,g,w=[1],Q=Math.sin(Math.PI/180*a.phig);for(r=1;r<=this.n_max;r++)s=r*(r+1)/2+1,m=p*(2*r-1)/r,g=m*Math.sqrt(2*r/(r+1)),p=m,r==1?w[r]=w[r-1]:(l=((r-1)*(r-1)-1)/((2*r-1)*(2*r-3)),w[r]=Q*w[r-1]-l*w[r-2]),e+=_[r]*(v[s]*c[1]-f[s]*o[1])*w[r]*g}return new n0({bx:i,by:e,bz:n})};x.prototype.point=function(t){var h=t.length>2&&typeof t[2]=="number"?t[2]:0,a=new s0({lat:t[0],lon:t[1],height_above_ellipsoid:h}),i=a.toSpherical(),e=i.getLegendreFunction(this.n_max),n=i.getHarmonicVariables(a.ellipsoid,this.n_max),r=this.getSummation(e,n,i),d=r.rotate(i,a);return o0.fromGeoMagneticVector(d)}});var A=M((x0,d0)=>{d0.exports={main_field_coeff_g:[0,-29351.8,-1410.8,-2556.6,2951.1,1649.3,1361,-2404.1,1243.8,453.6,895,799.5,55.7,-281.1,12.1,-233.2,368.9,187.2,-138.7,-142,20.9,64.4,63.8,76.9,-115.7,-40.9,14.9,-60.7,79.5,-77,-8.8,59.3,15.8,2.5,-11.1,14.2,23.2,10.8,-17.5,2,-21.7,16.9,15,-16.8,.9,4.6,7.8,3,-.2,-2.5,-13.1,2.4,8.6,-8.7,-12.9,-1.3,-6.4,.2,2,-1,-.6,-.9,1.5,.9,-2.7,-3.9,2.9,-1.5,-2.5,2.4,-.6,-.1,-.6,-.1,1.1,-1,-.2,2.6,-2,-.2,.3,1.2,-1.3,.6,.6,.5,-.1,-.4,-.2,-1.3,-.7],main_field_coeff_h:[0,0,4545.4,0,-3133.6,-815.1,0,-56.6,237.5,-549.5,0,278.6,-133.9,212,-375.6,0,45.4,220.2,-122.9,43,106.1,0,-18.4,16.8,48.8,-59.8,10.9,72.7,0,-48.9,-14.4,-1,23.4,-7.4,-25.1,-2.3,0,7.1,-12.6,11.4,-9.7,12.7,.7,-5.2,3.9,0,-24.8,12.2,8.3,-3.3,-5.2,7.2,-.6,.8,10,0,3.3,0,2.4,5.3,-9.1,.4,-4.2,-3.8,.9,-9.1,0,0,2.9,-.6,.2,.5,-.3,-1.2,-1.7,-2.9,-1.8,-2.3,0,-1.3,.7,1,-1.4,0,.6,-.1,.8,.1,-1,.1,.2],secular_var_coeff_g:[0,12,9.7,-11.6,-5.2,-8,-1.3,-4.2,.4,-15.6,-1.6,-2.4,-6,5.6,-7,.6,1.4,0,.6,2.2,.9,-.2,-.4,.9,1.2,-.9,.3,.9,0,-.1,-.1,.5,-.1,-.8,-.8,.8,-.1,.2,0,.5,-.1,.3,.2,0,.2,0,-.1,.1,.3,-.3,0,.3,-.1,.1,-.1,.1,0,.1,.1,0,-.3,0,-.1,-.1,0,0,0,0,0,0,0,-.1,0,0,-.1,-.1,-.1,-.1,0,0,0,0,0,0,.1,0,0,0,-.1,0,-.1],secular_var_coeff_h:[0,0,-21.5,0,-27.7,-12.1,0,4,-.3,-4.1,0,-1.1,4.1,1.6,-4.4,0,-.5,2.2,.4,1.7,1.9,0,.3,-1.6,-.4,.9,.7,.9,0,.6,.5,-.8,0,-1,.6,-.2,0,-.2,.5,-.4,.4,-.5,-.6,.3,.2,0,-.3,.3,-.3,.3,.2,-.1,-.2,.4,.1,0,0,0,-.2,.1,-.1,.1,0,-.1,.2,0,0,0,.1,0,.1,0,0,.1,0,0,0,0,0,0,0,-.1,.1,0,0,0,0,0,0,0,-.1],n_max:12,n_max_sec_var:12,epoch:2025,name:"WMM-2025",start_date:"2024-11-13T03:00:00.000Z",end_date:"2029-11-13T03:00:00.000Z"}});var Y=M((q0,c0)=>{c0.exports={main_field_coeff_g:[0,-29404.5,-1450.7,-2500,2982,1676.8,1363.9,-2381,1236.2,525.7,903.1,809.4,86.2,-309.4,47.9,-234.4,363.1,187.8,-140.7,-151.2,13.7,65.9,65.6,73,-121.5,-36.2,13.5,-64.7,80.6,-76.8,-8.3,56.5,15.8,6.4,-7.2,9.8,23.6,9.8,-17.5,-.4,-21.1,15.3,13.7,-16.5,-.3,5,8.2,2.9,-1.4,-1.1,-13.3,1.1,8.9,-9.3,-11.9,-1.9,-6.2,-.1,1.7,-.9,.6,-.9,1.9,1.4,-2.4,-3.9,3,-1.4,-2.5,2.4,-.9,.3,-.7,-.1,1.4,-.6,.2,3.1,-2,-.1,.5,1.3,-1.2,.7,.3,.5,-.2,-.5,.1,-1.1,-.3],main_field_coeff_h:[0,0,4652.9,0,-2991.6,-734.8,0,-82.2,241.8,-542.9,0,282,-158.4,199.8,-350.1,0,47.7,208.4,-121.3,32.2,99.1,0,-19.1,25,52.7,-64.4,9,68.1,0,-51.4,-16.8,2.3,23.5,-2.2,-27.2,-1.9,0,8.4,-15.3,12.8,-11.8,14.9,3.6,-6.9,2.8,0,-23.3,11.1,9.8,-5.1,-6.2,7.8,.4,-1.5,9.7,0,3.4,-.2,3.5,4.8,-8.6,-.1,-4.2,-3.4,-.1,-8.8,0,0,2.6,-.5,-.4,.6,-.2,-1.7,-1.6,-3,-2,-2.6,0,-1.2,.5,1.3,-1.8,.1,.7,-.1,.6,.2,-.9,0,.5],secular_var_coeff_g:[0,6.7,7.7,-11.5,-7.1,-2.2,2.8,-6.2,3.4,-12.2,-1.1,-1.6,-6,5.4,-5.5,-.3,.6,-.7,.1,1.2,1,-.6,-.4,.5,1.4,-1.4,0,.8,-.1,-.3,-.1,.7,.2,-.5,-.8,1,-.1,.1,-.1,.5,-.1,.4,.5,0,.4,-.1,-.2,0,.4,-.3,0,.3,0,0,-.4,0,0,0,.2,-.1,-.2,0,-.1,-.2,-.1,0,0,-.1,0,0,0,-.1,0,0,-.1,-.1,-.1,-.1,0,0,0,0,0,0,0,0,0,0,0,0,-.1],secular_var_coeff_h:[0,0,-25.1,0,-30.2,-23.9,0,5.7,-1,1.1,0,.2,6.9,3.7,-5.6,0,.1,2.5,-.9,3,.5,0,.1,-1.8,-1.4,.9,.1,1,0,.5,.6,-.7,-.2,-1.2,.2,.3,0,-.3,.7,-.2,.5,-.3,-.5,.4,.1,0,-.3,.2,-.4,.4,.1,0,-.2,.5,.2,0,0,.1,-.3,.1,-.2,.1,0,-.1,.2,0,0,0,.1,0,.2,0,0,.1,0,-.1,0,0,0,0,0,-.1,.1,0,0,0,.1,0,0,0,-.1],n_max:12,n_max_sec_var:12,epoch:2020,name:"WMM-2020",start_date:"2019-12-10T08:00:00.000Z",end_date:"2024-12-10T08:00:00.000Z"}});var j=M((D0,_0)=>{_0.exports={main_field_coeff_g:[0,-29438.2,-1493.5,-2444.5,3014.7,1679,1351.8,-2351.6,1223.6,582.3,907.5,814.8,117.8,-335.6,69.7,-232.9,360.1,191.7,-141.3,-157.2,7.7,69.4,67.7,72.3,-129.1,-28.4,13.6,-70.3,81.7,-75.9,-7.1,52.2,15,9.1,-3,5.9,24.2,8.9,-16.9,-3.1,-20.7,13.3,11.6,-16.3,-2.1,5.5,8.8,3,-3.2,.6,-13.2,-.1,8.7,-9.1,-10.4,-2,-6.1,.2,.6,-.5,1.8,-.7,2.2,2.4,-1.8,-3.6,3,-1.4,-2.3,2.1,-.8,.6,-.7,.1,1.7,-.2,.4,3.5,-2,-.1,.5,1.2,-.9,.9,.1,.6,-.4,-.5,.2,-.9,0],main_field_coeff_h:[0,0,4796.3,0,-2842.4,-638.8,0,-113.7,246.5,-537.4,0,283.3,-188.6,180.7,-330,0,46.9,196.5,-119.9,16,100.6,0,-20.1,32.8,59.1,-67.1,8.1,61.9,0,-54.3,-19.5,6,24.5,3.5,-27.7,-2.9,0,10.1,-18.3,13.3,-14.5,16.2,6,-9.2,2.4,0,-21.8,10.7,11.8,-6.8,-6.9,7.9,1,-3.9,8.5,0,3.3,-.4,4.6,4.4,-7.9,-.6,-4.2,-2.9,-1.1,-8.8,0,0,2.1,-.6,-1.1,.7,-.2,-2.1,-1.5,-2.6,-2,-2.3,0,-1,.3,1.8,-2.2,.3,.7,-.1,.3,.2,-.9,-.2,.8],secular_var_coeff_g:[0,7,9,-11,-6.2,.3,2.4,-5.7,2,-11,-.8,-.9,-6.5,5.2,-4,-.3,.6,-.8,.1,1.2,1.4,-.8,-.5,-.1,1.6,-1.6,0,1.2,-.3,-.2,-.3,.9,.1,-.6,-.9,.7,-.1,.2,-.2,.5,-.1,.4,.4,-.1,.4,-.1,-.1,0,.4,-.4,0,.3,0,0,-.3,0,0,-.1,.2,-.1,-.2,0,-.1,-.2,-.1,0,0,0,0,0,0,-.1,0,0,0,-.1,0,-.1,0,0,0,0,-.1,0,0,0,0,0,0,0,-.1],secular_var_coeff_h:[0,0,-30.2,0,-29.6,-17.3,0,6.5,-.8,-2,0,-.4,5.8,3.8,-3.5,0,.2,2.3,0,3.3,-.6,0,.3,-1.5,-1.2,.4,.2,1.3,0,.6,.5,-.8,-.2,-1.1,.1,.2,0,-.4,.6,-.1,.6,-.2,-.5,.5,.1,0,-.3,.1,-.4,.3,.1,0,-.1,.5,.2,0,0,.1,-.2,.1,-.1,.1,0,-.1,.2,0,0,0,.1,0,.1,0,0,.1,0,-.1,0,-.1,0,0,0,-.1,.1,0,0,0,0,0,0,0,-.1],n_max:12,n_max_sec_var:12,epoch:2015,name:"WMM-2015v2",start_date:"2018-09-18T06:00:00.000Z",end_date:"2023-09-18T06:00:00.000Z"}});var J=M((T0,f0)=>{f0.exports={main_field_coeff_g:[0,-29438.5,-1501.1,-2445.3,3012.5,1676.6,1351.1,-2352.3,1225.6,581.9,907.2,813.7,120.3,-335,70.3,-232.6,360.1,192.4,-141,-157.4,4.3,69.5,67.4,72.8,-129.8,-29,13.2,-70.9,81.6,-76.1,-6.8,51.9,15,9.3,-2.8,6.7,24,8.6,-16.9,-3.2,-20.6,13.3,11.7,-16,-2,5.4,8.8,3.1,-3.1,.6,-13.3,-.1,8.7,-9.1,-10.5,-1.9,-6.5,.2,.6,-.6,1.7,-.7,2.1,2.3,-1.8,-3.6,3.1,-1.5,-2.3,2.1,-.9,.6,-.7,.2,1.7,-.2,.4,3.5,-2,-.3,.4,1.3,-.9,.9,.1,.5,-.4,-.4,.2,-.9,0],main_field_coeff_h:[0,0,4796.2,0,-2845.6,-642,0,-115.3,245,-538.3,0,283.4,-188.6,180.9,-329.5,0,47.4,196.9,-119.4,16.1,100.1,0,-20.7,33.2,58.8,-66.5,7.3,62.5,0,-54.1,-19.4,5.6,24.4,3.3,-27.5,-2.3,0,10.2,-18.1,13.2,-14.6,16.2,5.7,-9.1,2.2,0,-21.6,10.8,11.7,-6.8,-6.9,7.8,1,-3.9,8.5,0,3.3,-.3,4.6,4.4,-7.9,-.6,-4.1,-2.8,-1.1,-8.7,0,-.1,2.1,-.7,-1.1,.7,-.2,-2.1,-1.5,-2.5,-2,-2.3,0,-1,.5,1.8,-2.2,.3,.7,-.1,.3,.2,-.9,-.2,.7],secular_var_coeff_g:[0,10.7,17.9,-8.6,-3.3,2.4,3.1,-6.2,-.4,-10.4,-.4,.8,-9.2,4,-4.2,-.2,.1,-1.4,0,1.3,3.8,-.5,-.2,-.6,2.4,-1.1,.3,1.5,.2,-.2,-.4,1.3,.2,-.4,-.9,.3,0,.1,-.5,.5,-.2,.4,.2,-.4,.3,0,-.1,-.1,.4,-.5,-.2,.1,0,-.2,-.1,0,0,-.1,.3,-.1,-.1,-.1,0,-.2,-.1,-.2,0,0,-.1,.1,0,0,0,0,0,0,-.1,-.1,.1,0,0,.1,-.1,0,.1,0,0,0,0,0,0],secular_var_coeff_h:[0,0,-26.8,0,-27.1,-13.3,0,8.4,-.4,2.3,0,-.6,5.3,3,-5.3,0,.4,1.6,-1.1,3.3,.1,0,0,-2.2,-.7,.1,1,1.3,0,.7,.5,-.2,-.1,-.7,.1,.1,0,-.3,.3,.3,.6,-.1,-.2,.3,0,0,-.2,-.1,-.2,.1,.1,0,-.2,.4,.3,0,.1,-.1,0,0,-.2,.1,-.1,-.2,.1,-.1,0,0,.1,0,.1,0,0,.1,0,-.1,0,-.1,0,0,0,-.1,0,0,0,0,0,0,0,0,0],n_max:12,n_max_sec_var:12,epoch:2015,name:"WMM-2015",start_date:"2014-12-15T07:00:00.000Z",end_date:"2019-12-15T07:00:00.000Z"}});var N=M((P0,K)=>{var l0=U(),v0=K.exports={},y=[{file:A(),startDate:new Date("2024-11-13T03:00:00.000Z"),endDate:new Date("2029-11-13T03:00:00.000Z")},{file:Y(),startDate:new Date("2019-12-10T08:00:00.000Z"),endDate:new Date("2024-12-10T08:00:00.000Z")},{file:j(),startDate:new Date("2018-09-18T06:00:00.000Z"),endDate:new Date("2023-09-18T06:00:00.000Z")},{file:J(),startDate:new Date("2014-12-15T07:00:00.000Z"),endDate:new Date("2019-12-15T07:00:00.000Z")}];v0.model=function(t,h={}){t=t||new Date;let a=t.getTime(),i=h&&h.allowOutOfBoundsModel||!1,e=y.find(r=>a>=r.startDate.getTime()&&a<=r.endDate.getTime());return!e&&a<y[y.length-1].startDate.getTime()?e=y[y.length-1]:!e&&a>y[0].endDate.getTime()&&(e=y[0]),e||(e=y[0]),new l0(e.file).getTimedModel(t,i)}});window.GEOMAG=N();})();
+</script>
+<script>/*!
+ * satellite-js v5.0.0
+ * (c) 2013 Shashwat Kandadai and UCSC
+ * https://github.com/shashwatak/satellite-js
+ * License: MIT
+ */
+
+!function(o,t){"object"==typeof exports&&"undefined"!=typeof module?module.exports=t():"function"==typeof define&&define.amd?define(t):(o="undefined"!=typeof globalThis?globalThis:o||self).satellite=t()}(this,(function(){"use strict";var o=Math.PI,t=2*o,e=o/180,s=180/o,a=1440,n=398600.8,d=6378.135,r=60/Math.sqrt(650942.9922085947),i=d*r/60,c=1/r,h=.001082616,m=-253881e-11,l=-165597e-11,p=m/h,x=2/3;function g(o,t){for(var e=[31,o%4==0?29:28,31,30,31,30,31,31,30,31,30,31],s=Math.floor(t),a=1,n=0;s>n+e[a-1]&&a<12;)n+=e[a-1],a+=1;var d=a,r=s-n,i=24*(t-s),c=Math.floor(i);i=60*(i-c);var h=Math.floor(i);return{mon:d,day:r,hr:c,minute:h,sec:60*(i-h)}}function M(o,t,e,s,a,n){var d=arguments.length>6&&void 0!==arguments[6]?arguments[6]:0;return 367*o-Math.floor(7*(o+Math.floor((t+9)/12))*.25)+Math.floor(275*t/9)+e+1721013.5+((d/6e4+n/60+a)/60+s)/24}function f(o,t,e,s,a,n,d){if(o instanceof Date){var r=o;return M(r.getUTCFullYear(),r.getUTCMonth()+1,r.getUTCDate(),r.getUTCHours(),r.getUTCMinutes(),r.getUTCSeconds(),r.getUTCMilliseconds())}return M(o,t,e,s,a,n,d)}function u(e,s){var a,n,d,r,i,c,h,m,l,p,x,g,M,f,u,z,v,y,b=e.e3,q=e.ee2,w=e.peo,T=e.pgho,j=e.pho,E=e.pinco,F=e.plo,A=e.se2,C=e.se3,L=e.sgh2,S=e.sgh3,U=e.sgh4,D=e.sh2,I=e.sh3,R=e.si2,_=e.si3,k=e.sl2,O=e.sl3,P=e.sl4,Z=e.t,G=e.xgh2,H=e.xgh3,Y=e.xgh4,$=e.xh2,B=e.xh3,J=e.xi2,K=e.xi3,N=e.xl2,Q=e.xl3,V=e.xl4,W=e.zmol,X=e.zmos,oo=s.init,to=s.opsmode,eo=s.ep,so=s.inclp,ao=s.nodep,no=s.argpp,ro=s.mp;y=X+119459e-10*Z,"y"===oo&&(y=X),v=y+.0335*Math.sin(y);var io=A*(h=.5*(f=Math.sin(v))*f-.25)+C*(m=-.5*f*Math.cos(v)),co=R*h+_*m,ho=k*h+O*m+P*f,mo=L*h+S*m+U*f,lo=D*h+I*m;return y=W+.00015835218*Z,"y"===oo&&(y=W),v=y+.1098*Math.sin(y),l=io+(q*(h=.5*(f=Math.sin(v))*f-.25)+b*(m=-.5*f*Math.cos(v))),g=co+(J*h+K*m),M=ho+(N*h+Q*m+V*f),p=mo+(G*h+H*m+Y*f),x=lo+($*h+B*m),"n"===oo&&(M-=F,p-=T,x-=j,so+=g-=E,eo+=l-=w,r=Math.sin(so),d=Math.cos(so),so>=.2?(no+=p-=d*(x/=r),ao+=x,ro+=M):(a=r*(c=Math.sin(ao)),n=r*(i=Math.cos(ao)),a+=x*i+g*d*c,n+=-x*c+g*d*i,(ao%=t)<0&&"a"===to&&(ao+=t),u=ro+no+d*ao,u+=M+p-g*ao*r,z=ao,(ao=Math.atan2(a,n))<0&&"a"===to&&(ao+=t),Math.abs(z-ao)>o&&(ao<z?ao+=t:ao-=t),no=u-(ro+=M)-d*ao)),{ep:eo,inclp:so,nodep:ao,argpp:no,mp:ro}}function z(o){var s=(o-2451545)/36525,a=-62e-7*s*s*s+.093104*s*s+3164400184.812866*s+67310.54841;return(a=a*e/240%t)<0&&(a+=t),a}function v(){return(arguments.length<=0?void 0:arguments[0])instanceof Date||arguments.length>1?z(f.apply(void 0,arguments)):z.apply(void 0,arguments)}function y(e,s){var a,n,c,m,l,g,M,f,z,v,y,b,q,w,T,j,E,F,A,C,L,S,U,D,I,R;e.t=s,e.error=0;var _=e.mo+e.mdot*e.t,k=e.argpo+e.argpdot*e.t,O=e.nodeo+e.nodedot*e.t;f=k,C=_;var P=e.t*e.t;if(S=O+e.nodecf*P,j=1-e.cc1*e.t,E=e.bstar*e.cc4*e.t,F=e.t2cof*P,1!==e.isimp){g=e.omgcof*e.t;var Z=1+e.eta*Math.cos(_);C=_+(T=g+e.xmcof*(Z*Z*Z-e.delmo)),f=k-T,b=(y=P*e.t)*e.t,j=j-e.d2*P-e.d3*y-e.d4*b,E+=e.bstar*e.cc5*(Math.sin(C)-e.sinmao),F=F+e.t3cof*y+b*(e.t4cof+e.t*e.t5cof)}L=e.no;var G=e.ecco;if(A=e.inclo,"d"===e.method){q=e.t;var H=function(o){var e,s,a,n,d,r,i,c,h=o.irez,m=o.d2201,l=o.d2211,p=o.d3210,x=o.d3222,g=o.d4410,M=o.d4422,f=o.d5220,u=o.d5232,z=o.d5421,v=o.d5433,y=o.dedt,b=o.del1,q=o.del2,w=o.del3,T=o.didt,j=o.dmdt,E=o.dnodt,F=o.domdt,A=o.argpo,C=o.argpdot,L=o.t,S=o.tc,U=o.gsto,D=o.xfact,I=o.xlamo,R=o.no,_=o.atime,k=o.em,O=o.argpm,P=o.inclm,Z=o.xli,G=o.mm,H=o.xni,Y=o.nodem,$=o.nm,B=.13130908,J=2.8843198,K=.37448087,N=5.7686396,Q=.95240898,V=1.8014998,W=1.050833,X=4.4108898,oo=259200,to=0,eo=0,so=(U+.0043752690880113*S)%t;if(k+=y*L,P+=T*L,O+=F*L,Y+=E*L,G+=j*L,0!==h){(0===_||L*_<=0||Math.abs(L)<Math.abs(_))&&(_=0,H=R,Z=I),e=L>0?720:-720;for(var ao=381;381===ao;)2!==h?(i=b*Math.sin(Z-B)+q*Math.sin(2*(Z-J))+w*Math.sin(3*(Z-K)),d=H+D,r=b*Math.cos(Z-B)+2*q*Math.cos(2*(Z-J))+3*w*Math.cos(3*(Z-K)),r*=d):(a=(c=A+C*_)+c,s=Z+Z,i=m*Math.sin(a+Z-N)+l*Math.sin(Z-N)+p*Math.sin(c+Z-Q)+x*Math.sin(-c+Z-Q)+g*Math.sin(a+s-V)+M*Math.sin(s-V)+f*Math.sin(c+Z-W)+u*Math.sin(-c+Z-W)+z*Math.sin(c+s-X)+v*Math.sin(-c+s-X),d=H+D,r=m*Math.cos(a+Z-N)+l*Math.cos(Z-N)+p*Math.cos(c+Z-Q)+x*Math.cos(-c+Z-Q)+f*Math.cos(c+Z-W)+u*Math.cos(-c+Z-W)+2*(g*Math.cos(a+s-V)+M*Math.cos(s-V)+z*Math.cos(c+s-X)+v*Math.cos(-c+s-X)),r*=d),Math.abs(L-_)>=720?ao=381:(eo=L-_,ao=0),381===ao&&(Z+=d*e+i*oo,H+=i*e+r*oo,_+=e);$=H+i*eo+r*eo*eo*.5,n=Z+d*eo+i*eo*eo*.5,1!==h?(G=n-2*Y+2*so,to=$-R):(G=n-Y-O+so,to=$-R),$=R+to}return{atime:_,em:k,argpm:O,inclm:P,xli:Z,mm:G,xni:H,nodem:Y,dndt:to,nm:$}}({irez:e.irez,d2201:e.d2201,d2211:e.d2211,d3210:e.d3210,d3222:e.d3222,d4410:e.d4410,d4422:e.d4422,d5220:e.d5220,d5232:e.d5232,d5421:e.d5421,d5433:e.d5433,dedt:e.dedt,del1:e.del1,del2:e.del2,del3:e.del3,didt:e.didt,dmdt:e.dmdt,dnodt:e.dnodt,domdt:e.domdt,argpo:e.argpo,argpdot:e.argpdot,t:e.t,tc:q,gsto:e.gsto,xfact:e.xfact,xlamo:e.xlamo,no:e.no,atime:e.atime,em:G,argpm:f,inclm:A,xli:e.xli,mm:C,xni:e.xni,nodem:S,nm:L});G=H.em,f=H.argpm,A=H.inclm,C=H.mm,S=H.nodem,L=H.nm}if(L<=0)return e.error=2,[!1,!1];var Y=Math.pow(r/L,x)*j*j;if(L=r/Math.pow(Y,1.5),(G-=E)>=1||G<-.001)return e.error=1,[!1,!1];G<1e-6&&(G=1e-6),D=(C+=e.no*F)+f+S;var $=G;if(U=A,z=f%=t,R=S%=t,I=C=((D%=t)-f-S)%t,m=Math.sin(A),c=Math.cos(A),"d"===e.method){var B=u(e,{inclo:e.inclo,init:"n",ep:$,inclp:U,nodep:R,argpp:z,mp:I,opsmode:e.operationmode});if($=B.ep,R=B.nodep,z=B.argpp,I=B.mp,(U=B.inclp)<0&&(U=-U,R+=o,z-=o),$<0||$>1)return e.error=3,[!1,!1]}"d"===e.method&&(m=Math.sin(U),c=Math.cos(U),e.aycof=-.5*p*m,Math.abs(c+1)>15e-13?e.xlcof=-.25*p*m*(3+5*c)/(1+c):e.xlcof=-.25*p*m*(3+5*c)/15e-13);var J=$*Math.cos(z);T=1/(Y*(1-$*$));var K=$*Math.sin(z)+T*e.aycof,N=(I+z+R+T*e.xlcof*J-R)%t;M=N,w=9999.9;for(var Q=1;Math.abs(w)>=1e-12&&Q<=10;)n=Math.sin(M),w=(N-K*(a=Math.cos(M))+J*n-M)/(w=1-a*J-n*K),Math.abs(w)>=.95&&(w=w>0?.95:-.95),M+=w,Q+=1;var V=J*a+K*n,W=J*n-K*a,X=J*J+K*K,oo=Y*(1-X);if(oo<0)return e.error=4,[!1,!1];var to=Y*(1-V),eo=Math.sqrt(Y)*W/to,so=Math.sqrt(oo)/to,ao=Math.sqrt(1-X),no=Y/to*(n-K-J*(T=W/(1+ao))),ro=Y/to*(a-J+K*T);v=Math.atan2(no,ro);var io=(ro+ro)*no,co=1-2*no*no,ho=.5*h*(T=1/oo),mo=ho*T;"d"===e.method&&(l=c*c,e.con41=3*l-1,e.x1mth2=1-l,e.x7thm1=7*l-1);var lo=to*(1-1.5*mo*ao*e.con41)+.5*ho*e.x1mth2*co;if(lo<1)return e.error=6,{position:!1,velocity:!1};v-=.25*mo*e.x7thm1*io;var po=R+1.5*mo*c*io,xo=U+1.5*mo*c*m*co,go=eo-L*ho*e.x1mth2*io/r,Mo=so+L*ho*(e.x1mth2*co+1.5*e.con41)/r,fo=Math.sin(v),uo=Math.cos(v),zo=Math.sin(po),vo=Math.cos(po),yo=Math.sin(xo),bo=Math.cos(xo),qo=-zo*bo,wo=vo*bo,To=qo*fo+vo*uo,jo=wo*fo+zo*uo,Eo=yo*fo;return{position:{x:lo*To*d,y:lo*jo*d,z:lo*Eo*d},velocity:{x:(go*To+Mo*(qo*uo-vo*fo))*i,y:(go*jo+Mo*(wo*uo-zo*fo))*i,z:(go*Eo+Mo*(yo*uo))*i}}}function b(e,s){var a,n,i,m,g,M,f,z,b,q,w,T,j,E,F,A,C,L,S,U,D,I,R,_,k,O,P,Z,G,H,Y,$,B,J,K,N,Q,V,W,X,oo,to,eo,so,ao,no,ro,io,co,ho,mo,lo,po=s.opsmode,xo=s.satn,go=s.epoch,Mo=s.xbstar,fo=s.xecco,uo=s.xargpo,zo=s.xinclo,vo=s.xmo,yo=s.xno,bo=s.xnodeo;e.isimp=0,e.method="n",e.aycof=0,e.con41=0,e.cc1=0,e.cc4=0,e.cc5=0,e.d2=0,e.d3=0,e.d4=0,e.delmo=0,e.eta=0,e.argpdot=0,e.omgcof=0,e.sinmao=0,e.t=0,e.t2cof=0,e.t3cof=0,e.t4cof=0,e.t5cof=0,e.x1mth2=0,e.x7thm1=0,e.mdot=0,e.nodedot=0,e.xlcof=0,e.xmcof=0,e.nodecf=0,e.irez=0,e.d2201=0,e.d2211=0,e.d3210=0,e.d3222=0,e.d4410=0,e.d4422=0,e.d5220=0,e.d5232=0,e.d5421=0,e.d5433=0,e.dedt=0,e.del1=0,e.del2=0,e.del3=0,e.didt=0,e.dmdt=0,e.dnodt=0,e.domdt=0,e.e3=0,e.ee2=0,e.peo=0,e.pgho=0,e.pho=0,e.pinco=0,e.plo=0,e.se2=0,e.se3=0,e.sgh2=0,e.sgh3=0,e.sgh4=0,e.sh2=0,e.sh3=0,e.si2=0,e.si3=0,e.sl2=0,e.sl3=0,e.sl4=0,e.gsto=0,e.xfact=0,e.xgh2=0,e.xgh3=0,e.xgh4=0,e.xh2=0,e.xh3=0,e.xi2=0,e.xi3=0,e.xl2=0,e.xl3=0,e.xl4=0,e.xlamo=0,e.zmol=0,e.zmos=0,e.atime=0,e.xli=0,e.xni=0,e.bstar=Mo,e.ecco=fo,e.argpo=uo,e.inclo=zo,e.mo=vo,e.no=yo,e.nodeo=bo,e.operationmode=po;e.init="y",e.t=0;var qo=function(o){var e=o.ecco,s=o.epoch,a=o.inclo,n=o.opsmode,d=o.no,i=e*e,c=1-i,m=Math.sqrt(c),l=Math.cos(a),p=l*l,g=Math.pow(r/d,x),M=.75*h*(3*p-1)/(m*c),f=M/(g*g),u=g*(1-f*f-f*(1/3+134*f*f/81));d/=1+(f=M/(u*u));var z,y=Math.pow(r/d,x),b=Math.sin(a),q=y*c,w=1-5*p,T=-w-p-p,j=1/y,E=q*q,F=y*(1-e);if("a"===n){var A=s-7305,C=Math.floor(A+1e-8),L=.017202791694070362;(z=(1.7321343856509375+L*C+(L+t)*(A-C)+A*A*5075514194322695e-30)%t)<0&&(z+=t)}else z=v(s+2433281.5);return{no:d,method:"n",ainv:j,ao:y,con41:T,con42:w,cosio:l,cosio2:p,eccsq:i,omeosq:c,posq:E,rp:F,rteosq:m,sinio:b,gsto:z}}({satn:xo,ecco:e.ecco,epoch:go,inclo:e.inclo,no:e.no,method:e.method,opsmode:e.operationmode}),wo=qo.ao,To=qo.con42,jo=qo.cosio,Eo=qo.cosio2,Fo=qo.eccsq,Ao=qo.omeosq,Co=qo.posq,Lo=qo.rp,So=qo.rteosq,Uo=qo.sinio;if(e.no=qo.no,e.con41=qo.con41,e.gsto=qo.gsto,e.a=Math.pow(e.no*c,-2/3),e.alta=e.a*(1+e.ecco)-1,e.altp=e.a*(1-e.ecco)-1,e.error=0,Ao>=0||e.no>=0){if(e.isimp=0,Lo<1.034492841559484&&(e.isimp=1),_=1.0122292801892716,L=1.880279159015271e-9,(F=(Lo-1)*d)<156){_=F-78,F<98&&(_=20);var Do=(120-_)/d;L=Do*Do*Do*Do,_=_/d+1}A=1/Co,to=1/(wo-_),e.eta=wo*e.ecco*to,T=e.eta*e.eta,w=e.ecco*e.eta,C=Math.abs(1-T),m=(f=(M=L*Math.pow(to,4))/Math.pow(C,3.5))*e.no*(wo*(1+1.5*T+w*(4+T))+.375*h*to/C*e.con41*(8+3*T*(8+T))),e.cc1=e.bstar*m,g=0,e.ecco>1e-4&&(g=-2*M*to*p*e.no*Uo/e.ecco),e.x1mth2=1-Eo,e.cc4=2*e.no*f*wo*Ao*(e.eta*(2+.5*T)+e.ecco*(.5+2*T)-h*to/(wo*C)*(-3*e.con41*(1-2*w+T*(1.5-.5*w))+.75*e.x1mth2*(2*T-w*(1+T))*Math.cos(2*e.argpo))),e.cc5=2*f*wo*Ao*(1+2.75*(T+w)+w*T),z=Eo*Eo,X=.5*(W=1.5*h*A*e.no)*h*A,oo=-.46875*l*A*A*e.no,e.mdot=e.no+.5*W*So*e.con41+.0625*X*So*(13-78*Eo+137*z),e.argpdot=-.5*W*To+.0625*X*(7-114*Eo+395*z)+oo*(3-36*Eo+49*z),so=-W*jo,e.nodedot=so+(.5*X*(4-19*Eo)+2*oo*(3-7*Eo))*jo,eo=e.argpdot+e.nodedot,e.omgcof=e.bstar*g*Math.cos(e.argpo),e.xmcof=0,e.ecco>1e-4&&(e.xmcof=-x*M*e.bstar/w),e.nodecf=3.5*Ao*so*e.cc1,e.t2cof=1.5*e.cc1,Math.abs(jo+1)>15e-13?e.xlcof=-.25*p*Uo*(3+5*jo)/(1+jo):e.xlcof=-.25*p*Uo*(3+5*jo)/15e-13,e.aycof=-.5*p*Uo;var Io=1+e.eta*Math.cos(e.mo);if(e.delmo=Io*Io*Io,e.sinmao=Math.sin(e.mo),e.x7thm1=7*Eo-1,2*o/e.no>=225){e.method="d",e.isimp=1,0,j=e.inclo;var Ro=function(o){var e,s,a,n,d,r,i,c,h,m,l,p,x,g,M,f,u,z,v,y,b,q,w,T,j,E,F,A,C,L,S,U,D,I,R,_,k,O,P,Z,G,H,Y,$,B,J,K,N,Q,V,W,X,oo,to,eo,so,ao,no,ro,io,co,ho,mo,lo=o.epoch,po=o.ep,xo=o.argpp,go=o.tc,Mo=o.inclp,fo=o.nodep,uo=.01675,zo=.0549,vo=o.np,yo=po,bo=Math.sin(fo),qo=Math.cos(fo),wo=Math.sin(xo),To=Math.cos(xo),jo=Math.sin(Mo),Eo=Math.cos(Mo),Fo=yo*yo,Ao=1-Fo,Co=Math.sqrt(Ao),Lo=lo+18261.5+go/1440,So=(4.523602-.00092422029*Lo)%t,Uo=Math.sin(So),Do=Math.cos(So),Io=.91375164-.03568096*Do,Ro=Math.sqrt(1-Io*Io),_o=.089683511*Uo/Ro,ko=Math.sqrt(1-_o*_o),Oo=5.8351514+.001944368*Lo,Po=.39785416*Uo/Ro,Zo=ko*Do+.91744867*_o*Uo;Po=Math.atan2(Po,Zo),Po+=Oo-So;var Go=Math.cos(Po),Ho=Math.sin(Po);y=.1945905,b=-.98088458,T=.91744867,j=.39785416,q=qo,w=bo,l=29864797e-13;for(var Yo=1/vo,$o=0;$o<2;)eo=-6*(e=y*q+b*T*w)*(d=-jo*(i=-y*w+b*T*q)+Eo*(c=b*j))+Fo*(-24*(p=e*To+(s=Eo*i+jo*c)*wo)*(z=d*To)-6*(g=-e*wo+s*To)*(f=d*wo)),so=-6*(e*(r=-jo*(h=b*w+y*T*q)+Eo*(m=y*j))+(a=-b*q+y*T*w)*d)+Fo*(-24*((x=a*To+(n=Eo*h+jo*m)*wo)*z+p*(v=r*To))+-6*(g*(u=r*wo)+(M=-a*wo+n*To)*f)),ao=-6*a*r+Fo*(-24*x*v-6*M*u),no=6*s*d+Fo*(24*p*f-6*g*z),ro=6*(n*d+s*r)+Fo*(24*(x*f+p*u)-6*(M*z+g*v)),io=6*n*r+Fo*(24*x*u-6*M*v),X=(X=3*(e*e+s*s)+(co=12*p*p-3*g*g)*Fo)+X+Ao*co,oo=(oo=6*(e*a+s*n)+(ho=24*p*x-6*g*M)*Fo)+oo+Ao*ho,to=(to=3*(a*a+n*n)+(mo=12*x*x-3*M*M)*Fo)+to+Ao*mo,J=-.5*(K=l*Yo)/Co,B=-15*yo*(N=K*Co),Q=p*g+x*M,V=x*g+p*M,W=x*M-p*g,1===($o+=1)&&(E=B,F=J,A=K,C=N,L=Q,S=V,U=W,D=X,I=oo,R=to,_=eo,k=so,O=ao,P=no,Z=ro,G=io,H=co,Y=ho,$=mo,y=Go,b=Ho,T=Io,j=Ro,q=ko*qo+_o*bo,w=bo*ko-qo*_o,l=4.7968065e-7);return{snodm:bo,cnodm:qo,sinim:jo,cosim:Eo,sinomm:wo,cosomm:To,day:Lo,e3:2*B*W,ee2:2*B*V,em:yo,emsq:Fo,gam:Oo,peo:0,pgho:0,pho:0,pinco:0,plo:0,rtemsq:Co,se2:2*E*S,se3:2*E*U,sgh2:2*C*Y,sgh3:2*C*($-H),sgh4:-18*C*uo,sh2:-2*F*Z,sh3:-2*F*(G-P),si2:2*F*k,si3:2*F*(O-_),sl2:-2*A*I,sl3:-2*A*(R-D),sl4:-2*A*(-21-9*Fo)*uo,s1:B,s2:J,s3:K,s4:N,s5:Q,s6:V,s7:W,ss1:E,ss2:F,ss3:A,ss4:C,ss5:L,ss6:S,ss7:U,sz1:D,sz2:I,sz3:R,sz11:_,sz12:k,sz13:O,sz21:P,sz22:Z,sz23:G,sz31:H,sz32:Y,sz33:$,xgh2:2*N*ho,xgh3:2*N*(mo-co),xgh4:-18*N*zo,xh2:-2*J*ro,xh3:-2*J*(io-no),xi2:2*J*so,xi3:2*J*(ao-eo),xl2:-2*K*oo,xl3:-2*K*(to-X),xl4:-2*K*(-21-9*Fo)*zo,nm:vo,z1:X,z2:oo,z3:to,z11:eo,z12:so,z13:ao,z21:no,z22:ro,z23:io,z31:co,z32:ho,z33:mo,zmol:(.2299715*Lo-Oo+4.7199672)%t,zmos:(6.2565837+.017201977*Lo)%t}}({epoch:go,ep:e.ecco,argpp:e.argpo,tc:0,inclp:e.inclo,nodep:e.nodeo,np:e.no,e3:e.e3,ee2:e.ee2,peo:e.peo,pgho:e.pgho,pho:e.pho,pinco:e.pinco,plo:e.plo,se2:e.se2,se3:e.se3,sgh2:e.sgh2,sgh3:e.sgh3,sgh4:e.sgh4,sh2:e.sh2,sh3:e.sh3,si2:e.si2,si3:e.si3,sl2:e.sl2,sl3:e.sl3,sl4:e.sl4,xgh2:e.xgh2,xgh3:e.xgh3,xgh4:e.xgh4,xh2:e.xh2,xh3:e.xh3,xi2:e.xi2,xi3:e.xi3,xl2:e.xl2,xl3:e.xl3,xl4:e.xl4,zmol:e.zmol,zmos:e.zmos});e.e3=Ro.e3,e.ee2=Ro.ee2,e.peo=Ro.peo,e.pgho=Ro.pgho,e.pho=Ro.pho,e.pinco=Ro.pinco,e.plo=Ro.plo,e.se2=Ro.se2,e.se3=Ro.se3,e.sgh2=Ro.sgh2,e.sgh3=Ro.sgh3,e.sgh4=Ro.sgh4,e.sh2=Ro.sh2,e.sh3=Ro.sh3,e.si2=Ro.si2,e.si3=Ro.si3,e.sl2=Ro.sl2,e.sl3=Ro.sl3,e.sl4=Ro.sl4,n=Ro.sinim,a=Ro.cosim,b=Ro.em,q=Ro.emsq,S=Ro.s1,U=Ro.s2,D=Ro.s3,I=Ro.s4,R=Ro.s5,k=Ro.ss1,O=Ro.ss2,P=Ro.ss3,Z=Ro.ss4,G=Ro.ss5,H=Ro.sz1,Y=Ro.sz3,$=Ro.sz11,B=Ro.sz13,J=Ro.sz21,K=Ro.sz23,N=Ro.sz31,Q=Ro.sz33,e.xgh2=Ro.xgh2,e.xgh3=Ro.xgh3,e.xgh4=Ro.xgh4,e.xh2=Ro.xh2,e.xh3=Ro.xh3,e.xi2=Ro.xi2,e.xi3=Ro.xi3,e.xl2=Ro.xl2,e.xl3=Ro.xl3,e.xl4=Ro.xl4,e.zmol=Ro.zmol,e.zmos=Ro.zmos,E=Ro.nm,ao=Ro.z1,no=Ro.z3,ro=Ro.z11,io=Ro.z13,co=Ro.z21,ho=Ro.z23,mo=Ro.z31,lo=Ro.z33;var _o=u(e,{inclo:j,init:e.init,ep:e.ecco,inclp:e.inclo,nodep:e.nodeo,argpp:e.argpo,mp:e.mo,opsmode:e.operationmode});e.ecco=_o.ep,e.inclo=_o.inclp,e.nodeo=_o.nodep,e.argpo=_o.argpp,e.mo=_o.mp,0,0,0;var ko=function(e){var s,a,n,d,i,c,h,m,l,p,g,M,f,u,z,v,y,b=e.cosim,q=e.argpo,w=e.s1,T=e.s2,j=e.s3,E=e.s4,F=e.s5,A=e.sinim,C=e.ss1,L=e.ss2,S=e.ss3,U=e.ss4,D=e.ss5,I=e.sz1,R=e.sz3,_=e.sz11,k=e.sz13,O=e.sz21,P=e.sz23,Z=e.sz31,G=e.sz33,H=e.t,Y=e.tc,$=e.gsto,B=e.mo,J=e.mdot,K=e.no,N=e.nodeo,Q=e.nodedot,V=e.xpidot,W=e.z1,X=e.z3,oo=e.z11,to=e.z13,eo=e.z21,so=e.z23,ao=e.z31,no=e.z33,ro=e.ecco,io=e.eccsq,co=e.emsq,ho=e.em,mo=e.argpm,lo=e.inclm,po=e.mm,xo=e.nm,go=e.nodem,Mo=e.irez,fo=e.atime,uo=e.d2201,zo=e.d2211,vo=e.d3210,yo=e.d3222,bo=e.d4410,qo=e.d4422,wo=e.d5220,To=e.d5232,jo=e.d5421,Eo=e.d5433,Fo=e.dedt,Ao=e.didt,Co=e.dmdt,Lo=e.dnodt,So=e.domdt,Uo=e.del1,Do=e.del2,Io=e.del3,Ro=e.xfact,_o=e.xlamo,ko=e.xli,Oo=e.xni,Po=.0043752690880113,Zo=.00015835218,Go=119459e-10;Mo=0,xo<.0052359877&&xo>.0034906585&&(Mo=1),xo>=.00826&&xo<=.00924&&ho>=.5&&(Mo=2);var Ho=-Go*L*(O+P);(lo<.052359877||lo>o-.052359877)&&(Ho=0),0!==A&&(Ho/=A);var Yo=-Zo*T*(eo+so);(lo<.052359877||lo>o-.052359877)&&(Yo=0),So=U*Go*(Z+G-6)-b*Ho+E*Zo*(ao+no-6),Lo=Ho,0!==A&&(So-=b/A*Yo,Lo+=Yo/A);var $o=($+Y*Po)%t;if(ho+=(Fo=C*Go*D+w*Zo*F)*H,lo+=(Ao=L*Go*(_+k)+T*Zo*(oo+to))*H,mo+=So*H,go+=Lo*H,po+=(Co=-Go*S*(I+R-14-6*co)-Zo*j*(W+X-14-6*co))*H,0!==Mo){if(z=Math.pow(xo/r,x),2===Mo){var Bo=ho,Jo=co;y=(ho=ro)*(co=io),ho<=.65?(n=3.616-13.247*ho+16.29*co,d=117.39*ho-19.302-228.419*co+156.591*y,i=109.7927*ho-18.9068-214.6334*co+146.5816*y,c=242.694*ho-41.122-471.094*co+313.953*y,h=841.88*ho-146.407-1629.014*co+1083.435*y,m=3017.977*ho-532.114-5740.032*co+3708.276*y):(n=331.819*ho-72.099-508.738*co+266.724*y,d=1582.851*ho-346.844-2415.925*co+1246.113*y,i=1554.908*ho-342.585-2366.899*co+1215.972*y,c=4758.686*ho-1052.797-7193.992*co+3651.957*y,h=16178.11*ho-3581.69-24462.77*co+12422.52*y,m=ho>.715?29936.92*ho-5149.66-54087.36*co+31324.56*y:1464.74-4664.75*ho+3763.64*co),ho<.7?(g=4988.61*ho-919.2277-9064.77*co+5542.21*y,l=4568.6173*ho-822.71072-8491.4146*co+5337.524*y,p=4690.25*ho-853.666-8624.77*co+5341.4*y):(g=161616.52*ho-37995.78-229838.2*co+109377.94*y,l=218913.95*ho-51752.104-309468.16*co+146349.42*y,p=170470.89*ho-40023.88-242699.48*co+115605.82*y),uo=(f=17891679e-13*(u=xo*xo*3*(z*z)))*(s=.75*(1+2*b+(v=b*b)))*(-.306-.44*(ho-.64)),zo=f*(1.5*(M=A*A))*n,vo=(f=3.7393792e-7*(u*=z))*(1.875*A*(1-2*b-3*v))*d,yo=f*(-1.875*A*(1+2*b-3*v))*i,bo=(f=2*(u*=z)*7.3636953e-9)*(35*M*s)*c,qo=f*(39.375*M*M)*h,wo=(f=1.1428639e-7*(u*=z))*(9.84375*A*(M*(1-2*b-5*v)+.33333333*(4*b-2+6*v)))*m,To=f*(A*(4.92187512*M*(-2-4*b+10*v)+6.56250012*(1+2*b-3*v)))*p,jo=(f=2*u*2.1765803e-9)*(29.53125*A*(2-8*b+v*(8*b-12+10*v)))*l,Eo=f*(29.53125*A*(-2-8*b+v*(12+8*b-10*v)))*g,_o=(B+N+N-($o+$o))%t,Ro=J+Co+2*(Q+Lo-Po)-K,ho=Bo,co=Jo}1===Mo&&(a=1+b,Do=2*(Uo=3*xo*xo*z*z)*(s=.75*(1+b)*(1+b))*(1+co*(.8125*co-2.5))*17891679e-13,Io=3*Uo*(a*=1.875*a*a)*(1+co*(6.60937*co-6))*2.2123015e-7*z,Uo=Uo*(.9375*A*A*(1+3*b)-.75*(1+b))*(d=1+2*co)*21460748e-13*z,_o=(B+N+q-$o)%t,Ro=J+V+Co+So+Lo-(K+Po)),ko=_o,Oo=K,fo=0,xo=K+0}return{em:ho,argpm:mo,inclm:lo,mm:po,nm:xo,nodem:go,irez:Mo,atime:fo,d2201:uo,d2211:zo,d3210:vo,d3222:yo,d4410:bo,d4422:qo,d5220:wo,d5232:To,d5421:jo,d5433:Eo,dedt:Fo,didt:Ao,dmdt:Co,dndt:0,dnodt:Lo,domdt:So,del1:Uo,del2:Do,del3:Io,xfact:Ro,xlamo:_o,xli:ko,xni:Oo}}({cosim:a,emsq:q,argpo:e.argpo,s1:S,s2:U,s3:D,s4:I,s5:R,sinim:n,ss1:k,ss2:O,ss3:P,ss4:Z,ss5:G,sz1:H,sz3:Y,sz11:$,sz13:B,sz21:J,sz23:K,sz31:N,sz33:Q,t:e.t,tc:0,gsto:e.gsto,mo:e.mo,mdot:e.mdot,no:e.no,nodeo:e.nodeo,nodedot:e.nodedot,xpidot:eo,z1:ao,z3:no,z11:ro,z13:io,z21:co,z23:ho,z31:mo,z33:lo,ecco:e.ecco,eccsq:Fo,em:b,argpm:0,inclm:j,mm:0,nm:E,nodem:0,irez:e.irez,atime:e.atime,d2201:e.d2201,d2211:e.d2211,d3210:e.d3210,d3222:e.d3222,d4410:e.d4410,d4422:e.d4422,d5220:e.d5220,d5232:e.d5232,d5421:e.d5421,d5433:e.d5433,dedt:e.dedt,didt:e.didt,dmdt:e.dmdt,dnodt:e.dnodt,domdt:e.domdt,del1:e.del1,del2:e.del2,del3:e.del3,xfact:e.xfact,xlamo:e.xlamo,xli:e.xli,xni:e.xni});e.irez=ko.irez,e.atime=ko.atime,e.d2201=ko.d2201,e.d2211=ko.d2211,e.d3210=ko.d3210,e.d3222=ko.d3222,e.d4410=ko.d4410,e.d4422=ko.d4422,e.d5220=ko.d5220,e.d5232=ko.d5232,e.d5421=ko.d5421,e.d5433=ko.d5433,e.dedt=ko.dedt,e.didt=ko.didt,e.dmdt=ko.dmdt,e.dnodt=ko.dnodt,e.domdt=ko.domdt,e.del1=ko.del1,e.del2=ko.del2,e.del3=ko.del3,e.xfact=ko.xfact,e.xlamo=ko.xlamo,e.xli=ko.xli,e.xni=ko.xni}1!==e.isimp&&(i=e.cc1*e.cc1,e.d2=4*wo*to*i,V=e.d2*to*e.cc1/3,e.d3=(17*wo+_)*V,e.d4=.5*V*wo*to*(221*wo+31*_)*e.cc1,e.t3cof=e.d2+2*i,e.t4cof=.25*(3*e.d3+e.cc1*(12*e.d2+10*i)),e.t5cof=.2*(3*e.d4+12*e.cc1*e.d3+6*e.d2*e.d2+15*i*(2*e.d2+i)))}y(e,0),e.init="n"}function q(o){return function(o){if(Array.isArray(o))return w(o)}(o)||function(o){if("undefined"!=typeof Symbol&&null!=o[Symbol.iterator]||null!=o["@@iterator"])return Array.from(o)}(o)||function(o,t){if(!o)return;if("string"==typeof o)return w(o,t);var e=Object.prototype.toString.call(o).slice(8,-1);"Object"===e&&o.constructor&&(e=o.constructor.name);if("Map"===e||"Set"===e)return Array.from(o);if("Arguments"===e||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(e))return w(o,t)}(o)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function w(o,t){(null==t||t>o.length)&&(t=o.length);for(var e=0,s=new Array(t);e<t;e++)s[e]=o[e];return s}function T(o){return o*s}function j(o){return o*e}function E(o){var t=o.longitude,e=o.latitude,s=o.height,a=6378.137,n=(a-6356.7523142)/a,d=2*n-n*n,r=a/Math.sqrt(1-d*(Math.sin(e)*Math.sin(e)));return{x:(r+s)*Math.cos(e)*Math.cos(t),y:(r+s)*Math.cos(e)*Math.sin(t),z:(r*(1-d)+s)*Math.sin(e)}}var F={constants:Object.freeze({__proto__:null,deg2rad:e,earthRadius:d,j2:h,j3:m,j3oj2:p,j4:l,minutesPerDay:a,mu:n,pi:o,rad2deg:s,tumin:c,twoPi:t,vkmpersec:i,x2o3:x,xke:r}),propagate:function(){for(var o=arguments.length,t=new Array(o),e=0;e<o;e++)t[e]=arguments[e];var s=t[0],n=Array.prototype.slice.call(t,1),d=f.apply(void 0,q(n)),r=(d-s.jdsatepoch)*a;return y(s,r)},sgp4:y,twoline2satrec:function(t,s){var a=1440/(2*o),n=0,d={error:0};d.satnum=t.substring(2,7),d.epochyr=parseInt(t.substring(18,20),10),d.epochdays=parseFloat(t.substring(20,32)),d.ndot=parseFloat(t.substring(33,43)),d.nddot=parseFloat(".".concat(parseInt(t.substring(44,50),10),"E").concat(t.substring(50,52))),d.bstar=parseFloat("".concat(t.substring(53,54),".").concat(parseInt(t.substring(54,59),10),"E").concat(t.substring(59,61))),d.inclo=parseFloat(s.substring(8,16)),d.nodeo=parseFloat(s.substring(17,25)),d.ecco=parseFloat(".".concat(s.substring(26,33))),d.argpo=parseFloat(s.substring(34,42)),d.mo=parseFloat(s.substring(43,51)),d.no=parseFloat(s.substring(52,63)),d.no/=a,d.inclo*=e,d.nodeo*=e,d.argpo*=e,d.mo*=e;var r=g(n=d.epochyr<57?d.epochyr+2e3:d.epochyr+1900,d.epochdays),i=r.mon,c=r.day,h=r.hr,m=r.minute,l=r.sec;return d.jdsatepoch=f(n,i,c,h,m,l),b(d,{opsmode:"i",satn:d.satnum,epoch:d.jdsatepoch-2433281.5,xbstar:d.bstar,xecco:d.ecco,xargpo:d.argpo,xinclo:d.inclo,xmo:d.mo,xno:d.no,xnodeo:d.nodeo}),d},gstime:v,jday:f,invjday:function(o,t){var e=o-2415019.5,s=e/365.25,a=1900+Math.floor(s),n=Math.floor(.25*(a-1901)),d=e-(365*(a-1900)+n)+1e-11;d<1&&(d=e-(365*((a-=1)-1900)+(n=Math.floor(.25*(a-1901)))));var r=g(a,d),i=r.mon,c=r.day,h=r.hr,m=r.minute,l=r.sec-864e-9;return t?[a,i,c,h,m,Math.floor(l)]:new Date(Date.UTC(a,i-1,c,h,m,Math.floor(l)))},dopplerFactor:function(o,t,e){var s=7292115e-11,a={x:t.x-o.x,y:t.y-o.y,z:t.z-o.z};a.w=Math.sqrt(Math.pow(a.x,2)+Math.pow(a.y,2)+Math.pow(a.z,2));var n=e.x+s*o.y,d=e.y-s*o.x,r=e.z,i=(a.x*n+a.y*d+a.z*r)/a.w;return 1+i/299792.458*(i>=0?1:-1)},radiansToDegrees:T,degreesToRadians:j,degreesLat:function(t){if(t<-o/2||t>o/2)throw new RangeError("Latitude radians must be in range [-pi/2; pi/2].");return T(t)},degreesLong:function(t){if(t<-o||t>o)throw new RangeError("Longitude radians must be in range [-pi; pi].");return T(t)},radiansLat:function(o){if(o<-90||o>90)throw new RangeError("Latitude degrees must be in range [-90; 90].");return j(o)},radiansLong:function(o){if(o<-180||o>180)throw new RangeError("Longitude degrees must be in range [-180; 180].");return j(o)},geodeticToEcf:E,eciToGeodetic:function(e,s){for(var a=6378.137,n=Math.sqrt(e.x*e.x+e.y*e.y),d=(a-6356.7523142)/a,r=2*d-d*d,i=Math.atan2(e.y,e.x)-s;i<-o;)i+=t;for(;i>o;)i-=t;for(var c,h=0,m=Math.atan2(e.z,Math.sqrt(e.x*e.x+e.y*e.y));h<20;)c=1/Math.sqrt(1-r*(Math.sin(m)*Math.sin(m))),m=Math.atan2(e.z+a*c*r*Math.sin(m),n),h+=1;return{longitude:i,latitude:m,height:n/Math.cos(m)-a*c}},eciToEcf:function(o,t){return{x:o.x*Math.cos(t)+o.y*Math.sin(t),y:o.x*-Math.sin(t)+o.y*Math.cos(t),z:o.z}},ecfToEci:function(o,t){return{x:o.x*Math.cos(t)-o.y*Math.sin(t),y:o.x*Math.sin(t)+o.y*Math.cos(t),z:o.z}},ecfToLookAngles:function(t,e){var s,a,n,d,r,i,c=function(o,t){var e=o.longitude,s=o.latitude,a=E(o),n=t.x-a.x,d=t.y-a.y,r=t.z-a.z;return{topS:Math.sin(s)*Math.cos(e)*n+Math.sin(s)*Math.sin(e)*d-Math.cos(s)*r,topE:-Math.sin(e)*n+Math.cos(e)*d,topZ:Math.cos(s)*Math.cos(e)*n+Math.cos(s)*Math.sin(e)*d+Math.sin(s)*r}}(t,e);return a=(s=c).topS,n=s.topE,d=s.topZ,r=Math.sqrt(a*a+n*n+d*d),i=Math.asin(d/r),{azimuth:Math.atan2(-n,a)+o,elevation:i,rangeSat:r}}};return F}));
 </script>
 <script>
 (function(){
@@ -327,6 +576,72 @@ const STARS=[
 ["Unukalhai",15,44,16.1,6,25,32,2.63],["Algieba",10,19,58.4,19,50,29,2.08]
 ].map(s=>({name:s[0],ra:hms(s[1],s[2],s[3]),dec:dms(s[4],s[5],s[6]),mag:s[7]}));
 
+/* ---------- Éphémérides (Soleil, Lune, planètes) ---------- */
+// Planètes : éléments képlériens JPL (Standish, valables 1800-2050), précision de l'ordre de la minute d'arc.
+const KEPLER={
+ mercure:[0.38709927,0.00000037,0.20563593,0.00001906,7.00497902,-0.00594749,252.25032350,149472.67411175,77.45779628,0.16047689,48.33076593,-0.12534081],
+ venus:[0.72333566,0.00000390,0.00677672,-0.00004107,3.39467605,-0.00078890,181.97909950,58517.81538729,131.60246718,0.00268329,76.67984255,-0.27769418],
+ terre:[1.00000261,0.00000562,0.01671123,-0.00004392,-0.00001531,-0.01294668,100.46457166,35999.37244981,102.93768193,0.32327364,0,0],
+ mars:[1.52371034,0.00001847,0.09339410,0.00007882,1.84969142,-0.00813131,-4.55343205,19140.30268499,-23.94362959,0.44441088,49.55953891,-0.29257343],
+ jupiter:[5.20288700,-0.00011607,0.04838624,-0.00013253,1.30439695,-0.00183714,34.39644051,3034.74612775,14.72847983,0.21252668,100.47390909,0.20469106],
+ saturne:[9.53667594,-0.00125060,0.05386179,-0.00050991,2.48599187,0.00193609,49.95424423,1222.49362201,92.59887831,-0.41897216,113.66242448,-0.28867794],
+ uranus:[19.18916464,-0.00196176,0.04725744,-0.00004397,0.77263783,-0.00242939,313.23810451,428.48202785,170.95427630,0.40805281,74.01692503,0.04240589],
+ neptune:[30.06992276,0.00026291,0.00859048,0.00005105,1.77004347,0.00035372,-55.12002969,218.45945325,44.96476227,-0.32241464,131.78422574,-0.00508664]};
+function helio(name,T){const k=KEPLER[name];
+  const a=k[0]+k[1]*T,e=k[2]+k[3]*T,I=(k[4]+k[5]*T)*D2R,L=k[6]+k[7]*T,w=k[8]+k[9]*T,O=k[10]+k[11]*T;
+  const om=(w-O)*D2R,On=O*D2R;let M=norm360(L-w);if(M>180)M-=360;M*=D2R;
+  let E=M+e*Math.sin(M);for(let i=0;i<8;i++)E-=(E-e*Math.sin(E)-M)/(1-e*Math.cos(E));
+  const xp=a*(Math.cos(E)-e),yp=a*Math.sqrt(1-e*e)*Math.sin(E);
+  const co=Math.cos(om),so=Math.sin(om),cO=Math.cos(On),sO=Math.sin(On),cI=Math.cos(I),sI=Math.sin(I);
+  return [(co*cO-so*sO*cI)*xp+(-so*cO-co*sO*cI)*yp,(co*sO+so*cO*cI)*xp+(-so*sO+co*cO*cI)*yp,so*sI*xp+co*sI*yp]}
+const EPS0=23.43928*D2R;
+function vecToRaDec(x,y,z){const ye=Math.cos(EPS0)*y-Math.sin(EPS0)*z,ze=Math.sin(EPS0)*y+Math.cos(EPS0)*z;
+  return {ra:norm360(Math.atan2(ye,x)*R2D),dec:Math.atan2(ze,Math.hypot(x,ye))*R2D,dist:Math.hypot(x,y,z)}}
+function bodyRaDec(name,d){ // RA/Dec moyens de la date, géocentriques
+  const T=(jd(d)-2451545)/36525,E=helio("terre",T);
+  let v;if(name==="soleil")v=[-E[0],-E[1],-E[2]];else{const P=helio(name,T);v=[P[0]-E[0],P[1]-E[1],P[2]-E[2]];
+    const lt=Math.hypot(v[0],v[1],v[2])*0.0057755183/36525;const P2=helio(name,T-lt);v=[P2[0]-E[0],P2[1]-E[1],P2[2]-E[2]]}
+  const j=vecToRaDec(v[0],v[1],v[2]),p=precess(j.ra,j.dec,d);return {ra:p.ra,dec:p.dec,dist:j.dist}}
+function moonEcl(d){const T=(jd(d)-2451545)/36525,s=x=>Math.sin(x*D2R),c=x=>Math.cos(x*D2R);
+  const lam=218.32+481267.881*T+6.29*s(135.0+477198.87*T)-1.27*s(259.3-413335.36*T)+0.66*s(235.7+890534.22*T)+0.21*s(269.9+954397.74*T)-0.19*s(357.5+35999.05*T)-0.11*s(186.5+966404.03*T);
+  const bet=5.13*s(93.3+483202.02*T)+0.28*s(228.2+960400.89*T)-0.28*s(318.3+6003.15*T)-0.17*s(217.6-407332.21*T);
+  const par=0.9508+0.0518*c(135.0+477198.87*T)+0.0095*c(259.3-413335.36*T)+0.0078*c(235.7+890534.22*T)+0.0028*c(269.9+954397.74*T);
+  return {lam:norm360(lam),bet,par}}
+function moonRaDec(d){const m=moonEcl(d),T=(jd(d)-2451545)/36525,eps=(23.439291-0.0130042*T)*D2R,l=m.lam*D2R,b=m.bet*D2R;
+  const x=Math.cos(b)*Math.cos(l),y=Math.cos(eps)*Math.cos(b)*Math.sin(l)-Math.sin(eps)*Math.sin(b),z=Math.sin(eps)*Math.cos(b)*Math.sin(l)+Math.cos(eps)*Math.sin(b);
+  return {ra:norm360(Math.atan2(y,x)*R2D),dec:Math.asin(z)*R2D,par:m.par,lam:m.lam}}
+function sunLon(d){const T=(jd(d)-2451545)/36525,L0=280.460+36000.771*T,M=(357.528+35999.050*T)*D2R;return norm360(L0+1.915*Math.sin(M)+0.020*Math.sin(2*M))}
+function moonPhase(d){const age=norm360(moonEcl(d).lam-sunLon(d)),illum=(1-Math.cos(age*D2R))/2;
+  const names=["Nouvelle Lune","Premier croissant","Premier quartier","Gibbeuse croissante","Pleine Lune","Gibbeuse décroissante","Dernier quartier","Dernier croissant"];
+  return {age,illum,name:names[Math.round(age/45)%8],waxing:age<180}}
+function bodyAlt(name,d,lat,lon){const lst=lstDeg(d,lon);
+  if(name==="lune"){const m=moonRaDec(d),a=altaz(m.ra,m.dec,lat,lst);return {alt:a.alt-m.par*Math.cos(a.alt*D2R),az:a.az}}
+  const p=bodyRaDec(name,d),a=altaz(p.ra,p.dec,lat,lst);return {alt:a.alt,az:a.az}}
+const PLANETS=[
+ ["mercure","Mercure","Petit disque qui montre des phases. Bas sur l'horizon, au crépuscule seulement."],
+ ["venus","Vénus","Phases nettes comme la Lune. Très lumineuse : un filtre jaune ou gris aide."],
+ ["mars","Mars","Calotte polaire et taches sombres, surtout autour de l'opposition."],
+ ["jupiter","Jupiter","Bandes nuageuses, Grande Tache rouge et les 4 satellites galiléens."],
+ ["saturne","Saturne","Anneaux et division de Cassini par bonne turbulence, satellite Titan."],
+ ["uranus","Uranus","Minuscule disque bleu-vert, vers 150× et plus."],
+ ["neptune","Neptune","Point bleuté à peine résolu : un défi."]];
+function nightReport(d,lat,lon){
+  const t0=new Date(d);if(t0.getHours()<12)t0.setDate(t0.getDate()-1);t0.setHours(12,0,0,0);
+  const STEP=5*60000,N=24*12+1,times=[],sun=[];
+  for(let i=0;i<N;i++){const t=new Date(t0.getTime()+i*STEP);times.push(t);sun.push(bodyAlt("soleil",t,lat,lon).alt)}
+  const cross=(arr,h)=>{const down=[],up=[];for(let i=1;i<arr.length;i++){const a=arr[i-1]-h,b=arr[i]-h;if(a===b)continue;if(a>0&&b<=0||a<0&&b>=0){const f=a/(a-b),t=new Date(times[i-1].getTime()+f*STEP);(a>0?down:up).push(t)}}return{down,up}};
+  const tw={};[["sun",-0.833],["civ",-6],["nau",-12],["ast",-18]].forEach(([k,h])=>{const c=cross(sun,h);tw[k]={set:c.down[0]||null,rise:c.up[c.up.length-1]||null}});
+  const moonA=times.map(t=>bodyAlt("lune",t,lat,lon).alt),mc=cross(moonA,-0.833);
+  const ph=moonPhase(times[Math.floor(N/2)]);
+  const dark=i=>sun[i]<-18;
+  let moonDark=0,darkN=0;for(let i=0;i<N;i++)if(dark(i)){darkN++;if(moonA[i]>0)moonDark++}
+  const planets=PLANETS.map(([k,label,tip])=>{const alt=times.map(t=>bodyAlt(k,t,lat,lon).alt);let best=-90,bi=-1;
+    const lim=(k==="mercure"||k==="venus")?-6:-12;for(let i=0;i<N;i++)if(sun[i]<lim&&alt[i]>best){best=alt[i];bi=i}
+    const c=cross(alt,-0.5667),az=bi>=0?bodyAlt(k,times[bi],lat,lon).az:null;
+    return {k,label,tip,best,bestT:bi>=0?times[bi]:null,az,rise:c.up[0]||null,set:c.down[0]||null,visible:best>=10}});
+  return {t0,tw,moon:{rise:mc.up[0]||null,set:mc.down[0]||null,phase:ph,darkShare:darkN?moonDark/darkN:0,darkN},planets,darkN};
+}
+
 /* ---------- State ---------- */
 const st={lat:store.get("lat",48.8566),lon:store.get("lon",2.3522),elev:store.get("elev",35),custom:store.get("custom",false),
   live:true,when:null,side:"E",
@@ -336,7 +651,7 @@ const st={lat:store.get("lat",48.8566),lon:store.get("lon",2.3522),elev:store.ge
 const now=()=>st.live?new Date():st.when;
 
 /* ---------- Tabs ---------- */
-const VIEWS=["site","mount","polar","stars","sensors"];
+const VIEWS=["site","mount","polar","stars","sky","sensors"];
 function show(v){if(!VIEWS.includes(v))v="site";st.view=v;store.set("view",v);
   VIEWS.forEach(x=>{$("v-"+x).hidden=x!==v});
   document.querySelectorAll("nav.tabs button").forEach(b=>b.setAttribute("aria-current",String(b.dataset.v===v)));
@@ -350,7 +665,7 @@ $("nightBtn").addEventListener("click",()=>{st.night=!st.night;store.set("night"
 /* ---------- Site inputs ---------- */
 function toLocalInput(d){const p=n=>String(n).padStart(2,"0");return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+"T"+p(d.getHours())+":"+p(d.getMinutes())}
 function syncSiteInputs(){$("lat").value=st.lat;$("lon").value=st.lon;$("elev").value=st.elev;$("siteNote").hidden=st.custom}
-["lat","lon","elev"].forEach(k=>$(k).addEventListener("input",e=>{const v=parseFloat(e.target.value);if(isFinite(v)){st[k]=v;store.set(k,v);st.custom=true;store.set("custom",true);$("siteNote").hidden=true;render()}}));
+["lat","lon","elev"].forEach(k=>$(k).addEventListener("input",e=>{const v=parseFloat(e.target.value);if(isFinite(v)){st[k]=v;store.set(k,v);st.custom=true;store.set("custom",true);$("siteNote").hidden=true;if(k!=="elev")siteOpts();render()}}));
 $("when").addEventListener("input",e=>{const v=e.target.value;if(v){st.live=false;st.when=new Date(v);render()}});
 $("nowBtn").addEventListener("click",()=>{st.live=true;render()});
 function siteMsg(t,bad){const m=$("siteMsg");m.textContent=t;m.classList.toggle("bad",!!bad);m.hidden=!t}
@@ -359,7 +674,7 @@ $("gpsBtn").addEventListener("click",()=>{
   siteMsg("Recherche de la position…");
   try{navigator.geolocation.getCurrentPosition(async p=>{st.lat=+p.coords.latitude.toFixed(4);st.lon=+p.coords.longitude.toFixed(4);
     const gpsAlt=p.coords.altitude!=null?Math.round(p.coords.altitude):null;
-    st.custom=true;store.set("custom",true);store.set("lat",st.lat);store.set("lon",st.lon);syncSiteInputs();render();
+    st.custom=true;store.set("custom",true);store.set("lat",st.lat);store.set("lon",st.lon);syncSiteInputs();siteOpts();render();
     siteMsg("Position trouvée. Altitude en cours auprès de l'IGN…");
     const z=await ignElevation(st.lat,st.lon);
     if(z!=null)setElev(z,"ign");
@@ -505,7 +820,7 @@ function sensorMsg(t,bad){const m=$("sensorMsg");m.textContent=t;m.classList.tog
 function onOrient(e){sensorSeen=true;sensorMsg("");
   st.sensor.beta=e.beta;st.sensor.gamma=e.gamma;
   st.sensor.mag=(typeof e.webkitCompassHeading==="number")?e.webkitCompassHeading:(e.absolute&&e.alpha!=null?norm360(360-e.alpha):null);
-  renderSensors()}
+  renderSensors();sessSensors()}
 $("sensorBtn").addEventListener("click",async()=>{
   const fail="Les capteurs ne répondent pas dans cette fenêtre. Vérifie Réglages › Safari › Mouvement et orientation, puis recharge la page.";
   try{if(typeof DeviceOrientationEvent!=="undefined"&&typeof DeviceOrientationEvent.requestPermission==="function"){const r=await DeviceOrientationEvent.requestPermission();if(r!=="granted"){sensorMsg("Accès aux capteurs refusé. Autorise « Mouvement et orientation » dans Réglages › Safari.",true);return}}
@@ -525,14 +840,382 @@ function renderSensors(){const s=st.sensor;
   const er=Math.abs(b)-Math.abs(st.lat);$("tiltErr").textContent=(er>=0?"+":"")+fmtDeg(er,1)+(Math.abs(er)<0.3?" ✓":"");
 }
 
+
+/* ---------- Mes sites ---------- */
+let sites=store.get("sites",[]);
+function siteOpts(){const sel=$("siteSel");const cur=sites.findIndex(x=>Math.abs(x.lat-st.lat)<1e-4&&Math.abs(x.lon-st.lon)<1e-4);
+  sel.innerHTML=`<option value="">${sites.length?"Choisir un site…":"Aucun site enregistré"}</option>`+sites.map((x,i)=>`<option value="${i}">${x.name.replace(/[<&]/g,"")}</option>`).join("");
+  sel.value=cur>=0?String(cur):"";$("siteDel").hidden=cur<0;$("siteDelConfirm").hidden=true}
+function siteSaveMsg(t){const m=$("siteSaveMsg");m.textContent=t;m.hidden=!t}
+$("siteSel").addEventListener("change",e=>{const i=e.target.value;if(i==="")return;const x=sites[+i];
+  st.lat=x.lat;st.lon=x.lon;st.elev=x.elev;["lat","lon","elev"].forEach(k=>store.set(k,st[k]));store.set("elevSrc",x.elevSrc||"manual");
+  st.custom=true;store.set("custom",true);syncSiteInputs();showElevSrc();siteOpts();siteSaveMsg("");render()});
+$("siteSave").addEventListener("click",()=>{const n=$("siteName").value.trim();
+  if(!n){siteSaveMsg("Donne un nom au site avant de l'enregistrer.");$("siteName").focus();return}
+  const rec={name:n.slice(0,40),lat:st.lat,lon:st.lon,elev:st.elev,elevSrc:store.get("elevSrc","manual")};
+  const i=sites.findIndex(x=>x.name.toLowerCase()===n.toLowerCase());if(i>=0)sites[i]=rec;else sites.push(rec);
+  store.set("sites",sites);$("siteName").value="";siteOpts();siteSaveMsg("Site « "+rec.name+" » enregistré.")});
+$("siteDel").addEventListener("click",()=>{const i=$("siteSel").value;if(i==="")return;$("siteDelTxt").textContent="Supprimer « "+sites[+i].name+" » ?";$("siteDelConfirm").hidden=false});
+$("siteDelNo").addEventListener("click",()=>{$("siteDelConfirm").hidden=true});
+$("siteDelYes").addEventListener("click",()=>{const i=$("siteSel").value;if(i!==""){const n=sites[+i].name;sites.splice(+i,1);store.set("sites",sites);siteSaveMsg("Site « "+n+" » supprimé.")}siteOpts()});
+
+/* ---------- Tutos ---------- */
+let tutoReturn=null;
+document.querySelectorAll("[data-tuto]").forEach(b=>b.addEventListener("click",()=>{tutoReturn=b;const sh=$(b.dataset.tuto);sh.hidden=false;sh.scrollTop=0;document.body.style.overflow="hidden";sh.querySelector("[data-close]").focus()}));
+function closeTuto(sh){sh.hidden=true;document.body.style.overflow="";if(tutoReturn)tutoReturn.focus()}
+document.querySelectorAll(".sheet [data-close]").forEach(b=>b.addEventListener("click",()=>closeTuto(b.closest(".sheet"))));
+document.addEventListener("keydown",e=>{if(e.key==="Escape")document.querySelectorAll(".sheet").forEach(sh=>{if(!sh.hidden)closeTuto(sh)})});
+
+
+/* ---------- Tuto guidé : vis ---------- */
+const T={fg:"var(--fg)",mu:"var(--muted)",ac:"var(--accent)",li:"var(--line)",pa:"var(--panel)",st:"var(--star)",ok:"var(--ok)",bad:"var(--bad)"};
+const tx=(x,y,t,o={})=>`<text x="${x}" y="${y}" font-family="IBM Plex Sans,sans-serif" font-size="${o.s||7}" fill="${o.c||T.mu}" text-anchor="${o.a||"start"}"${o.w?` font-weight="${o.w}"`:""}>${t}</text>`;
+const arrowDef=`<defs><marker id="ga" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L6 3L0 6z" fill="var(--accent)"/></marker><marker id="gm" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L6 3L0 6z" fill="var(--muted)"/></marker></defs>`;
+const lcd=(l1,l2)=>`<svg class="illus" viewBox="0 0 200 90">${arrowDef}<rect x="20" y="8" width="160" height="74" rx="10" fill="${T.pa}" stroke="${T.li}"/><rect x="34" y="20" width="132" height="40" rx="4" fill="#9fb84a" class="lcdbg"/><text x="42" y="36" font-family="IBM Plex Mono,monospace" font-size="10" fill="#17200a" class="lcdtx">${l1}</text><text x="42" y="52" font-family="IBM Plex Mono,monospace" font-size="10" fill="#17200a" class="lcdtx">${l2}</text>${tx(100,74,"Raquette SynScan",{a:"middle",s:6.5})}</svg>`;
+const SV={
+ mount:`<svg class="illus wide" viewBox="0 0 240 182">${arrowDef}
+  <line x1="70" y1="150" x2="40" y2="168" stroke="${T.mu}" stroke-width="3"/><line x1="170" y1="150" x2="200" y2="168" stroke="${T.mu}" stroke-width="3"/><line x1="120" y1="150" x2="120" y2="168" stroke="${T.mu}" stroke-width="3"/>
+  <rect x="60" y="132" width="120" height="18" rx="3" fill="${T.pa}" stroke="${T.fg}"/>
+  <line x1="120" y1="150" x2="120" y2="158" stroke="${T.ac}" stroke-width="3"/>
+  <rect x="114" y="118" width="12" height="14" fill="${T.ac}" opacity=".9"/>
+  <line x1="82" y1="125" x2="112" y2="125" stroke="${T.fg}" stroke-width="2.5"/><circle cx="80" cy="125" r="5" fill="${T.pa}" stroke="${T.fg}" stroke-width="1.5"/>
+  <line x1="128" y1="125" x2="158" y2="125" stroke="${T.fg}" stroke-width="2.5"/><circle cx="160" cy="125" r="5" fill="${T.pa}" stroke="${T.fg}" stroke-width="1.5"/>
+  <rect x="78" y="100" width="84" height="18" rx="3" fill="${T.pa}" stroke="${T.fg}"/>
+  <rect x="146" y="86" width="10" height="14" fill="${T.pa}" stroke="${T.fg}"/>
+  <line x1="129" y1="93" x2="146" y2="93" stroke="${T.fg}" stroke-width="2.5"/><line x1="127" y1="86" x2="127" y2="100" stroke="${T.fg}" stroke-width="3"/>
+  <line x1="156" y1="93" x2="173" y2="93" stroke="${T.fg}" stroke-width="2.5"/><line x1="175" y1="86" x2="175" y2="100" stroke="${T.fg}" stroke-width="3"/>
+  <g transform="rotate(-41 112 66)"><rect x="67" y="55" width="90" height="22" rx="8" fill="${T.pa}" stroke="${T.fg}" stroke-width="1.3"/><line x1="30" y1="66" x2="196" y2="66" stroke="${T.mu}" stroke-dasharray="3 3"/></g>
+  <line x1="104" y1="84" x2="104" y2="100" stroke="${T.fg}" stroke-width="5"/>
+  ${tx(28,32,"axe polaire",{s:6.5})}
+  ${tx(236,58,"Vis de latitude",{a:"end",c:T.ac,w:600})}${tx(236,67,"(2 vis en T)",{a:"end",c:T.ac})}<line x1="206" y1="70" x2="178" y2="86" stroke="${T.ac}" stroke-width=".8" marker-end="url(#ga)"/><line x1="200" y1="70" x2="130" y2="86" stroke="${T.ac}" stroke-width=".8" stroke-dasharray="2 2" marker-end="url(#ga)"/>
+  ${tx(4,104,"Vis d'azimut",{c:T.ac,w:600})}${tx(4,113,"(2 molettes)",{c:T.ac})}<line x1="44" y1="116" x2="74" y2="123" stroke="${T.ac}" stroke-width=".8" marker-end="url(#ga)"/>
+  ${tx(236,118,"Ergot",{a:"end"})}${tx(236,127,"du trépied",{a:"end"})}<line x1="200" y1="122" x2="128" y2="121" stroke="${T.mu}" stroke-width=".6" marker-end="url(#gm)"/>
+  ${tx(120,178,"Vis centrale : sous la tête du trépied",{a:"middle",s:6.5,c:T.ac})}
+ </svg>`,
+ pushpull:`<svg class="illus" viewBox="0 0 200 110">${arrowDef}
+  <rect x="80" y="38" width="40" height="34" rx="4" fill="${T.pa}" stroke="${T.fg}" stroke-width="1.3"/>${tx(100,58,"tête",{a:"middle",c:T.fg})}
+  <rect x="20" y="49" width="58" height="12" fill="${T.li}"/><rect x="10" y="42" width="12" height="26" rx="2" fill="${T.pa}" stroke="${T.fg}"/>
+  <rect x="122" y="49" width="58" height="12" fill="${T.li}"/><rect x="178" y="42" width="12" height="26" rx="2" fill="${T.pa}" stroke="${T.fg}"/>
+  ${tx(16,32,"1. desserre",{a:"start",c:T.mu,w:600})}${tx(16,92,"recule d'abord",{s:6.5})}
+  ${tx(184,32,"2. serre",{a:"end",c:T.ac,w:600})}${tx(184,92,"pousse la tête",{a:"end",s:6.5,c:T.ac})}
+  <path d="M150 22 L106 22" stroke="${T.ac}" stroke-width="1.6" fill="none" marker-end="url(#ga)"/><path d="M50 22 L28 22" stroke="${T.mu}" stroke-width="1.2" fill="none" marker-end="url(#gm)"/>
+ </svg>`,
+ mark:`<svg class="illus" viewBox="0 0 200 124">${arrowDef}
+  <circle cx="100" cy="62" r="34" fill="${T.pa}" stroke="${T.fg}" stroke-width="1.4"/><polygon points="100,44 115.6,53 115.6,71 100,80 84.4,71 84.4,53" fill="none" stroke="${T.mu}"/>
+  <rect x="96" y="22" width="8" height="18" rx="1" fill="${T.ac}"/>${tx(100,16,"repère adhésif",{a:"middle",c:T.ac})}
+  <path d="M108 21 A42 42 0 0 1 141 54" stroke="${T.ac}" stroke-width="1.6" fill="none" stroke-dasharray="3 2" marker-end="url(#ga)"/>
+  ${tx(146,40,"¼ de tour",{c:T.ac,w:600})}${tx(146,49,"= 90°",{c:T.ac})}
+  ${tx(100,110,"Une marque sur la vis, une sur la monture :",{a:"middle",s:6.5})}${tx(100,119,"tu comptes les tours sans te tromper.",{a:"middle",s:6.5})}
+ </svg>`,
+ lat:`<svg class="illus" viewBox="0 0 200 130">${arrowDef}
+  <line x1="20" y1="110" x2="180" y2="110" stroke="${T.li}"/>
+  <line x1="60" y1="110" x2="150" y2="32" stroke="${T.mu}" stroke-width="1.4" stroke-dasharray="3 3"/>
+  <line x1="60" y1="110" x2="146" y2="22" stroke="${T.fg}" stroke-width="2.2"/><circle cx="60" cy="110" r="3" fill="${T.fg}"/>
+  <path d="M135 42 A64 64 0 0 0 128 34" stroke="${T.ac}" stroke-width="1.8" fill="none" marker-end="url(#ga)" transform="translate(4,0)"/>
+  ${tx(150,20,"monter",{c:T.ac,w:600})}${tx(116,72,"latitude",{c:T.mu})}
+  <path d="M100 110 A40 40 0 0 0 88 82" stroke="${T.mu}" fill="none" stroke-width=".8"/>
+  ${tx(20,126,"Vis qui retient : desserre ½ tour  ·  Vis qui pousse : serre ¼ de tour",{s:6})}
+ </svg>`,
+ az:`<svg class="illus" viewBox="0 0 200 140">${arrowDef}
+  <circle cx="100" cy="72" r="46" fill="${T.pa}" stroke="${T.fg}" stroke-width="1.3"/>${tx(100,60,"tête, vue de dessus",{a:"middle",s:6.5})}
+  <rect x="94" y="12" width="12" height="14" fill="${T.ac}"/>${tx(112,12,"ergot",{s:6.5})}
+  <line x1="58" y1="19" x2="92" y2="19" stroke="${T.fg}" stroke-width="2.5"/><circle cx="54" cy="19" r="5" fill="${T.pa}" stroke="${T.fg}" stroke-width="1.5"/>
+  <line x1="108" y1="19" x2="142" y2="19" stroke="${T.fg}" stroke-width="2.5"/><circle cx="146" cy="19" r="5" fill="${T.pa}" stroke="${T.fg}" stroke-width="1.5"/>
+  ${tx(38,8,"− desserre",{a:"middle",c:T.mu,w:600})}${tx(162,8,"+ serre",{a:"middle",c:T.ac,w:600})}
+  <path d="M138 98 A46 46 0 0 1 62 98" stroke="${T.ac}" stroke-width="1.6" fill="none" marker-end="url(#ga)"/>
+  <circle cx="100" cy="72" r="5" fill="none" stroke="${T.mu}"/>${tx(100,84,"vis centrale",{a:"middle",s:6})}
+  ${tx(100,136,"La tête pivote du côté opposé à la molette qu'on serre.",{a:"middle",s:6.5})}
+ </svg>`,
+ done:`<svg class="illus" viewBox="0 0 200 110">${arrowDef}
+  <rect x="40" y="12" width="120" height="86" rx="8" fill="${T.pa}" stroke="${T.li}"/>
+  <rect x="54" y="26" width="92" height="9" rx="2" fill="var(--bg)" stroke="${T.li}"/><rect x="54" y="42" width="92" height="9" rx="2" fill="var(--bg)" stroke="${T.li}"/><rect x="54" y="58" width="92" height="9" rx="2" fill="var(--bg)" stroke="${T.li}"/>
+  <rect x="54" y="76" width="50" height="12" rx="3" fill="${T.ac}"/>
+  <circle cx="150" cy="88" r="14" fill="var(--bg)" stroke="${T.ok}" stroke-width="2"/><path d="M143 88 L148 93 L157 82" stroke="${T.ok}" stroke-width="2.4" fill="none"/>
+ </svg>`};
+const GUIDE=[
+ {t:"Repérer les vis",svg:SV.mount,h:`<p>La HEQ5 se règle avec deux paires de vis. <b>Latitude</b> : deux grosses vis en T sous la tête, une devant, une derrière. Elles font monter ou descendre l'axe polaire. <b>Azimut</b> : deux molettes face à face qui appuient sur l'ergot du trépied. Elles font pivoter la tête à gauche ou à droite.</p><p class="tip">Ne touche jamais aux pieds du trépied pendant le réglage : tout le travail se fait avec ces quatre vis.</p>`},
+ {t:"Le principe : desserrer puis pousser",svg:SV.pushpull,h:`<p>Les deux vis d'une paire se font face. Pour déplacer la tête, <b>desserre d'abord celle qui retient</b> le mouvement, puis <b>serre l'autre</b> : c'est elle qui pousse.</p><p>Quand le réglage est bon, ramène doucement la première vis en appui pour bloquer. Les deux vis doivent finir serrées, sans forcer.</p><p class="tip">Si la tête ne bouge pas en serrant, c'est que la vis opposée est encore en appui : desserre-la un peu plus.</p>`},
+ {t:"Faire des repères sur les vis",svg:SV.mark,h:`<p>Colle un petit morceau de scotch, ou fais une marque au feutre, sur le bord de chaque tête de vis. Fais une deuxième marque en face, sur la monture.</p><p>Tu pourras ainsi compter précisément ¼, ½ ou 1 tour, et l'appli saura convertir les tours en minutes d'arc.</p>`},
+ {t:"Mesurer l'erreur de départ",svg:lcd("Mel=+00°12'30","Maz=-00°05'10"),h:`<p>Fais ta mise en station au viseur polaire, puis un <b>alignement 2 étoiles</b> (onglet 4). À la fin, la raquette affiche l'erreur polaire : <b>Mel</b> pour la hauteur, <b>Maz</b> pour l'azimut.</p><p>Note les deux valeurs, ou saisis-les dans l'assistant de correction. Ce sont tes valeurs « avant ».</p>`},
+ {t:"Corriger la latitude d'¼ de tour",svg:SV.lat,h:`<ol class="steps"><li>Choisis un sens, par exemple <b>monter l'axe polaire</b>, et note-le.</li><li>Desserre d'environ ½ tour la vis en T qui retient ce mouvement.</li><li>Serre l'autre vis en T de <b>¼ de tour exactement</b>, en suivant ton repère.</li><li>Ramène la première vis en appui, sans forcer.</li></ol><p class="tip">Termine toujours en poussant, jamais en relâchant : la tête ne retombera pas quand tu bloques.</p>`},
+ {t:"Corriger l'azimut d'¼ de tour",svg:SV.az,h:`<ol class="steps"><li>Desserre très légèrement la vis centrale sous la tête du trépied, juste assez pour que la tête puisse pivoter.</li><li>Choisis un sens (vers l'est ou vers l'ouest) et note-le.</li><li>Desserre d'environ ½ tour la molette du côté où la tête doit aller.</li><li>Serre l'autre molette de <b>¼ de tour</b>, puis ramène la première en appui.</li><li>Resserre la vis centrale.</li></ol>`},
+ {t:"Remesurer",svg:lcd("Mel=+00°04'00","Maz=-00°01'40"),h:`<p>Refais un <b>alignement 2 étoiles</b> avec la même paire d'étoiles si possible. Note les nouvelles valeurs Mel et Maz : ce sont tes valeurs « après ».</p><p>Si une erreur a augmenté au lieu de baisser, ce n'est pas grave : tu as tourné dans le mauvais sens, et l'étalonnage le retiendra.</p>`},
+ {t:"Enregistrer l'étalonnage",svg:SV.done,h:`<p>Dans « Étalonner tes vis », choisis la vis (Latitude ou Azimut), le sens que tu as noté, le nombre de tours (0,25), puis l'erreur avant et après. Fais-le une fois pour chaque vis.</p><p>Ensuite, l'assistant te dira directement combien de tours faire, et dans quel sens, à partir de n'importe quelle mesure Mel et Maz. Il affine sa valeur à chaque nouvel étalonnage.</p><p class="tip">Pour la précision finale, la routine Polar Align de la raquette reste la meilleure méthode : l'assistant sert à dégrossir vite.</p>`}];
+let gi=0;
+function renderGuide(){const g=GUIDE[gi];$("gStep").textContent="Étape "+(gi+1)+" / "+GUIDE.length;
+  $("gDots").innerHTML=GUIDE.map((_,i)=>`<i class="${i<=gi?"on":""}"></i>`).join("");
+  $("gBody").innerHTML=`<h2 style="font-family:var(--f-display);font-weight:600;font-size:20px;margin:0">${g.t}</h2>${g.svg}${g.h}`;
+  $("gPrev").disabled=gi===0;$("gPrev").style.visibility=gi===0?"hidden":"visible";
+  $("gNext").textContent=gi===GUIDE.length-1?"Aller à l'étalonnage":"Suivant";$("tutoVis").scrollTop=0}
+$("gPrev").addEventListener("click",()=>{if(gi>0){gi--;renderGuide()}});
+$("gNext").addEventListener("click",()=>{if(gi<GUIDE.length-1){gi++;renderGuide()}else{closeTuto($("tutoVis"));gi=0;const p=$("calAlt").closest(".panel");p.scrollIntoView({behavior:"smooth",block:"start"});$("calTurns").focus({preventScroll:true})}});
+document.querySelector('[data-tuto="tutoVis"]').addEventListener("click",()=>{renderGuide()});
+
+/* ---------- Assistant de correction ---------- */
+function parseArc(txt){ // -> minutes d'arc, ou null
+  if(txt==null)return null;let t=String(txt).trim().replace(/[−–]/g,"-").replace(/,/g,".");if(!t)return null;
+  const neg=/^-/.test(t),nums=(t.match(/\d+(?:\.\d+)?/g)||[]).map(Number);if(!nums.length)return null;
+  let m;if(/[°d]/.test(t))m=nums[0]*60+(nums[1]||0)+(nums[2]||0)/60;else if(/['′]/.test(t))m=nums[0]+(nums[1]||0)/60;else m=nums[0];
+  return neg?-m:m}
+const fmtMin=m=>{const s=m<0?"−":m>0?"+":"";m=Math.abs(m);const d=Math.floor(m),sec=Math.round((m-d)*60);return s+(sec===60?(d+1)+"′00″":d+"′"+String(sec).padStart(2,"0")+"″")};
+const fmtTot=m=>m<1?Math.round(m*60)+"″":m.toFixed(1).replace(".",",")+"′";
+function quality(t){return t<2?["ok","Excellent : photo longue pose"]:t<5?["ok","Très bon : GoTo et suivi précis"]:t<15?["warn","Correct pour le visuel"]:["bad","À reprendre"]}
+let cal=store.get("cal",{alt:null,az:null}),calAxis="alt";
+const DIRS={alt:[["up","Monter l'axe polaire"],["down","Descendre l'axe polaire"]],az:[["east","Vers l'est"],["west","Vers l'ouest"]]};
+function fmtTurns(t){const e=Math.round(Math.abs(t)*8);if(e===0)return "moins d'1/8 de tour";const w=Math.floor(e/8),r=e%8;const fr=["","1/8","1/4","3/8","1/2","5/8","3/4","7/8"][r];
+  return (w?w+(fr?" tour"+(w>1?"s":"")+" "+fr:" tour"+(w>1?"s":"")):fr+" de tour")+" ("+Math.round(Math.abs(t)*360)+"°)"}
+function renderPA(){const mel=parseArc($("mel").value),maz=parseArc($("maz").value);
+  const has=mel!=null||maz!=null,tot=Math.hypot(mel||0,maz||0);
+  $("paTotal").textContent=has?fmtTot(tot):"--";
+  const chip=$("paChip");if(has){const[q,l]=quality(tot);chip.className="chip "+q;chip.textContent=l;chip.hidden=false}else chip.hidden=true;
+  const out=[];
+  [["alt",mel,"Latitude","Mel"],["az",maz,"Azimut","Maz"]].forEach(([ax,err,lab,code])=>{if(err==null)return;
+    if(Math.abs(err)<0.5){out.push(`<div class="a"><b>${lab} : rien à faire</b><span class="note">${code} ${fmtMin(err)} : moins de 30″.</span></div>`);return}
+    const k=cal[ax];
+    if(k&&isFinite(k.k)&&k.k!==0){const turns=-err/k.k,dir=DIRS[ax][turns>=0?0:1][1];
+      out.push(`<div class="a"><b>${lab} : ${dir.toLowerCase()}</b><span>≈ ${fmtTurns(turns)} sur la vis que tu serres.</span><span class="note">D'après ton étalonnage : ${fmtMin(k.k)} de ${code} par tour en « ${DIRS[ax][0][1].toLowerCase()} ».${Math.abs(turns)>3?" Écart important : vérifie d'abord l'alignement du viseur polaire.":""}</span></div>`)}
+    else out.push(`<div class="a"><b>${lab} : ${code} ${fmtMin(err)}</b><span class="note">Pas encore étalonné. Laisse la routine Polar Align te guider, ou tourne d'1/4 de tour, refais un alignement 2 étoiles et remplis « Étalonner tes vis » (tuto guidé disponible).</span></div>`)});
+  $("paAdvice").innerHTML=out.join("")}
+["mel","maz"].forEach(k=>$(k).addEventListener("input",renderPA));
+let hist=store.get("paHist",[]);
+function renderHist(){if(!hist.length){$("paHist").innerHTML=`<p class="note">Aucune mesure pour l'instant. Après chaque alignement 2 étoiles, saisis Mel et Maz puis « Enregistrer la mesure » pour suivre tes progrès.</p>`;$("paClear").hidden=true;return}
+  $("paClear").hidden=false;const mx=Math.max(5,...hist.map(h=>h.tot));
+  $("paHist").innerHTML=hist.slice().reverse().slice(0,12).map(h=>{const d=new Date(h.t),[q]=quality(h.tot),p=n=>String(n).padStart(2,"0");
+    return `<div class="h"><span>${p(d.getDate())}/${p(d.getMonth()+1)} ${p(d.getHours())}h${p(d.getMinutes())}</span><span class="bar"><i style="width:${Math.max(3,h.tot/mx*100).toFixed(0)}%;background:var(--${q==="ok"?"ok":q==="warn"?"warn":"bad"})"></i></span><span>${fmtTot(h.tot)}</span></div>`}).join("")}
+$("paSave").addEventListener("click",()=>{const mel=parseArc($("mel").value),maz=parseArc($("maz").value),m=$("paSaveMsg");
+  if(mel==null&&maz==null){m.textContent="Saisis au moins Mel ou Maz.";m.hidden=false;return}
+  hist.push({t:Date.now(),mel:mel||0,maz:maz||0,tot:Math.hypot(mel||0,maz||0),site:st.lat.toFixed(3)+","+st.lon.toFixed(3)});if(hist.length>100)hist=hist.slice(-100);
+  store.set("paHist",hist);renderHist();m.textContent="Mesure enregistrée.";m.hidden=false;
+  $("calBefore").value=$("calBefore").value||"";});
+$("paClear").addEventListener("click",()=>{$("paClearConfirm").hidden=false});
+$("paClearNo").addEventListener("click",()=>{$("paClearConfirm").hidden=true});
+$("paClearYes").addEventListener("click",()=>{hist=[];store.set("paHist",hist);$("paClearConfirm").hidden=true;renderHist()});
+function setCalAxis(ax){calAxis=ax;$("calAlt").setAttribute("aria-pressed",String(ax==="alt"));$("calAz").setAttribute("aria-pressed",String(ax==="az"));
+  $("calDir").innerHTML=DIRS[ax].map(([v,l])=>`<option value="${v}">${l}</option>`).join("");
+  $("calBefore").placeholder=ax==="alt"?"Mel avant : +12'30":"Maz avant : -8'10";$("calAfter").placeholder=ax==="alt"?"Mel après : +3'10":"Maz après : -1'40"}
+$("calAlt").addEventListener("click",()=>setCalAxis("alt"));$("calAz").addEventListener("click",()=>setCalAxis("az"));
+function calMsg(t,bad){const m=$("calMsg");m.textContent=t;m.classList.toggle("bad",!!bad);m.hidden=!t}
+function renderCal(){const rows=[["alt","Latitude","Mel"],["az","Azimut","Maz"]].map(([ax,lab,code])=>{const k=cal[ax];
+  return `<dt>${lab}</dt><dd>${k?fmtMin(k.k)+" de "+code+" / tour":"pas étalonné"}</dd>`});$("calOut").innerHTML=rows.join("")}
+$("calSave").addEventListener("click",()=>{const turns=parseFloat(String($("calTurns").value).replace(",",".")),b=parseArc($("calBefore").value),a=parseArc($("calAfter").value);
+  if(!(turns>0)){calMsg("Indique le nombre de tours (par exemple 0,25 pour un quart de tour).",true);return}
+  if(b==null||a==null){calMsg("Saisis l'erreur avant et après la correction.",true);return}
+  if(Math.abs(a-b)<0.2){calMsg("L'erreur n'a presque pas changé : la mesure ne permet pas d'étalonner. Tourne un peu plus et recommence.",true);return}
+  const sign=$("calDir").value==="up"||$("calDir").value==="east"?1:-1,k=(a-b)/(turns*sign);
+  const prev=cal[calAxis],n=prev?Math.min(prev.n+1,3):1,kk=prev?(prev.k*(n-1)+k)/n:k; // moyenne glissante
+  cal[calAxis]={k:kk,n};store.set("cal",cal);renderCal();renderPA();
+  calMsg("Étalonnage enregistré : "+fmtMin(k)+" par tour en « "+DIRS[calAxis][0][1].toLowerCase()+" »"+(prev?" (moyenné avec les précédents).":"."))});
+
+/* ---------- Ce soir ---------- */
+let skyCache={key:"",rep:null};
+const hm=t=>t?String(t.getHours()).padStart(2,"0")+"h"+String(t.getMinutes()).padStart(2,"0"):"—";
+function renderSky(){const d=now(),t0=new Date(d);if(t0.getHours()<12)t0.setDate(t0.getDate()-1);
+  const key=t0.toDateString()+"|"+st.lat.toFixed(3)+"|"+st.lon.toFixed(3);
+  if(skyCache.key!==key){skyCache={key,rep:nightReport(d,st.lat,st.lon)}}
+  const r=skyCache.rep,tw=r.tw,t1=new Date(r.t0.getTime()+86400000);
+  const df=x=>x.toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"});
+  $("nightTitle").textContent="Nuit du "+df(r.t0)+" au "+df(t1).replace(/^\w+ /,"");
+  // frise
+  const W=300,x=t=>((t-r.t0)/86400000*W),N=288,op=a=>a>-0.833?.55:a>-6?.36:a>-12?.22:a>-18?.1:0;
+  let h=`<rect x="0" y="6" width="300" height="24" rx="3" fill="var(--bg)" stroke="var(--line)"/>`;
+  for(let i=0;i<N;i++){const t=new Date(r.t0.getTime()+i*300000);const a=bodyAlt("soleil",t,st.lat,st.lon).alt;const o=op(a);if(o)h+=`<rect x="${(i*W/N).toFixed(2)}" y="7" width="${(W/N+0.3).toFixed(2)}" height="22" fill="var(--muted)" fill-opacity="${o}"/>`}
+  let moonSeg="";for(let i=0;i<N;i+=2){const t=new Date(r.t0.getTime()+i*300000);if(bodyAlt("lune",t,st.lat,st.lon).alt>0)moonSeg+=`<rect x="${(i*W/N).toFixed(2)}" y="34" width="${(2*W/N+0.3).toFixed(2)}" height="4" fill="var(--star)" opacity=".75"/>`}
+  h+=moonSeg+`<text x="0" y="46" font-size="7" fill="var(--muted)" font-family="IBM Plex Mono,monospace">Lune levée</text>`;
+  for(let H=14;H<=36;H+=2){const tt=new Date(r.t0.getTime()+(H-12)*3600000),xx=x(tt);
+    h+=`<line x1="${xx.toFixed(1)}" y1="30" x2="${xx.toFixed(1)}" y2="32" stroke="var(--muted)" stroke-width=".6"/>`;if(H%4===2)h+=`<text x="${xx.toFixed(1)}" y="56" text-anchor="middle" font-size="7" fill="var(--muted)" font-family="IBM Plex Mono,monospace">${tt.getHours()}h</text>`}
+  if(d>=r.t0&&d<=t1){const xn=x(d);h+=`<line x1="${xn.toFixed(1)}" y1="2" x2="${xn.toFixed(1)}" y2="40" stroke="var(--accent)" stroke-width="1.2"/><text x="${Math.min(290,Math.max(10,xn)).toFixed(1)}" y="4.5" text-anchor="middle" font-size="5.5" fill="var(--accent)" font-family="IBM Plex Mono,monospace">maintenant</text>`}
+  $("timeline").innerHTML=h;
+  const night=tw.ast.set&&tw.ast.rise?"de "+hm(tw.ast.set)+" à "+hm(tw.ast.rise):"pas de nuit noire";
+  $("twOut").innerHTML=`<dt>Coucher du Soleil</dt><dd>${hm(tw.sun.set)}</dd><dt>Fin du crépuscule civil</dt><dd>${hm(tw.civ.set)}</dd><dt>Fin du crépuscule nautique</dt><dd>${hm(tw.nau.set)}</dd><dt>Nuit noire</dt><dd>${night}</dd><dt>Lever du Soleil</dt><dd>${hm(tw.sun.rise)}</dd>`;
+  // Lune
+  const ph=r.moon.phase;$("moonIll").textContent=Math.round(ph.illum*100)+" %";$("moonName").textContent=ph.name;
+  {const k=ph.illum,rx=Math.abs(1-2*k)*18,lit=ph.waxing?1:-1; // côté éclairé : droite si croissante (hémisphère nord)
+   const sweepOuter=lit>0?1:0,sweepInner=k>0.5?(lit>0?1:0):(lit>0?0:1);
+   $("moonSvg").innerHTML=`<circle r="18" fill="var(--panel)" stroke="var(--line)"/><path d="M0 -18 A18 18 0 0 ${sweepOuter} 0 18 A${rx.toFixed(2)} 18 0 0 ${sweepInner} 0 -18 Z" fill="var(--star)"/>`}
+  $("moonOut").innerHTML=`<dt>Lever</dt><dd>${hm(r.moon.rise)}</dd><dt>Coucher</dt><dd>${hm(r.moon.set)}</dd>`;
+  const sh=r.moon.darkShare;$("moonNote").textContent=!r.darkN?"":ph.illum<0.25||sh<0.15?"Peu de gêne pour le ciel profond cette nuit.":sh>0.8?"La Lune est levée presque toute la nuit noire : idéal pour la Lune et les planètes, moins pour le ciel profond.":"La Lune est levée pendant une partie de la nuit noire ("+Math.round(sh*100)+" %).";
+  // planètes
+  const vis=r.planets.filter(p=>p.visible).sort((a,b)=>b.best-a.best),off=r.planets.filter(p=>!p.visible).map(p=>p.label);
+  $("planetList").innerHTML=vis.length?vis.map(p=>`<div class="planet"><div class="top"><span class="nm">${p.label}</span><span class="chip${p.best>=30?" best":""}">${fmtDeg(p.best,0)} au mieux</span></div><div class="meta">Meilleure heure ${hm(p.bestT)} · ${cardinal(p.az)} · lever ${hm(p.rise)} · coucher ${hm(p.set)}</div><div class="note">${p.tip}</div></div>`).join(""):`<p class="msg">Aucune planète à plus de 10° de hauteur pendant la nuit.</p>`;
+  $("planetOff").textContent=off.length?"Pas observables cette nuit : "+off.join(", ")+".":"";
+}
+
+
+/* ---------- ISS ---------- */
+let issTle=store.get("issTle",null),issCache={key:"",passes:null};
+function issMsg(t,bad){const m=$("issMsg");m.textContent=t;m.classList.toggle("bad",!!bad);m.hidden=!t}
+function parseTle(txt){const L=String(txt).split(/\r?\n/).map(x=>x.trim());const l1=L.find(x=>/^1 25544/.test(x)),l2=L.find(x=>/^2 25544/.test(x));return l1&&l2?{l1,l2}:null}
+async function fetchTle(){const tries=[
+  async()=>{const r=await fetch("https://celestrak.org/NORAD/elements/gp.php?CATNR=25544&FORMAT=TLE",{cache:"no-store"});if(!r.ok)throw 0;return parseTle(await r.text())},
+  async()=>{const r=await fetch("https://tle.ivanstanojevic.me/api/tle/25544",{cache:"no-store"});if(!r.ok)throw 0;const j=await r.json();return j.line1&&j.line2?{l1:j.line1,l2:j.line2}:null}];
+  for(const f of tries){try{const ctl=new AbortController(),tm=setTimeout(()=>ctl.abort(),9000);const t=await f();clearTimeout(tm);if(t)return t}catch(e){}}return null}
+function tleEpoch(t){const y=+t.l1.slice(18,20),d=parseFloat(t.l1.slice(20,32));return new Date(Date.UTC(y<57?2000+y:1900+y,0,1)+(d-1)*86400000)}
+function issPasses(tle,start,days){const S=window.satellite;if(!S||!tle)return null;
+  const rec=S.twoline2satrec(tle.l1,tle.l2),obs={longitude:st.lon*D2R,latitude:st.lat*D2R,height:(st.elev||0)/1000};
+  const STEP=10000,end=start.getTime()+days*86400000,passes=[];let cur=null;
+  const sample=t=>{const pv=S.propagate(rec,t);if(!pv||!pv.position)return null;const g=S.gstime(t),la=S.ecfToLookAngles(obs,S.eciToEcf(pv.position,g));return {el:la.elevation*R2D,az:norm360(la.azimuth*R2D),r:pv.position}};
+  const lit=(t,r)=>{const sn=bodyRaDec("soleil",t),a=sn.ra*D2R,dd=sn.dec*D2R,u=[Math.cos(dd)*Math.cos(a),Math.cos(dd)*Math.sin(a),Math.sin(dd)];
+    const dot=r.x*u[0]+r.y*u[1]+r.z*u[2];if(dot>0)return true;return Math.hypot(r.x-dot*u[0],r.y-dot*u[1],r.z-dot*u[2])>6371};
+  for(let ms=start.getTime();ms<=end;ms+=STEP){const t=new Date(ms),p=sample(t);if(!p)continue;
+    if(p.el>0){if(!cur)cur={vis:[]};
+      if(p.el>=10&&bodyAlt("soleil",t,st.lat,st.lon).alt<-6&&lit(t,p.r))cur.vis.push({t,el:p.el,az:p.az})}
+    else if(cur){if(cur.vis.length>=2){const v=cur.vis,mx=v.reduce((a,b)=>b.el>a.el?b:a);passes.push({start:v[0].t,end:v[v.length-1].t,azS:v[0].az,azE:v[v.length-1].az,max:mx.el,tMax:mx.t,azMax:mx.az})}cur=null;if(passes.length>=12)break}}
+  return passes}
+function renderIss(){const S=window.satellite;
+  if(!S){$("issList").innerHTML=`<p class="msg">Le module de calcul d'orbite n'a pas pu se charger.</p>`;return}
+  if(!issTle){$("issAge").textContent="";$("issList").innerHTML=`<p class="note">Touche « Mettre à jour l'orbite » avec du réseau pour calculer les passages.</p>`;return}
+  const ep=tleEpoch(issTle),age=(now()-ep)/86400000;
+  $("issAge").textContent="Orbite du "+ep.toLocaleDateString("fr-FR",{day:"numeric",month:"long"})+" ("+(age<1?"moins d'un jour":Math.floor(age)+" jour"+(age>=2?"s":""))+")."+(age>3?" Mets-la à jour pour des heures fiables.":"");
+  const d=now(),key=issTle.l1+"|"+st.lat.toFixed(3)+"|"+st.lon.toFixed(3)+"|"+Math.floor(d/1800000);
+  if(issCache.key!==key)issCache={key,passes:issPasses(issTle,new Date(d.getTime()-600000),5)};
+  const ps=(issCache.passes||[]).filter(p=>p.end>d);
+  const day=t=>t.toLocaleDateString("fr-FR",{weekday:"short",day:"numeric",month:"short"});
+  $("issList").innerHTML=ps.length?ps.map(p=>{const dur=Math.round((p.end-p.start)/60000*10)/10,[c,l]=p.max>65?["warn","Proche du zénith : la monture peut devoir basculer"]:p.max>=25?["ok","Idéal pour la monture"]:["","Bas sur l'horizon"];
+    return `<div class="planet"><div class="top"><span class="nm">${day(p.start)} · ${hm(p.start)}</span><span class="chip${c?" "+c:""}">${fmtDeg(p.max,0)} au plus haut</span></div>
+    <div class="meta">De ${cardinal(p.azS)} vers ${cardinal(p.azE)} · culmine à ${hm(p.tMax)} au ${cardinal(p.azMax)} · ${String(dur).replace(".",",")} min visible</div><div class="note">${l}.</div></div>`}).join(""):`<p class="note">Aucun passage visible dans les 5 prochains jours depuis ce site.</p>`}
+$("issUpd").addEventListener("click",async()=>{issMsg("Téléchargement de l'orbite…");const t=await fetchTle();
+  if(t){issTle={...t,got:Date.now()};store.set("issTle",issTle);issCache.key="";issMsg("");renderIss()}
+  else issMsg("Impossible de récupérer l'orbite. Vérifie la connexion, puis réessaie. Dans l'app Claude, cet accès est bloqué : utilise l'appli installée.",true)});
+
+/* ---------- Oculaires ---------- */
+const FOC=1200,DIA=127;
+let eps=store.get("eps",[{name:"Plössl 26 mm (fourni)",f:26,a:52}]);
+function epMsg(t){const m=$("epMsg");m.textContent=t;m.hidden=!t}
+function renderEps(){const B=parseFloat($("barlow").value)||1;
+  $("epTable").innerHTML=eps.length?eps.map((e,i)=>{const g=FOC*B/e.f,fld=e.a/g,pup=DIA/g;
+    const warn=g>254?' <span class="chip bad">trop fort</span>':pup>7?' <span class="chip warn">pupille &gt; 7 mm</span>':"";
+    return `<tr><td>${e.name.replace(/[<&]/g,"")}${warn}</td><td class="n">${Math.round(g)}×</td><td class="n">${fld>=1?fmtDeg(fld,1):Math.round(fld*60)+"′"}</td><td class="n">${pup.toFixed(1).replace(".",",")} mm</td><td class="n"><button class="del" data-i="${i}" aria-label="Retirer ${e.name.replace(/"/g,"")}">×</button></td></tr>`}).join(""):`<tr><td colspan="5" class="note">Aucun oculaire. Ajoute les tiens ci-dessous.</td></tr>`;
+  $("epTable").querySelectorAll(".del").forEach(b=>b.addEventListener("click",()=>{eps.splice(+b.dataset.i,1);store.set("eps",eps);renderEps()}))}
+$("barlow").value=String(store.get("barlow","1"));$("barlow").addEventListener("change",e=>{store.set("barlow",e.target.value);renderEps()});
+$("epAdd").addEventListener("click",()=>{const f=parseFloat(String($("epF").value).replace(",",".")),a=parseFloat(String($("epA").value).replace(",","."));let n=$("epName").value.trim();
+  if(!(f>0)){epMsg("Indique la focale de l'oculaire en millimètres (gravée dessus).");return}
+  if(!(a>=20&&a<=120)){epMsg("Indique le champ apparent en degrés (52° pour un Plössl, souvent 60 à 82° ailleurs).");return}
+  if(!n)n=String(f).replace(".",",")+" mm";eps.push({name:n.slice(0,30),f,a});eps.sort((x,y)=>y.f-x.f);store.set("eps",eps);
+  ["epName","epF","epA"].forEach(k=>$(k).value="");epMsg("");renderEps()});
+
+
+/* ---------- Mode séance ---------- */
+let sess=store.get("sess",null);let sessSkip=store.get("sessSkip",[]),sessTarget=store.get("sessTarget",5),sessLog=store.get("sessLog",[]);
+const polarHome={parent:null,next:null};
+function sessSave(){store.set("sess",sess)}
+const fmtDur=ms=>{const m=Math.floor(ms/60000),h=Math.floor(m/60);return h?h+" h "+String(m%60).padStart(2,"0"):m+" min"};
+function siteLabel(){const x=sites.find(x=>Math.abs(x.lat-st.lat)<1e-4&&Math.abs(x.lon-st.lon)<1e-4);return x?x.name:fmtDM(st.lat,"N","S",2)+" · "+fmtDM(st.lon,"E","W",3)}
+function curEp(){return {B:parseFloat(store.get("barlow","1"))||1}}
+function bestEp(target){let best=null;[1,2,2.5,3].forEach(B=>eps.forEach(e=>{const g=FOC*B/e.f;if(g>254)return;const sc=Math.abs(Math.log(g/target));if(!best||sc<best.sc)best={e,B,g,sc}}));return best}
+const PL_TARGET={mercure:100,venus:100,mars:180,jupiter:150,saturne:170,uranus:150,neptune:180};
+const SESS=[
+ {id:"site",t:"Où observes-tu ?",r(b){const r=nightReport(now(),st.lat,st.lon),ph=r.moon.phase,tw=r.tw;
+   const night=tw.ast.set&&tw.ast.rise?"Nuit noire de "+hm(tw.ast.set)+" à "+hm(tw.ast.rise):"Pas de nuit noire cette nuit";
+   const vis=r.planets.filter(p=>p.visible).map(p=>p.label);
+   b.innerHTML=`<h2 class="t">Où observes-tu ?</h2><div class="panel"><div class="note">Site actuel</div><div class="verdict">${siteLabel()}</div>
+   ${sites.length?`<div class="sitebtns">${sites.map((x,i)=>`<button class="btn small" data-site="${i}">${x.name.replace(/[<&]/g,"")}</button>`).join("")}</div>`:""}
+   <button class="btn" id="sGps">Utiliser ma position GPS</button><p class="note" id="sGpsMsg"></p></div>
+   <div class="panel"><div class="verdict">${night}</div><dl class="kv"><dt>Lune</dt><dd>${Math.round(ph.illum*100)} % · ${ph.name}</dd><dt>Lever · coucher Lune</dt><dd>${hm(r.moon.rise)} · ${hm(r.moon.set)}</dd><dt>Planètes cette nuit</dt><dd>${vis.length?vis.join(", "):"aucune"}</dd></dl></div>`;
+   b.querySelectorAll("[data-site]").forEach(x=>x.addEventListener("click",()=>{$("siteSel").value=x.dataset.site;$("siteSel").dispatchEvent(new Event("change"));renderSess()}));
+   $("sGps").addEventListener("click",()=>{$("sGpsMsg").textContent="Recherche de la position…";$("gpsBtn").click();setTimeout(()=>{if(sess&&SESS[sess.step].id==="site")renderSess()},6000)})}},
+ {id:"install",skip:true,t:"Orienter et mettre à niveau le trépied",r(b){const dec=declination(now());
+   b.innerHTML=`<h2 class="t">Orienter et mettre à niveau le trépied</h2>
+   <ol class="steps"><li>Déplie le trépied, jambes sorties au minimum utile.</li><li>Oriente la jambe « N » vers le nord vrai${dec!=null?" : cap "+fmtDeg(norm360(-dec),0)+" sur une boussole magnétique":""}.</li><li>Centre la bulle sur la tête du trépied.</li></ol>
+   <div class="panel"><button class="btn" id="sSens">Utiliser la boussole et le niveau de l'iPhone</button>
+   <dl class="kv"><dt>Cap vrai du haut de l'iPhone</dt><dd id="sHead">--</dd><dt>Niveau (avant · côté)</dt><dd id="sLevel">--</dd></dl><p class="note">Pose l'iPhone à plat sur la tête du trépied, sans la monture, loin des contrepoids.</p></div>`;
+   $("sSens").addEventListener("click",()=>{$("sensorBtn").click()});sessSensors()}},
+ {id:"lat",skip:true,t:"Régler la latitude",r(b){b.innerHTML=`<h2 class="t">Régler la latitude</h2><div class="big" style="font-size:64px">${Math.abs(st.lat).toFixed(1).replace(".",",")}°</div><p>Pose la tête de la monture sur le trépied, puis amène l'échelle de latitude sur cette valeur avec les vis en T.</p><p class="note">Le viseur polaire affinera ensuite : une erreur d'un demi-degré sur l'échelle n'est pas grave.</p>`}},
+ {id:"balance",skip:true,t:"Contrepoids, tube et équilibrage",r(b){const load=st.wTube+st.wAcc+st.wCam,d=load*st.dTube/(st.nCw*CW);
+   b.innerHTML=`<h2 class="t">Contrepoids, tube et équilibrage</h2><div class="panel"><div class="note">Contrepoids (${st.nCw} × 5,1 kg) à environ</div><div class="big">${isFinite(d)?d.toFixed(0):"--"}<small>cm de l'axe AD</small></div></div>
+   <ol class="steps"><li>Installe les contrepoids d'abord, vis de sécurité en bout de barre.</li><li>Monte le tube : queue d'aronde serrée, renvoi et oculaire en place.</li><li>Équilibre la DEC : tube horizontal, fais glisser le tube dans ses colliers.</li><li>Équilibre l'AD : barre horizontale, déplace les contrepoids, très légèrement lourd côté est.</li><li>Termine en position de départ : barre vers le bas, tube vers la Polaire, embrayages serrés.</li></ol>
+   <p class="note">La mise en température de la lunette démarre quand tu passes à l'étape suivante.</p>`},
+  leave(){if(sess&&!sess.warm){sess.warm=Date.now();sessSave()}}},
+ {id:"polar",t:"Placer la Polaire",live:true,r(b){b.innerHTML=`<h2 class="t">Placer la Polaire dans le viseur</h2><div id="sPolarSlot"></div><ol class="steps"><li>Desserre l'embrayage AD et mets le 0 du réticule en haut.</li><li>Avec les vis d'azimut et de latitude seulement, amène la Polaire à la position indiquée.</li></ol>`;
+   const pm=$("polarMain");if(!polarHome.parent){polarHome.parent=pm.parentNode;polarHome.next=pm.nextSibling}$("sPolarSlot").appendChild(pm);buildReticle();renderPolar()},
+  leave(){const pm=$("polarMain");if(polarHome.parent)polarHome.parent.insertBefore(pm,polarHome.next)}},
+ {id:"power",t:"Allumer et renseigner la raquette",live:true,r(b){renderSite();b.innerHTML=`<h2 class="t">Allumer et renseigner la raquette</h2><p>Mets la monture sous tension, puis saisis ces valeurs.</p><div class="synscan" id="sSyn">${$("synscan").innerHTML}</div><p class="note">L'heure défile en direct : valide-la sur la raquette au moment où elle s'affiche ici.</p>`}},
+ {id:"align",t:"Alignement 2 étoiles",r(b){renderStars();b.innerHTML=`<h2 class="t">Alignement 2 étoiles</h2>${sess.passes?`<p class="tip">Passe ${sess.passes+1} : refais l'alignement après ton Polar Align.</p>`:""}
+   <div class="seg" role="group" aria-label="Côté du ciel"><button id="sE" aria-pressed="${st.side==="E"}">Cible à l'est</button><button id="sW" aria-pressed="${st.side==="W"}">Cible à l'ouest</button></div>
+   <div class="row" style="flex-direction:column;align-items:stretch;gap:8px">${$("pairs").innerHTML}</div>
+   <p class="note">Centre chaque étoile en finissant par les touches haut et droite. À la fin, note Mel et Maz.</p>`;
+   $("sE").addEventListener("click",()=>{st.side="E";renderSess()});$("sW").addEventListener("click",()=>{st.side="W";renderSess()})}},
+ {id:"pae",t:"Vérifier l'erreur polaire",r(b){const m=sess.paMode;
+   if(m==="pa"){renderStars();b.innerHTML=`<h2 class="t">Polar Align sur la raquette</h2><div class="row" style="flex-direction:column;align-items:stretch;gap:8px">${$("paStars").innerHTML}</div>
+     <ol class="steps"><li>Setup › Alignment › Polar Align, choisis l'étoile conseillée. Centre-la, Enter.</li><li>Recentre-la avec la seule vis de latitude, Enter.</li><li>Puis avec la seule vis d'azimut, Enter.</li></ol>
+     <button class="btn solid big" id="sPaDone">Polar Align fait : refaire l'alignement</button>`;
+     $("sPaDone").addEventListener("click",()=>{sess.passes=(sess.passes||0)+1;sess.paMode="measure";go(SESS.findIndex(x=>x.id==="align"))});return}
+   b.innerHTML=`<h2 class="t">Vérifier l'erreur polaire</h2>
+   <div class="seg" role="group" aria-label="Objectif"><button id="sT5" aria-pressed="${sessTarget===5}">Objectif visuel · 5′</button><button id="sT2" aria-pressed="${sessTarget===2}">Objectif photo · 2′</button></div>
+   <div class="grid2"><label class="f" for="sMel">Mel (hauteur)<input id="sMel" type="text" placeholder="+00°12'34" autocomplete="off" value="${(sess.mel||"").replace(/"/g,"")}"></label><label class="f" for="sMaz">Maz (azimut)<input id="sMaz" type="text" placeholder="-00°05'10" autocomplete="off" value="${(sess.maz||"").replace(/"/g,"")}"></label></div>
+   <div id="sPaRes"></div>`;
+   const upd=()=>{sess.mel=$("sMel").value;sess.maz=$("sMaz").value;sessSave();$("mel").value=sess.mel;$("maz").value=sess.maz;renderPA();
+     const mel=parseArc(sess.mel),maz=parseArc(sess.maz),res=$("sPaRes");if(mel==null&&maz==null){res.innerHTML="";setNext();return}
+     const tot=Math.hypot(mel||0,maz||0),okk=tot<=sessTarget,[q,l]=quality(tot);
+     res.innerHTML=`<div class="panel"><div class="row" style="justify-content:space-between;align-items:flex-end"><div class="big" style="font-size:40px">${fmtTot(tot)}</div><span class="chip ${q}">${l}</span></div>
+       <div class="verdict" style="color:var(--${okk?"ok":"warn"})">${okk?"Objectif atteint":"Pas encore assez précis"}</div></div>
+       ${okk?"":`<div class="advice">${$("paAdvice").innerHTML}</div><button class="btn big" id="sGoPa">Faire un Polar Align</button>`}`;
+     if(!okk)$("sGoPa").addEventListener("click",()=>{recordPae();sess.paMode="pa";sessSave();renderSess()});setNext(okk)};
+   ["sMel","sMaz"].forEach(k=>$(k).addEventListener("input",upd));
+   $("sT5").addEventListener("click",()=>{sessTarget=5;store.set("sessTarget",5);renderSess()});$("sT2").addEventListener("click",()=>{sessTarget=2;store.set("sessTarget",2);renderSess()});upd()},
+  leave(dir){if(dir>0)recordPae()}},
+ {id:"planets",t:"Observer les planètes",live:true,r(b){const d=now(),r=nightReport(d,st.lat,st.lon);
+   const warm=sess.warm?Date.now()-sess.warm:0,ready=warm>=30*60000;
+   const list=r.planets.filter(p=>p.visible).map(p=>({p,a:bodyAlt(p.k,d,st.lat,st.lon)})).sort((x,y)=>y.a.alt-x.a.alt);
+   b.innerHTML=`<h2 class="t">Observer les planètes</h2>
+   <p class="${ready?"note":"msg"}">${sess.warm?(ready?"Lunette en température depuis "+fmtDur(warm)+" : prête pour les forts grossissements.":"Lunette dehors depuis "+fmtDur(warm)+" : attends encore "+Math.ceil((30*60000-warm)/60000)+" min avant les forts grossissements."):"Laisse la lunette 30 à 45 minutes dehors avant les forts grossissements."}</p>
+   ${list.length?list.map(({p,a})=>{const be=bestEp(PL_TARGET[p.k]||150),up=a.alt>5;
+     return `<div class="planet"><div class="top"><span class="nm">${p.label}</span><span class="chip${up?" best":""}">${up?"maintenant "+fmtDeg(a.alt,0)+" · "+cardinal(a.az):"sous l'horizon"}</span></div>
+     <div class="meta">Meilleure heure ${hm(p.bestT)} (${fmtDeg(p.best,0)}) · lever ${hm(p.rise)} · coucher ${hm(p.set)}</div>
+     <div class="note">${be?"Oculaire : "+be.e.name.replace(/[<&]/g,"")+(be.B>1?" + Barlow "+String(be.B).replace(".",",")+"×":"")+" → "+Math.round(be.g)+"×":"Ajoute tes oculaires (onglet Ciel) pour un conseil de grossissement."}</div>
+     <div class="note">${p.tip}</div></div>`}).join(""):`<p class="msg">Aucune planète à plus de 10° de hauteur cette nuit.</p>`}
+   <p class="note">Dans la raquette : Object Catalog › Solar System.</p>`}},
+ {id:"end",t:"Bilan",r(b){const dur=Date.now()-sess.start,last=sess.lastPae;
+   b.innerHTML=`<h2 class="t">Bilan de la séance</h2><div class="panel"><dl class="kv"><dt>Site</dt><dd>${siteLabel()}</dd><dt>Durée</dt><dd>${fmtDur(dur)}</dd><dt>Erreur polaire finale</dt><dd>${last!=null?fmtTot(last):"non mesurée"}</dd><dt>Passes de Polar Align</dt><dd>${sess.passes||0}</dd></dl></div>
+   <p class="note">« Terminer » enregistre ce bilan sur l'écran Site.</p>`}}];
+function recordPae(){const mel=parseArc(sess.mel),maz=parseArc(sess.maz);if(mel==null&&maz==null)return;const tot=Math.hypot(mel||0,maz||0);
+  const key=sess.mel+"|"+sess.maz+"|"+(sess.passes||0);if(sess.lastKey===key)return;sess.lastKey=key;sess.lastPae=tot;sessSave();
+  hist.push({t:Date.now(),mel:mel||0,maz:maz||0,tot,site:st.lat.toFixed(3)+","+st.lon.toFixed(3)});if(hist.length>100)hist=hist.slice(-100);store.set("paHist",hist);renderHist()}
+function activeSteps(){return SESS.map((x,i)=>i).filter(i=>!(SESS[i].skip&&sessSkip.includes(SESS[i].id)))}
+function setNext(ok){const last=sess.step===SESS.length-1,pae=SESS[sess.step].id==="pae";
+  $("sessNext").textContent=last?"Terminer la séance":pae&&ok===false?"Continuer quand même":"Fait, étape suivante"}
+function sessSensors(){if(!sess||SESS[sess.step].id!=="install"||!$("sHead"))return;const s=st.sensor;
+  if(s.mag!=null){const dec=declination(now())||0;$("sHead").textContent=fmtDeg(norm360(s.mag+dec),0)}
+  if(s.beta!=null)$("sLevel").textContent=fmtDeg(s.beta,1)+" · "+fmtDeg(s.gamma,1)+(Math.hypot(s.beta,s.gamma)<0.3?" ✓":"")}
+function renderSess(){if(!sess)return;const ids=activeSteps(),pos=ids.indexOf(sess.step),S=SESS[sess.step];
+  $("sessStep").textContent="Étape "+(pos+1)+" / "+ids.length;
+  $("sessDots").innerHTML=ids.map((_,i)=>`<i class="${i<=pos?"on":""}"></i>`).join("");
+  const b=$("sessBody");S.r(b);
+  if(S.skip){const l=document.createElement("button");l.className="linkbtn";l.textContent="Ne plus proposer cette étape";l.addEventListener("click",()=>{sessSkip.push(S.id);store.set("sessSkip",sessSkip);next(1)});b.appendChild(l)}
+  $("sessPrev").style.visibility=pos===0?"hidden":"visible";if(S.id!=="pae")setNext();sessClock()}
+function go(i){const cur=SESS[sess.step];if(cur.leave)cur.leave(i>sess.step?1:-1);sess.step=i;sessSave();renderSess();$("session").scrollTop=0}
+function next(dir){const ids=activeSteps(),pos=ids.indexOf(sess.step);
+  if(dir>0&&pos===ids.length-1){finishSess();return}
+  const np=Math.max(0,Math.min(ids.length-1,(pos<0?0:pos)+dir));
+  if(SESS[sess.step].id==="pae"&&dir<0&&sess.paMode==="pa"){sess.paMode="measure";sessSave();renderSess();return}
+  go(ids[np])}
+function sessClock(){if(!sess)return;$("sessDur").textContent=fmtDur(Date.now()-sess.start);
+  $("sessWarm").textContent=sess.warm?"Mise en température : "+fmtDur(Date.now()-sess.warm):""}
+function openSess(){$("session").hidden=false;document.body.style.overflow="hidden";$("sessNight").setAttribute("aria-pressed",String(st.night));renderSess()}
+function closeSess(){const cur=SESS[sess.step];if(cur.id==="polar"&&cur.leave)cur.leave(0);$("session").hidden=true;document.body.style.overflow="";updSessStart();render()}
+function finishSess(){const cur=SESS[sess.step];if(cur.leave)cur.leave(1);
+  sessLog.push({t:sess.start,dur:Date.now()-sess.start,site:siteLabel(),pae:sess.lastPae??null,passes:sess.passes||0});if(sessLog.length>30)sessLog=sessLog.slice(-30);store.set("sessLog",sessLog);
+  sess=null;sessSave();$("session").hidden=true;document.body.style.overflow="";updSessStart();show("site")}
+function updSessStart(){$("sessStart").textContent=sess?"Reprendre la séance":"Démarrer une séance";
+  const n=$("sessResumeNote");if(sess){n.textContent="Séance commencée il y a "+fmtDur(Date.now()-sess.start)+", à l'étape « "+SESS[sess.step].t+" ».";n.hidden=false}else n.hidden=true;
+  $("sessRestore").hidden=!sessSkip.length;
+  $("sessLog").innerHTML=sessLog.slice().reverse().slice(0,5).map(x=>{const d=new Date(x.t),p=n=>String(n).padStart(2,"0");return `<div class="h"><span>${p(d.getDate())}/${p(d.getMonth()+1)}</span><span class="note" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${x.site.replace(/[<&]/g,"")} · ${fmtDur(x.dur)}</span><span>${x.pae!=null?fmtTot(x.pae):"—"}</span></div>`}).join("")}
+$("sessStart").addEventListener("click",()=>{if(!sess){sess={start:Date.now(),step:activeSteps()[0],warm:null,passes:0,paMode:"measure",mel:"",maz:""};sessSave()}openSess()});
+$("sessNext").addEventListener("click",()=>next(1));$("sessPrev").addEventListener("click",()=>next(-1));
+$("sessPause").addEventListener("click",closeSess);
+$("sessNight").addEventListener("click",()=>{st.night=!st.night;store.set("night",st.night);applyNight();$("sessNight").setAttribute("aria-pressed",String(st.night))});
+$("sessRestore").addEventListener("click",()=>{sessSkip=[];store.set("sessSkip",[]);updSessStart()});
+function tickSession(){if(!sess||$("session").hidden)return;sessClock();const S=SESS[sess.step];
+  if(S.id==="polar")renderPolar();else if(S.id==="power"){renderSite();const x=$("sSyn");if(x)x.innerHTML=$("synscan").innerHTML}else if(S.id==="install")sessSensors()}
+
 /* ---------- Main ---------- */
-function render(){renderClock();if(st.view==="site")renderSite();if(st.view==="polar")renderPolar();if(st.view==="stars")renderStars();if(st.view==="mount")renderMount()}
-applyNight();syncSiteInputs();$("zoomField").setAttribute("aria-pressed",String(!st.zoom));$("zoomRing").setAttribute("aria-pressed",String(st.zoom));renderChecks();renderMount();show(st.view);
-let tick=0;setInterval(()=>{if(!st.live){renderClock();return}tick++;renderClock();if(st.view==="polar"||(st.view==="site"&&document.activeElement!==$("when")))render();else if(tick%30===0)render()},1000);
+function render(){renderClock();if(st.view==="site")renderSite();if(st.view==="polar")renderPolar();if(st.view==="stars")renderStars();if(st.view==="mount")renderMount();if(st.view==="sky"){renderSky();renderIss()}}
+applyNight();syncSiteInputs();$("zoomField").setAttribute("aria-pressed",String(!st.zoom));$("zoomRing").setAttribute("aria-pressed",String(st.zoom));renderChecks();renderMount();siteOpts();setCalAxis("alt");renderCal();renderPA();renderHist();renderEps();updSessStart();show(st.view);if(sess)openSess();
+let tick=0;setInterval(()=>{tickSession();if(!st.live){renderClock();return}tick++;renderClock();if(st.view==="polar"||(st.view==="site"&&document.activeElement!==$("when")))render();else if(tick%30===0)render()},1000);
 try{let wl=null;const req=async()=>{try{wl=await navigator.wakeLock.request("screen")}catch(e){}};if("wakeLock" in navigator){req();document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")req()})}}catch(e){}
-window.__astro={precess,altaz,lstDeg,polarState,starPositions,declination,st};
+window.__astro={precess,altaz,lstDeg,polarState,starPositions,declination,nightReport,parseArc,st};
 })();
 </script>
+
 
 <script>if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").catch(()=>{})})}</script>
 </body>
